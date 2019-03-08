@@ -1,0 +1,9 @@
+## directorios
+/target/
+
+##otro tipo de archivos 
+*.txt
+*.sh
+*.pdf
+*.zip
+
