@@ -52,7 +52,7 @@ public abstract class AbstractFacade<T> {
         q.setFirstResult(range[0]);
         return q.getResultList();
     }
-    
+
    
 
     public int count() {

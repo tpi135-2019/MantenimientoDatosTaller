@@ -5,10 +5,13 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -30,9 +33,12 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Propietario;
 public class PropietarioFacadeTest {
 
     EntityManager ema;
-    Propietario p;
+    Propietario propietario;
     javax.persistence.criteria.CriteriaQuery cq;
-    Query q;
+    Query query;
+    TypedQuery<Propietario> tq;
+    CriteriaBuilder qb;
+    PropietarioFacade cut = new PropietarioFacade();
 
     public PropietarioFacadeTest() {
     }
@@ -43,24 +49,31 @@ public class PropietarioFacadeTest {
 
     @Before
     public void setUp() {
-        p = crearRegistro(1, "juan", "penya", "calle ayuwoky", "7423-2312");
-        cq= Mockito.mock(CriteriaQuery.class);
+        propietario = crearRegistro(1, "juan", "penya", "calle ayuwoky", "7423-2312");
+        qb = Mockito.mock(CriteriaBuilder.class);
+        cq = Mockito.mock(javax.persistence.criteria.CriteriaQuery.class);
         ema = Mockito.mock(EntityManager.class);
-        q= Mockito.mock(Query.class);
-        
-        
-     //   Mockito.when(ema.createQuery(cq)).thenReturn(q); /// revisa crack
-       // Mockito.when(q.getSingleResult()).thenReturn(Matchers.anyInt());
-    // falta crear una lista   Mockito.when(q.getResultList()).thenReturn(lista);
+        tq = Mockito.mock(TypedQuery.class);
+        Mockito.when(ema.getCriteriaBuilder()).thenReturn(qb);
+        query = Mockito.mock(Query.class);
+        cut.em = ema;
+
     }
 
- 
+    // ---->  
+    @Test
+    public void testFindAll() {
+        System.out.println("findAll");
 
-    public void testCount(){
-        
+        Mockito.when(qb.createQuery()).thenReturn(cq);
+        cq.select(cq.from(Propietario.class));
+        Mockito.when(ema.createQuery(cq)).thenReturn(tq);
+        Mockito.when(tq.getResultList()).thenReturn(listarRegistros());
+        List lista = cut.findAll();
+        assertEquals(lista.size(), listarRegistros().size());
+        //fail("¿fallo,donde?");
     }
-    
-    
+
     /**
      * Test of count method, of class PropietarioFacade.
      */
@@ -69,8 +82,6 @@ public class PropietarioFacadeTest {
         System.out.println("FindId");
         Propietario espero = new Propietario(1);
         Mockito.when(ema.find(Propietario.class, 1)).thenReturn(espero);
-        PropietarioFacade cut = new PropietarioFacade();
-        cut.em = ema;
         Propietario obtenido = cut.find(1);
         Assert.assertEquals(espero, obtenido);
         //fail("¿fallo,donde?");
@@ -80,21 +91,17 @@ public class PropietarioFacadeTest {
     public void testCreate() {
         System.out.println("create");
 
-        PropietarioFacade cut = new PropietarioFacade();
-        cut.em = ema;
-        doNothing().when(ema).persist(p);
-        cut.create(p);
-        verify(ema).persist(p);
+        doNothing().when(ema).persist(propietario);
+        cut.create(propietario);
+        verify(ema).persist(propietario);
         // fail("¿fallo?, ¿donde? :v");
     }
 
     @Test
     public void testEdit() {
         System.out.println("edit");
-        PropietarioFacade cut = new PropietarioFacade();
-        cut.em = ema; 
-        cut.edit(p);
-        verify(ema).merge(p);   // verifica si se esta llamando el metodo merge dentro de edit
+        cut.edit(propietario);
+        verify(ema).merge(propietario);   // verifica si se esta llamando el metodo merge dentro de edit
 
         //   fail("¿fallo?, ¿donde? :v");
     }
@@ -102,12 +109,10 @@ public class PropietarioFacadeTest {
     @Test
     public void testRemove() {
         System.out.println("remove");
-        PropietarioFacade cut = new PropietarioFacade();
-        cut.em = ema;
-        doNothing().when(ema).remove(p);
-        cut.remove(p);
-        verify(ema).remove(ema.merge(p));
-       // fail("¿fallo?, ¿donde? :v");
+        doNothing().when(ema).remove(propietario);
+        cut.remove(propietario);
+        verify(ema).remove(ema.merge(propietario));
+        // fail("¿fallo?, ¿donde? :v");
     }
 
     public Propietario crearRegistro(int id, String nombre, String apellido, String direccion, String cel) {
@@ -118,6 +123,14 @@ public class PropietarioFacadeTest {
         prop.setDireccion(direccion);
         prop.setTelefono(cel);
         return prop;
+    }
+
+    public List<Propietario> listarRegistros() {
+        List<Propietario> ls = new ArrayList<>();
+        ls.add(crearRegistro(1, "juan", "penya", "calle ayuwoky", "7423-2312"));
+        ls.add(crearRegistro(2, "juan", "penya", "calle ayuwoky", "7423-2312"));
+
+        return ls;
     }
 
 }
