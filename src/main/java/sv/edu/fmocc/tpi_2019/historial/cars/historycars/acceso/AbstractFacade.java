@@ -5,8 +5,12 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -22,30 +26,77 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
-        getEntityManager().persist(entity);
+     public void create(T entity) {
+        EntityManager em = getEntityManager();
+        if (em != null && entity != null) {
+            try {
+                em.persist(entity);
+            } catch (Exception e) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+            }
+        } else {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, "EntityManager o Entity nulo");
+        }
+
     }
 
     public void edit(T entity) {
-        getEntityManager().merge(entity);
+        EntityManager em = getEntityManager();
+        if (em != null && entity != null) {
+            try {
+                em.merge(entity);
+            } catch (Exception e) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+            }
+
+        } else {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, "EntityManager o Entity nulo");
+        }
+
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+        EntityManager em = getEntityManager();
+        if (em != null && entity != null) {
+            try {
+                em.remove(getEntityManager().merge(entity));
+            } catch (Exception e) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+            }
+        } else {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, "EntityManager o Entity nulo");
+        }
     }
 
     public T find(Object id) {
-        return getEntityManager().find(entityClass, id);
+        EntityManager em = getEntityManager();
+        if (em != null && id != null) {
+            try {
+                return em.find(entityClass, id);
+            } catch (Exception e) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+            }
+            return em.find(entityClass, id);
+        } else {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, "EntityManager o ID");
+            return null;
+        }
     }
 
     public List<T> findAll() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
-        return getEntityManager().createQuery(cq).getResultList();
+        EntityManager em = getEntityManager();
+        if (em != null) {
+            CriteriaQuery cq = obtenerCriteriaQueryComun(em);
+            cq.select(cq.from(entityClass));
+            return em.createQuery(cq).getResultList();
+        } else {
+            return Collections.EMPTY_LIST;
+        }
+
     }
 
     public List<T> findRange(int[] range) {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        CriteriaQuery cq = obtenerCriteriaQueryComun(getEntityManager());
         cq.select(cq.from(entityClass));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0] + 1);
@@ -53,14 +104,17 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
-   
-
     public int count() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        CriteriaQuery cq = obtenerCriteriaQueryComun(getEntityManager());
         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public CriteriaQuery obtenerCriteriaQueryComun(EntityManager em) {
+        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        return cq;
     }
     
 }

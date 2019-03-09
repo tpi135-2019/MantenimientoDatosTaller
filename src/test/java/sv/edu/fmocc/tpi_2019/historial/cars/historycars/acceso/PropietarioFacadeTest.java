@@ -7,23 +7,15 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.embeddable.EJBContainer;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Propietario;
 
 /**
@@ -32,9 +24,9 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Propietario;
  */
 public class PropietarioFacadeTest {
 
-    EntityManager ema;
+    EntityManager em;
     Propietario propietario;
-    javax.persistence.criteria.CriteriaQuery cq;
+    javax.persistence.criteria.CriteriaQuery cQueryTest;
     Query query;
     TypedQuery<Propietario> tq;
     CriteriaBuilder qb;
@@ -51,12 +43,12 @@ public class PropietarioFacadeTest {
     public void setUp() {
         propietario = crearRegistro(1, "juan", "penya", "calle ayuwoky", "7423-2312");
         qb = Mockito.mock(CriteriaBuilder.class);
-        cq = Mockito.mock(javax.persistence.criteria.CriteriaQuery.class);
-        ema = Mockito.mock(EntityManager.class);
+        cQueryTest = Mockito.mock(javax.persistence.criteria.CriteriaQuery.class);
+        em = Mockito.mock(EntityManager.class);
         tq = Mockito.mock(TypedQuery.class);
-        Mockito.when(ema.getCriteriaBuilder()).thenReturn(qb);
+        Mockito.when(em.getCriteriaBuilder()).thenReturn(qb);
         query = Mockito.mock(Query.class);
-        cut.em = ema;
+        cut.em = em;
 
     }
 
@@ -64,13 +56,11 @@ public class PropietarioFacadeTest {
     @Test
     public void testFindAll() {
         System.out.println("findAll");
-
-        Mockito.when(qb.createQuery()).thenReturn(cq);
-        cq.select(cq.from(Propietario.class));
-        Mockito.when(ema.createQuery(cq)).thenReturn(tq);
+        Mockito.when(cut.obtenerCriteriaQueryComun(em)).thenReturn(cQueryTest);
+        Mockito.when(em.createQuery(cQueryTest)).thenReturn(tq);
         Mockito.when(tq.getResultList()).thenReturn(listarRegistros());
         List lista = cut.findAll();
-        assertEquals(lista.size(), listarRegistros().size());
+        Assert.assertEquals(lista.size(), listarRegistros().size());
         //fail("¿fallo,donde?");
     }
 
@@ -81,7 +71,7 @@ public class PropietarioFacadeTest {
     public void testFindId() {
         System.out.println("FindId");
         Propietario espero = new Propietario(1);
-        Mockito.when(ema.find(Propietario.class, 1)).thenReturn(espero);
+        Mockito.when(em.find(Propietario.class, 1)).thenReturn(espero);
         Propietario obtenido = cut.find(1);
         Assert.assertEquals(espero, obtenido);
         //fail("¿fallo,donde?");
@@ -91,9 +81,9 @@ public class PropietarioFacadeTest {
     public void testCreate() {
         System.out.println("create");
 
-        doNothing().when(ema).persist(propietario);
+        Mockito.doNothing().when(em).persist(propietario);
         cut.create(propietario);
-        verify(ema).persist(propietario);
+        Mockito.verify(em).persist(propietario);
         // fail("¿fallo?, ¿donde? :v");
     }
 
@@ -101,7 +91,7 @@ public class PropietarioFacadeTest {
     public void testEdit() {
         System.out.println("edit");
         cut.edit(propietario);
-        verify(ema).merge(propietario);   // verifica si se esta llamando el metodo merge dentro de edit
+        Mockito.verify(em).merge(propietario);   // verifica si se esta llamando el metodo merge dentro de edit
 
         //   fail("¿fallo?, ¿donde? :v");
     }
@@ -109,9 +99,9 @@ public class PropietarioFacadeTest {
     @Test
     public void testRemove() {
         System.out.println("remove");
-        doNothing().when(ema).remove(propietario);
+        Mockito.doNothing().when(em).remove(propietario);
         cut.remove(propietario);
-        verify(ema).remove(ema.merge(propietario));
+        Mockito.verify(em).remove(em.merge(propietario));
         // fail("¿fallo?, ¿donde? :v");
     }
 
