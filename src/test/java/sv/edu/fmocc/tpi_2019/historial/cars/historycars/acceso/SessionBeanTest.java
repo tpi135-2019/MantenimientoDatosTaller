@@ -7,6 +7,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -92,6 +93,13 @@ public abstract class SessionBeanTest<T> {
     public void testCreateGeneric() {
         System.out.println("create");
         Mockito.doNothing().when(em).persist(entity);
+        cutGeneric.create(entity);
+        Mockito.verify(em).persist(entity);
+    }
+    
+    public void testCreateGenericException() throws PersistenceException{
+        System.out.println("create");
+        Mockito.doThrow(new PersistenceException()).when(em).persist(entity);
         cutGeneric.create(entity);
         Mockito.verify(em).persist(entity);
     }
