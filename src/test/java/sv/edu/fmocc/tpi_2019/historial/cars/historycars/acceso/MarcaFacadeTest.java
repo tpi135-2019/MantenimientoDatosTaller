@@ -52,6 +52,12 @@ public class MarcaFacadeTest extends SessionBeanTest<Marca> {
         testFindIdGeneric();
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testFindIdException() {
+        Object i = null;
+        testFindIdExceptionGeneric(i);
+    }
+
     @Test
     public void testFindRange() {
         testFingRangeGeneric(registrosEsperados);

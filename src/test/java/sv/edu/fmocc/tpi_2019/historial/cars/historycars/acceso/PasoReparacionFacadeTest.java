@@ -43,6 +43,13 @@ public class PasoReparacionFacadeTest extends SessionBeanTest<PasoReparacion> {
         testFindIdGeneric();
     }
 
+
+    @Test(expected = NullPointerException.class)
+    public void testFindIdException() {
+        Object i = null;
+        testFindIdExceptionGeneric(i);
+    }
+    
     @Test
     public void testFindRange() {
         testFingRangeGeneric(registrosEsperados);

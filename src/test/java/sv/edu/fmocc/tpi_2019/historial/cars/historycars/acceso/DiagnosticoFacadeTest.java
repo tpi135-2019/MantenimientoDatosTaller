@@ -49,6 +49,13 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
         testFindIdGeneric();
     }
     
+       @Test(expected = NullPointerException.class)
+    public void testFindIdException() {
+        Object i = null;
+        testFindIdExceptionGeneric(i);
+    }
+    
+    
     @Test
     public void testCount(){
         testCountGeneric(10);

@@ -55,7 +55,6 @@ public abstract class SessionBeanTest<T> {
         entity = getEntity();
     }
 
-
     public void testFindAllGeneric(List<T> registrosEsperados) {
         System.out.println("findAll");
         mockLista(registrosEsperados);
@@ -68,7 +67,7 @@ public abstract class SessionBeanTest<T> {
         Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryTest);
         Mockito.when(cQueryTest.from(entityClass)).thenReturn(rt);
         Mockito.when(em.createQuery(cQueryTest)).thenReturn(tq);
-        Mockito.when(tq.getSingleResult()).thenReturn((T)(Long)esperado);
+        Mockito.when(tq.getSingleResult()).thenReturn((T) (Long) esperado);
         int count = cutGeneric.count();
         Assert.assertEquals(esperado, count);
 
@@ -110,12 +109,18 @@ public abstract class SessionBeanTest<T> {
         cutGeneric.remove(entity);
         Mockito.verify(em).remove(em.merge(entity));
     }
-    
+
+    public void testFindIdExceptionGeneric(Object i) {
+        System.out.println("FindIdException");
+        Assert.assertNotNull(cutGeneric.find(i));
+    }
     /**
-     * Mockea los metodos necesarios para obtener la lista de findAll y findRange
-     * @param registrosEsperados 
+     * Mockea los metodos necesarios para obtener la lista de findAll y
+     * findRange
+     *
+     * @param registrosEsperados
      */
-     public void mockLista(List<T> registrosEsperados) {
+    public void mockLista(List<T> registrosEsperados) {
         Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryTest);
         Mockito.when(em.createQuery(cQueryTest)).thenReturn(tq);
         Mockito.when(tq.getResultList()).thenReturn(registrosEsperados);
