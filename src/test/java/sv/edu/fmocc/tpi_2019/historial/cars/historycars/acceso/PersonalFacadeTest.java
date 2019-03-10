@@ -8,63 +8,63 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Especialidad;
+import org.junit.Before;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Personal;
 
 /**
  *
  * @author kevin
  */
-public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
-
-    private EspecialidadFacade cut = new EspecialidadFacade();
-    private Especialidad especialidad = new Especialidad(1);
-    private List<Especialidad> registrosEsperados = new ArrayList<>();
-
-    public EspecialidadFacadeTest() {
-        super(Especialidad.class);
-        registrosEsperados.add(new Especialidad(1, "Mecanica general"));
-        registrosEsperados.add(new Especialidad(2, "Electricista"));
-
+public class PersonalFacadeTest extends SessionBeanTest<Personal> {
+    
+    public PersonalFacadeTest() {
+        super(Personal.class);
+        registrosEsperados.add(new Personal(1, "milo", "reyes"));
+        registrosEsperados.add(new Personal(2, "chele", "papaya"));
     }
-
+    
+    private PersonalFacade cut = new PersonalFacade();
+    private Personal personal = new Personal(1);
+    private List<Personal> registrosEsperados = new ArrayList<>();
+    
+    @Before
+    public void algo() {
+        cut.em = em;
+    }
+    
     @Test
     public void testFindAll() {
-        cut.em = em;
         testFindAllGeneric(registrosEsperados);
     }
-
+    
     @Test
     public void testFindId() {
-        cut.em = em;
         testFindIdGeneric();
     }
-
+    
     @Test
     public void testCreate() {
-        cut.em = em;
         testCreateGeneric();
     }
-
+    
     @Test
     public void testEdit() {
-        cut.em = em;
         testEditGeneric();
     }
-
+    
     @Test
     public void testRemove() {
-        cut.em = em;
         testRemoveGeneric();
     }
-
+    
     @Override
     protected FacadeGenerico getSessionBean() {
         return cut;
     }
-
+    
     @Override
-    protected Especialidad getEntity() {
-        return especialidad;
+    protected Personal getEntity() {
+        return personal;
     }
-
+    
 }

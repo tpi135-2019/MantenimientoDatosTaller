@@ -7,11 +7,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.embeddable.EJBContainer;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaQuery;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.EstadoPaso;
 
 /**

@@ -7,16 +7,8 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Propietario;
 
 /**
@@ -42,37 +34,37 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario>{
     public PropietarioFacadeTest() {
         super(Propietario.class);
     }
+    
+    @Before
+    public void algo() {
+        cut.em = em;
+    }
 
     
     @Test
     public void testFindAll() {
         registrosEsperados = listarRegistros();
-        cut.em = em;
         testFindAllGeneric(registrosEsperados);
     }
 
    
     @Test
     public void testFindId() {
-        cut.em = em;
         testFindIdGeneric();
     }
 
     @Test
     public void testCreate() {
-        cut.em = em;
         testCreateGeneric();
     }
 
     @Test
     public void testEdit() {
-       cut.em = em;
        testEditGeneric();
     }
 
     @Test
     public void testRemove() {
-      cut.em = em;
       testRemoveGeneric();
     }
 

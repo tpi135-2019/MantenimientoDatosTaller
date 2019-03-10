@@ -8,52 +8,53 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Especialidad;
+import org.junit.Before;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Proceso;
 
 /**
  *
  * @author kevin
  */
-public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
+public class ProcesoFacadeTest extends SessionBeanTest<Proceso> {
 
-    private EspecialidadFacade cut = new EspecialidadFacade();
-    private Especialidad especialidad = new Especialidad(1);
-    private List<Especialidad> registrosEsperados = new ArrayList<>();
+    private ProcesoFacade cut = new ProcesoFacade();
+    private Proceso proceso = new Proceso(1);
+    private List<Proceso> registrosEsperados = new ArrayList<>();
 
-    public EspecialidadFacadeTest() {
-        super(Especialidad.class);
-        registrosEsperados.add(new Especialidad(1, "Mecanica general"));
-        registrosEsperados.add(new Especialidad(2, "Electricista"));
+    public ProcesoFacadeTest() {
+        super(Proceso.class);
+        registrosEsperados.add(new Proceso(1, "cambio de aceite"));
+        registrosEsperados.add(new Proceso(2, "cambio de frenos"));
 
+    }
+
+    @Before
+    public void algo() {
+        cut.em = em;
     }
 
     @Test
     public void testFindAll() {
-        cut.em = em;
         testFindAllGeneric(registrosEsperados);
     }
 
     @Test
     public void testFindId() {
-        cut.em = em;
         testFindIdGeneric();
     }
 
     @Test
     public void testCreate() {
-        cut.em = em;
         testCreateGeneric();
     }
 
     @Test
     public void testEdit() {
-        cut.em = em;
         testEditGeneric();
     }
 
     @Test
     public void testRemove() {
-        cut.em = em;
         testRemoveGeneric();
     }
 
@@ -63,8 +64,8 @@ public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
     }
 
     @Override
-    protected Especialidad getEntity() {
-        return especialidad;
+    protected Proceso getEntity() {
+        return proceso;
     }
 
 }

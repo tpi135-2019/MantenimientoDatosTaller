@@ -8,52 +8,53 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Especialidad;
+import org.junit.Before;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.PasoReparacion;
 
 /**
  *
  * @author kevin
  */
-public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
+public class PasoReparacionFacadeTest extends SessionBeanTest<PasoReparacion> {
 
-    private EspecialidadFacade cut = new EspecialidadFacade();
-    private Especialidad especialidad = new Especialidad(1);
-    private List<Especialidad> registrosEsperados = new ArrayList<>();
+    private PasoReparacionFacade cut = new PasoReparacionFacade();
+    private PasoReparacion pasoReparacion = new PasoReparacion(1, 1, 1);
+    private List<PasoReparacion> registrosEsperados = new ArrayList<>();
 
-    public EspecialidadFacadeTest() {
-        super(Especialidad.class);
-        registrosEsperados.add(new Especialidad(1, "Mecanica general"));
-        registrosEsperados.add(new Especialidad(2, "Electricista"));
+    public PasoReparacionFacadeTest() {
+        super(PasoReparacion.class);
+        registrosEsperados.add(new PasoReparacion(1, 1,1));
+        registrosEsperados.add(new PasoReparacion(2, 2,5));
 
+    }
+
+    @Before
+    public void algo() {
+        cut.em = em;
     }
 
     @Test
     public void testFindAll() {
-        cut.em = em;
         testFindAllGeneric(registrosEsperados);
     }
 
     @Test
     public void testFindId() {
-        cut.em = em;
         testFindIdGeneric();
     }
 
     @Test
     public void testCreate() {
-        cut.em = em;
         testCreateGeneric();
     }
 
     @Test
     public void testEdit() {
-        cut.em = em;
         testEditGeneric();
     }
 
     @Test
     public void testRemove() {
-        cut.em = em;
         testRemoveGeneric();
     }
 
@@ -63,8 +64,8 @@ public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
     }
 
     @Override
-    protected Especialidad getEntity() {
-        return especialidad;
+    protected PasoReparacion getEntity() {
+        return pasoReparacion;
     }
 
 }
