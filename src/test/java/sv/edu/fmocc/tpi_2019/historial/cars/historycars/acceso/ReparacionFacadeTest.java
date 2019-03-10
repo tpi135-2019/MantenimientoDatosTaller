@@ -15,8 +15,8 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Reparacion;
  *
  * @author kevin
  */
-public class ReparacionFacadeTest extends SessionBeanTest<Reparacion>{
-    
+public class ReparacionFacadeTest extends SessionBeanTest<Reparacion> {
+
     public ReparacionFacadeTest() {
         super(Reparacion.class);
         registrosEsperados.add(new Reparacion(1));
@@ -28,8 +28,8 @@ public class ReparacionFacadeTest extends SessionBeanTest<Reparacion>{
     private List<Reparacion> registrosEsperados = new ArrayList<>();
 
     @Before
-    public void algo(){
-        cut.em=em;
+    public void algo() {
+        cut.em = em;
     }
 
     @Test
@@ -40,6 +40,16 @@ public class ReparacionFacadeTest extends SessionBeanTest<Reparacion>{
     @Test
     public void testFindId() {
         testFindIdGeneric();
+    }
+
+    @Test
+    public void testFindRange() {
+        testFingRangeGeneric(registrosEsperados);
+    }
+
+    @Test
+    public void testCount() {
+        testCountGeneric(10);
     }
 
     @Test

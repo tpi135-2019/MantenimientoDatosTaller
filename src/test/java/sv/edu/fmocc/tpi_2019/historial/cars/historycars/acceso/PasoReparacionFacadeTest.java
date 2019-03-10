@@ -23,8 +23,8 @@ public class PasoReparacionFacadeTest extends SessionBeanTest<PasoReparacion> {
 
     public PasoReparacionFacadeTest() {
         super(PasoReparacion.class);
-        registrosEsperados.add(new PasoReparacion(1, 1,1));
-        registrosEsperados.add(new PasoReparacion(2, 2,5));
+        registrosEsperados.add(new PasoReparacion(1, 1, 1));
+        registrosEsperados.add(new PasoReparacion(2, 2, 5));
 
     }
 
@@ -41,6 +41,16 @@ public class PasoReparacionFacadeTest extends SessionBeanTest<PasoReparacion> {
     @Test
     public void testFindId() {
         testFindIdGeneric();
+    }
+
+    @Test
+    public void testFindRange() {
+        testFingRangeGeneric(registrosEsperados);
+    }
+
+    @Test
+    public void testCount() {
+        testCountGeneric(10);
     }
 
     @Test

@@ -16,55 +16,65 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Personal;
  * @author kevin
  */
 public class PersonalFacadeTest extends SessionBeanTest<Personal> {
-    
+
     public PersonalFacadeTest() {
         super(Personal.class);
         registrosEsperados.add(new Personal(1, "milo", "reyes"));
         registrosEsperados.add(new Personal(2, "chele", "papaya"));
     }
-    
+
     private PersonalFacade cut = new PersonalFacade();
     private Personal personal = new Personal(1);
     private List<Personal> registrosEsperados = new ArrayList<>();
-    
+
     @Before
     public void algo() {
         cut.em = em;
     }
-    
+
     @Test
     public void testFindAll() {
         testFindAllGeneric(registrosEsperados);
     }
-    
+
     @Test
     public void testFindId() {
         testFindIdGeneric();
     }
-    
+
+    @Test
+    public void testFindRange() {
+        testFingRangeGeneric(registrosEsperados);
+    }
+
+    @Test
+    public void testCount() {
+        testCountGeneric(10);
+    }
+
     @Test
     public void testCreate() {
         testCreateGeneric();
     }
-    
+
     @Test
     public void testEdit() {
         testEditGeneric();
     }
-    
+
     @Test
     public void testRemove() {
         testRemoveGeneric();
     }
-    
+
     @Override
     protected FacadeGenerico getSessionBean() {
         return cut;
     }
-    
+
     @Override
     protected Personal getEntity() {
         return personal;
     }
-    
+
 }

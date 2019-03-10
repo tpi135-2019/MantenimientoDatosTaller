@@ -7,8 +7,9 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+
 import org.junit.Before;
+import org.junit.Test;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Diagnostico;
 
 /**
@@ -27,19 +28,30 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
         registrosEsperados.add(new Diagnostico(2, "ah esta jodido ese bolado", "fecha"));
 
     }
+    
     @Before
-    public void algo(){
-        cut.em=em;
+    public void first() {
+        cut.em = em;
     }
 
     @Test
     public void testFindAll() {
         testFindAllGeneric(registrosEsperados);
     }
+    
+    @Test
+    public void testFindRange(){
+        testFingRangeGeneric(registrosEsperados);
+    }
 
     @Test
     public void testFindId() {
         testFindIdGeneric();
+    }
+    
+    @Test
+    public void testCount(){
+        testCountGeneric(10);
     }
 
     @Test

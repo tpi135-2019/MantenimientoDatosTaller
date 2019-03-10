@@ -7,6 +7,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.EstadoPaso;
 
@@ -27,33 +28,43 @@ public class EstadoPasoFacadeTest extends SessionBeanTest<EstadoPaso> {
 
     }
 
+    @Before
+    public void first() {
+        cut.em = em;
+    }
+
     @Test
     public void testFindAll() {
-        cut.em = em;
         testFindAllGeneric(registrosEsperados);
     }
 
     @Test
     public void testFindId() {
-        cut.em = em;
         testFindIdGeneric();
     }
 
     @Test
+    public void testFindRange() {
+        testFingRangeGeneric(registrosEsperados);
+    }
+
+    @Test
+    public void testCount() {
+        testCountGeneric(10);
+    }
+
+    @Test
     public void testCreate() {
-        cut.em = em;
         testCreateGeneric();
     }
 
     @Test
     public void testEdit() {
-        cut.em = em;
         testEditGeneric();
     }
 
     @Test
     public void testRemove() {
-        cut.em = em;
         testRemoveGeneric();
     }
 

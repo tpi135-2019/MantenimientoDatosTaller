@@ -28,7 +28,8 @@ public interface FacadeGenerico<T> {
 
     public List<T> findAll();
 
-    public List<T> findRange(int[] range);
+   // public List<T> findRange(int[] range);
+    public List<T> findRange(int desde, int hasta);
     
     public int count();
     

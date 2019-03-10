@@ -43,6 +43,16 @@ public class VehiculoFacadeTest extends SessionBeanTest<Vehiculo> {
     }
 
     @Test
+    public void testFindRange() {
+        testFingRangeGeneric(registrosEsperados);
+    }
+
+    @Test
+    public void testCount() {
+        testCountGeneric(10);
+    }
+
+    @Test
     public void testCreate() {
         testCreateGeneric();
     }

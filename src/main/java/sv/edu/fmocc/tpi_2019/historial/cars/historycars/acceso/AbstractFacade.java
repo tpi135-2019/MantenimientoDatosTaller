@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -95,21 +97,33 @@ public abstract class AbstractFacade<T> {
 
     }
 
-    public List<T> findRange(int[] range) {
-        CriteriaQuery cq = obtenerCriteriaQueryComun(getEntityManager());
-        cq.select(cq.from(entityClass));
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
-        q.setMaxResults(range[1] - range[0] + 1);
-        q.setFirstResult(range[0]);
-        return q.getResultList();
+    public List<T> findRange(int desde, int hasta) {
+        EntityManager em = getEntityManager();
+        if (em != null) {
+            CriteriaQuery cq = obtenerCriteriaQueryComun(em);
+            cq.select(cq.from(entityClass));
+            javax.persistence.Query q = em.createQuery(cq);
+            q.setMaxResults(hasta);
+            q.setFirstResult(desde);
+            return q.getResultList();
+        } else {
+            throw new IllegalAccessError("entityManager Nulo");
+
+        }
     }
 
     public int count() {
-        CriteriaQuery cq = obtenerCriteriaQueryComun(getEntityManager());
-        javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
-        cq.select(getEntityManager().getCriteriaBuilder().count(rt));
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
-        return ((Long) q.getSingleResult()).intValue();
+        EntityManager em = getEntityManager();
+        if (em != null) {
+            CriteriaQuery cq = obtenerCriteriaQueryComun(em);
+            Root<T> rt = cq.from(entityClass);
+            cq.select(em.getCriteriaBuilder().count(rt));
+            Query q = em.createQuery(cq);
+            return ((Long) q.getSingleResult()).intValue();
+        } else {
+            throw new IllegalAccessError("entityManager Nulo");
+        }
+
     }
 
     public CriteriaQuery obtenerCriteriaQueryComun(EntityManager em) {
