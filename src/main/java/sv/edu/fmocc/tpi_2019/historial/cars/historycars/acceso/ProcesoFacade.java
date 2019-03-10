@@ -17,10 +17,10 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Proceso;
  */
 @Stateless
 @LocalBean
-public class ProcesoFacade extends AbstractFacade<Proceso> {
+public class ProcesoFacade extends AbstractFacade<Proceso> implements FacadeGenerico<Proceso>{
 
     @PersistenceContext(unitName = "PU_talleres")
-    private EntityManager em;
+    protected EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

@@ -17,10 +17,10 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Diagnostico;
  */
 @Stateless
 @LocalBean
-public class DiagnosticoFacade extends AbstractFacade<Diagnostico> {
+public class DiagnosticoFacade extends AbstractFacade<Diagnostico> implements FacadeGenerico<Diagnostico>{
 
     @PersistenceContext(unitName = "PU_talleres")
-    private EntityManager em;
+    protected EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

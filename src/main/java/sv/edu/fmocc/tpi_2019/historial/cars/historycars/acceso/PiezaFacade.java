@@ -17,10 +17,10 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Pieza;
  */
 @Stateless
 @LocalBean
-public class PiezaFacade extends AbstractFacade<Pieza> {
+public class PiezaFacade extends AbstractFacade<Pieza> implements FacadeGenerico<Pieza>{
 
     @PersistenceContext(unitName = "PU_talleres")
-    private EntityManager em;
+    protected EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

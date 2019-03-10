@@ -17,10 +17,10 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.TipoPaso;
  */
 @Stateless
 @LocalBean
-public class TipoPasoFacade extends AbstractFacade<TipoPaso> {
+public class TipoPasoFacade extends AbstractFacade<TipoPaso> implements FacadeGenerico<TipoPaso>{
 
     @PersistenceContext(unitName = "PU_talleres")
-    private EntityManager em;
+    protected EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

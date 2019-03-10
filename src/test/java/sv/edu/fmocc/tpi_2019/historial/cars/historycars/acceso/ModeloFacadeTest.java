@@ -8,32 +8,23 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Marca;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Modelo;
 
 /**
  *
  * @author kevin
  */
-public class MarcaFacadeTest extends SessionBeanTest<Marca> {
+public class ModeloFacadeTest extends SessionBeanTest<Modelo> {
 
-    private MarcaFacade cut = new MarcaFacade();
-    private Marca marca = new Marca(1);
-    private List<Marca> registrosEsperados = new ArrayList<>();
+    private ModeloFacade cut = new ModeloFacade();
+    private Modelo modelo = new Modelo(1);
+    private List<Modelo> registrosEsperados = new ArrayList<>();
 
-    public MarcaFacadeTest() {
-        super(Marca.class);
-        registrosEsperados.add(new Marca(1, "nissan"));
-        registrosEsperados.add(new Marca(2, "toyota"));
-    }
+    public ModeloFacadeTest() {
+        super(Modelo.class);
+        registrosEsperados.add(new Modelo(1, "sentra"));
+        registrosEsperados.add(new Modelo(2, "corolla"));
 
-    @Override
-    protected FacadeGenerico getSessionBean() {
-        return cut;
-    }
-
-    @Override
-    protected Marca getEntity() {
-        return marca;
     }
 
     @Test
@@ -53,17 +44,27 @@ public class MarcaFacadeTest extends SessionBeanTest<Marca> {
         cut.em = em;
         testCreateGeneric();
     }
-    
-        @Test
+
+    @Test
     public void testEdit() {
-       cut.em = em;
-       testEditGeneric();
+        cut.em = em;
+        testEditGeneric();
     }
 
     @Test
     public void testRemove() {
-      cut.em = em;
-      testRemoveGeneric();
+        cut.em = em;
+        testRemoveGeneric();
+    }
+
+    @Override
+    protected FacadeGenerico getSessionBean() {
+        return cut;
+    }
+
+    @Override
+    protected Modelo getEntity() {
+        return modelo;
     }
 
 }
