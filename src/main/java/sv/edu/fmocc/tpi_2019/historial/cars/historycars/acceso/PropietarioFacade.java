@@ -17,7 +17,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Propietario;
  */
 @Stateless
 @LocalBean
-public class PropietarioFacade extends AbstractFacade<Propietario> {
+public class PropietarioFacade extends AbstractFacade<Propietario> implements FacadeGenerico<Propietario>{
 
     @PersistenceContext(unitName = "PU_talleres")
     protected EntityManager em;

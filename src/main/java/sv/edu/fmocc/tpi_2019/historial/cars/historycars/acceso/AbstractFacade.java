@@ -26,7 +26,7 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-     public void create(T entity) {
+    public void create(T entity) {
         EntityManager em = getEntityManager();
         if (em != null && entity != null) {
             try {
@@ -116,5 +116,5 @@ public abstract class AbstractFacade<T> {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         return cq;
     }
-    
+
 }
