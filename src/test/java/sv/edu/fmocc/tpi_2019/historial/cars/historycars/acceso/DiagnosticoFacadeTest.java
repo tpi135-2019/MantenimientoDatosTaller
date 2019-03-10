@@ -7,9 +7,13 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Diagnostico;
 
 /**
@@ -28,7 +32,7 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
         registrosEsperados.add(new Diagnostico(2, "ah esta jodido ese bolado", "fecha"));
 
     }
-    
+
     @Before
     public void first() {
         cut.em = em;
@@ -38,9 +42,9 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
     public void testFindAll() {
         testFindAllGeneric(registrosEsperados);
     }
-    
+
     @Test
-    public void testFindRange(){
+    public void testFindRange() {
         testFingRangeGeneric(registrosEsperados);
     }
 
@@ -48,15 +52,24 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
     public void testFindId() {
         testFindIdGeneric();
     }
-    
+
     @Test
-    public void testCount(){
+    public void testCount() {
         testCountGeneric(10);
     }
 
     @Test
     public void testCreate() {
         testCreateGeneric();
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void testCreateException() {
+        System.out.println("create");
+        em = Mockito.mock(EntityManager.class);
+        cut.em = em;
+        Mockito.doThrow(PersistenceException.class).when(em).persist(Matchers.anyObject());
+        cut.create(diagnostico);
     }
 
     @Test

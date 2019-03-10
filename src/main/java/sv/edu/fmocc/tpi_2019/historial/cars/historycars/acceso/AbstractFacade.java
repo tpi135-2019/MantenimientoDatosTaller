@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -33,8 +34,11 @@ public abstract class AbstractFacade<T> {
         if (em != null && entity != null) {
             try {
                 em.persist(entity);
+                System.out.println("hola");
             } catch (Exception e) {
+                System.out.println("nepe");
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+                throw e;
             }
         } else {
             Logger.getLogger(getClass().getName()).log(Level.INFO, "EntityManager o Entity nulo");
