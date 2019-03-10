@@ -42,6 +42,13 @@ public class SubParteFacadeTest extends SessionBeanTest<SubParte> {
     public void testFindId() {
         testFindIdGeneric();
     }
+    
+
+    @Test(expected = NullPointerException.class)
+    public void testFindIdException() {
+        Object i = null;
+        testFindIdExceptionGeneric(i);
+    }
 
     @Test
     public void testFindRange() {

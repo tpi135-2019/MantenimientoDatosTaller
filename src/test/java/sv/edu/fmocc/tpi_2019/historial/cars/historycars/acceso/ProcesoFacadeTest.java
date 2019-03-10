@@ -42,6 +42,13 @@ public class ProcesoFacadeTest extends SessionBeanTest<Proceso> {
     public void testFindId() {
         testFindIdGeneric();
     }
+    
+
+    @Test(expected = NullPointerException.class)
+    public void testFindIdException() {
+        Object i = null;
+        testFindIdExceptionGeneric(i);
+    }
 
     @Test
     public void testFindRange() {

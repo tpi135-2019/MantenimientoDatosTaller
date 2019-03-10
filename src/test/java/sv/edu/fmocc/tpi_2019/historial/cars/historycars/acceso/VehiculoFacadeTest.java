@@ -42,6 +42,13 @@ public class VehiculoFacadeTest extends SessionBeanTest<Vehiculo> {
         testFindIdGeneric();
     }
 
+    
+    @Test(expected = NullPointerException.class)
+    public void testFindIdException() {
+        Object i = null;
+        testFindIdExceptionGeneric(i);
+    }
+    
     @Test
     public void testFindRange() {
         testFingRangeGeneric(registrosEsperados);

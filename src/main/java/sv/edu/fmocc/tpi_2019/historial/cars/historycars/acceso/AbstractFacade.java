@@ -41,7 +41,7 @@ public abstract class AbstractFacade<T> {
                 throw e;
             }
         } else {
-            Logger.getLogger(getClass().getName()).log(Level.INFO, "EntityManager o Entity nulo");
+            throw new NullPointerException("algo es nulo");
         }
 
     }
@@ -56,7 +56,7 @@ public abstract class AbstractFacade<T> {
             }
 
         } else {
-            Logger.getLogger(getClass().getName()).log(Level.INFO, "EntityManager o Entity nulo");
+            throw new NullPointerException("algo es nulo");
         }
 
     }
@@ -70,7 +70,7 @@ public abstract class AbstractFacade<T> {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
             }
         } else {
-            Logger.getLogger(getClass().getName()).log(Level.INFO, "EntityManager o Entity nulo");
+            throw new NullPointerException("EntityManager o entidad nula");
         }
     }
 
@@ -84,8 +84,7 @@ public abstract class AbstractFacade<T> {
             }
             return em.find(entityClass, id);
         } else {
-            Logger.getLogger(getClass().getName()).log(Level.INFO, "EntityManager o ID");
-            return null;
+            throw new NullPointerException("EntityManager o id nulo");
         }
     }
 
@@ -111,23 +110,21 @@ public abstract class AbstractFacade<T> {
             q.setFirstResult(desde);
             return q.getResultList();
         } else {
-            throw new IllegalAccessError("entityManager Nulo");
-
+            throw new NullPointerException("entityManager Nulo");
         }
     }
 
     public int count() {
         EntityManager em = getEntityManager();
-        if (em != null) {
+        if (em == null) {
+            throw new NullPointerException("entityManager Nulo");
+        } else {
             CriteriaQuery cq = obtenerCriteriaQueryComun(em);
             Root<T> rt = cq.from(entityClass);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
-        } else {
-            throw new IllegalAccessError("entityManager Nulo");
         }
-
     }
 
     public CriteriaQuery obtenerCriteriaQueryComun(EntityManager em) {
