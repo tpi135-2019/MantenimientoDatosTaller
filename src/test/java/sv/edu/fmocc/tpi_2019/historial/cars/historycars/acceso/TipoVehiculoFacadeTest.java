@@ -108,6 +108,7 @@ public class TipoVehiculoFacadeTest extends SessionBeanTest<TipoVehiculo> {
     }
 
 // </editor-fold>
+    
     @Test
     public void testFindRange() {
         testFingRangeGeneric(registrosEsperados);

@@ -52,6 +52,7 @@ public abstract class AbstractFacade<T> {
                 em.merge(entity);
             } catch (Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+                throw e;
             }
 
         } else {
@@ -64,9 +65,10 @@ public abstract class AbstractFacade<T> {
         EntityManager em = getEntityManager();
         if (em != null && entity != null) {
             try {
-                em.remove(getEntityManager().merge(entity));
+                em.remove(em.merge(entity));
             } catch (Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+                throw e;
             }
         } else {
             throw new NullPointerException("EntityManager o entidad nula");

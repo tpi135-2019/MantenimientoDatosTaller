@@ -58,23 +58,24 @@ public abstract class SessionBeanTest<T> {
 
     }
 //***** TEST FINDALL
+
     public void testFindAllGeneric(List<T> registrosEsperados) {
         System.out.println("findAll");
         mockLista(registrosEsperados);
         List lista = cutGeneric.findAll();
         Assert.assertEquals(registrosEsperados.size(), lista.size());
     }
-    
-      public void testFinAllEmptyGeneric(){
+
+    public void testFinAllEmptyGeneric() {
         System.out.println("testFindAllEmpty");
-          Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryTest);
+        Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryTest);
         Mockito.when(em.createQuery(cQueryTest)).thenReturn(tq);
         Mockito.when(tq.getResultList()).thenReturn(Collections.EMPTY_LIST);
         List lista = cutGeneric.findAll();
-        Assert.assertEquals(lista.size(),Collections.EMPTY_LIST.size());
+        Assert.assertEquals(lista.size(), Collections.EMPTY_LIST.size());
     }
- //*******TEST COUNT
-      
+    //*******TEST COUNT
+
     public void testCountGeneric(long esperado) {
         System.out.println("count");
         Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryTest);
@@ -84,59 +85,67 @@ public abstract class SessionBeanTest<T> {
         int count = cutGeneric.count();
         Assert.assertEquals(esperado, count);
     }
-    
-     public void testCountEmNullGeneric(){
-         System.out.println("CountException");
+
+    public void testCountEmNullGeneric() {
+        System.out.println("CountException");
         Mockito.when(cutGeneric.count())
-      .thenThrow(NullPointerException.class);
+                .thenThrow(NullPointerException.class);
     }
-    
-     //*********TEST FIND_RANGE
-    public void testFindRangeEmNullGeneric(int desde,int hasta){
+
+    //*********TEST FIND_RANGE
+    public void testFindRangeEmNullGeneric(int desde, int hasta) {
         System.out.println("findRangeException");
         Mockito.when(cutGeneric.findRange(desde, hasta))
-      .thenThrow(NullPointerException.class);
+                .thenThrow(NullPointerException.class);
     }
-    
-     public void testFingRangeGeneric(List<T> registrosEsperados) {
+
+    public void testFingRangeGeneric(List<T> registrosEsperados) {
         System.out.println("findRange");
         mockLista(registrosEsperados);
         List lista = cutGeneric.findRange(1, 2);
         Assert.assertEquals(registrosEsperados.size(), lista.size());
     }
-     
+
     //******TEST EDIT
-    public void testEditEmNullGeneric(){
+    public void testEditEmNullGeneric() {
         System.out.println("editException");
-          Mockito.doThrow(new IllegalArgumentException()).when(em).merge(entity);
+        Mockito.doThrow(new IllegalArgumentException()).when(em).merge(entity);
         cutGeneric.edit(entity);
     }
-    
-     public void testEditGeneric() {
+
+    public void testEditGeneric() {
         System.out.println("edit");
         cutGeneric.edit(entity);
         Mockito.verify(em).merge(entity);
     }
-     
-     //******+TEST REMOVE
-   
-    public void testRemoveEmNullGeneric(){
+
+    public void testEditExceptionGeneric() {
+        System.out.println("editException");
+        Mockito.doThrow(new IllegalArgumentException()).when(em).merge(entity);
+        cutGeneric.edit(entity);
+    }
+
+    //******+TEST REMOVE
+    public void testRemoveEmNullGeneric() {
         System.out.println("RemoveException");
-         Mockito.doThrow(new IllegalArgumentException()).when(em).remove(em.merge(entity));
+        Mockito.doThrow(new IllegalArgumentException()).when(em).remove(em.merge(entity));
         cutGeneric.remove(entity);
     }
-    
-   public void testRemoveGeneric() {
+
+    public void testRemoveGeneric() {
         System.out.println("remove");
         Mockito.doNothing().when(em).remove(entity);
         cutGeneric.remove(entity);
         Mockito.verify(em).remove(em.merge(entity));
     }
-    
-   
-    
+
+    public void testRemoveExceptionGeneric() {
+        System.out.println("removeException");
+        Mockito.doThrow(new IllegalArgumentException()).when(em).remove(em.merge(entity));
+        cutGeneric.remove(entity);
+    }
+
     //*******TESTS FIND GENERICO
-    
     public void testFindIdGeneric() {
         System.out.println("FindId");
         Mockito.when(em.find(entityClass, 1)).thenReturn(entity);
@@ -154,9 +163,8 @@ public abstract class SessionBeanTest<T> {
         System.out.println("createException");
         cutGeneric.find(null);
     }
-    
-    //******** TESTS CREATE GENERICO
 
+    //******** TESTS CREATE GENERICO
     public void testCreateGeneric() {
         System.out.println("create");
         Mockito.doNothing().when(em).persist(entity);
