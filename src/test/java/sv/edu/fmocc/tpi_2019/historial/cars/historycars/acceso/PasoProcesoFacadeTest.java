@@ -44,45 +44,46 @@ public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testCountEmNull(){
-        cut.em=null;
-       testCountEmNullGeneric();
+    public void testCountEmNull() {
+        cut.em = null;
+        testCountEmNullGeneric();
     }
-    
+
     @Test(expected = NullPointerException.class)
-    public void testFindEmNull(){
-        int desde=0,hasta=6;
-        cut.em=null;
+    public void testFindEmNull() {
+        int desde = 0, hasta = 6;
+        cut.em = null;
         testFindRangeEmNullGeneric(desde, hasta);
     }
-    
+
     @Test(expected = NullPointerException.class)
-    public void testEditException(){
-        cut.em=null;
+    public void testEditException() {
+        cut.em = null;
         testEditEmNullGeneric();
     }
-    
+
     @Test(expected = NullPointerException.class)
-    public void testRemoveException(){
-        cut.em=null;
+    public void testRemoveException() {
+        cut.em = null;
         testRemoveEmNullGeneric();
     }
-    
+
     @Test
-    public void testFindAllEmpty(){
-        cut.em=null;
+    public void testFindAllEmpty() {
+        cut.em = null;
         testFinAllEmptyGeneric();
     }
-    
-    @Test(expected = NullPointerException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testFindIdException() {
-        Object i = null;
+        Object i = 1;
         testFindIdExceptionGeneric(i);
     }
-    
-    @Test
-    public void testFindRange() {
-        testFingRangeGeneric(registrosEsperados);
+
+    @Test(expected = NullPointerException.class)
+    public void testFindIdEmNulo() {
+        cut.em = null;
+        testFindIdEmNuloGeneric();
     }
 
     @Test
@@ -90,9 +91,27 @@ public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
         testCountGeneric(10);
     }
 
+// <editor-fold desc="/*****TESTS CREATE*******/">
     @Test
     public void testCreate() {
         testCreateGeneric();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testCreateEmNulo() {
+        cut.em = null;
+        testCreateEmNuloGeneric();
+    }
+
+    @Test(expected = Exception.class)
+    public void testCreateException() {
+        testCreateExceptionGeneric();
+    }
+
+// </editor-fold>
+    @Test
+    public void testFindRange() {
+        testFingRangeGeneric(registrosEsperados);
     }
 
     @Test

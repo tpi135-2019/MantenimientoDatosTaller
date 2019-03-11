@@ -38,6 +38,7 @@ public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
         testFindAllGeneric(registrosEsperados);
     }
 
+
         @Test(expected = NullPointerException.class)
     public void testCountEmNull(){
         cut.em=null;
@@ -73,17 +74,17 @@ public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
     public void testFindId() {
         testFindIdGeneric();
     }
-    
-       @Test(expected = NullPointerException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testFindIdException() {
-        Object i = null;
+        Object i = 1;
         testFindIdExceptionGeneric(i);
     }
-    
 
-    @Test
-    public void testFindRange() {
-        testFingRangeGeneric(registrosEsperados);
+    @Test(expected = NullPointerException.class)
+    public void testFindIdEmNulo() {
+        cut.em = null;
+        testFindIdEmNuloGeneric();
     }
 
     @Test
@@ -91,9 +92,29 @@ public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
         testCountGeneric(10);
     }
 
+// <editor-fold desc="/*****TESTS CREATE*******/">
     @Test
     public void testCreate() {
         testCreateGeneric();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testCreateEmNulo() {
+        cut.em = null;
+        testCreateEmNuloGeneric();
+    }
+
+    @Test(expected = Exception.class)
+    public void testCreateException() {
+        testCreateExceptionGeneric();
+    }
+
+// </editor-fold>
+    
+
+    @Test
+    public void testFindRange() {
+        testFingRangeGeneric(registrosEsperados);
     }
 
     @Test
