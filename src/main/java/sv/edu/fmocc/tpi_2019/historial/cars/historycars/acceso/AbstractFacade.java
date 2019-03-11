@@ -29,19 +29,19 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
+    
     public void create(T entity) {
         EntityManager em = getEntityManager();
         if (em != null && entity != null) {
             try {
                 em.persist(entity);
-                System.out.println("hola");
             } catch (Exception e) {
-                System.out.println("nepe");
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                 throw e;
             }
         } else {
-            throw new NullPointerException("algo es nulo");
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Entity Manager o Entity nulo");
+            throw new NullPointerException("Entity Manager o Entity nulo");
         }
 
     }
@@ -81,8 +81,8 @@ public abstract class AbstractFacade<T> {
                 return em.find(entityClass, id);
             } catch (Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+                throw e;
             }
-            return em.find(entityClass, id);
         } else {
             throw new NullPointerException("EntityManager o id nulo");
         }
@@ -105,7 +105,7 @@ public abstract class AbstractFacade<T> {
         if (em != null) {
             CriteriaQuery cq = obtenerCriteriaQueryComun(em);
             cq.select(cq.from(entityClass));
-            javax.persistence.Query q = em.createQuery(cq);
+            Query q = em.createQuery(cq);
             q.setMaxResults(hasta);
             q.setFirstResult(desde);
             return q.getResultList();

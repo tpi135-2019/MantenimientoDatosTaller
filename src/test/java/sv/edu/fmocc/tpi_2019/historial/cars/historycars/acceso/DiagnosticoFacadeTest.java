@@ -7,13 +7,8 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Matchers;
-import org.mockito.Mockito;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Diagnostico;
 
 /**
@@ -45,6 +40,8 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
 
     @Test
     public void testFindRange() {
+        System.out.println("range");
+        cut.em = em;
         testFingRangeGeneric(registrosEsperados);
     }
 
@@ -53,10 +50,16 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
         testFindIdGeneric();
     }
 
-       @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testFindIdException() {
-        Object i = null;
+        Object i = 1;
         testFindIdExceptionGeneric(i);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFindIdEmNulo() {
+        cut.em = null;
+        testFindIdEmNuloGeneric();
     }
 
     @Test
@@ -64,20 +67,25 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
         testCountGeneric(10);
     }
 
+// <editor-fold desc="/*****TESTS CREATE*******/">
     @Test
     public void testCreate() {
         testCreateGeneric();
     }
 
-    @Test(expected = PersistenceException.class)
-    public void testCreateException() {
-        System.out.println("create");
-        em = Mockito.mock(EntityManager.class);
-        cut.em = em;
-        Mockito.doThrow(PersistenceException.class).when(em).persist(Matchers.anyObject());
-        cut.create(diagnostico);
+    @Test(expected = NullPointerException.class)
+    public void testCreateEmNulo() {
+        cut.em = null;
+        testCreateEmNuloGeneric();
     }
 
+    @Test(expected = Exception.class)
+    public void testCreateException() {
+        testCreateExceptionGeneric();
+    }
+
+// </editor-fold>
+    
     @Test
     public void testEdit() {
         testEditGeneric();
