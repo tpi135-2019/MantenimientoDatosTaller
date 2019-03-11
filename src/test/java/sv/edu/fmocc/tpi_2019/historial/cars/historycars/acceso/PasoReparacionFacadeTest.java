@@ -43,6 +43,37 @@ public class PasoReparacionFacadeTest extends SessionBeanTest<PasoReparacion> {
         testFindIdGeneric();
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testCountEmNull() {
+        cut.em = null;
+        testCountEmNullGeneric();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFindEmNull() {
+        int desde = 0, hasta = 6;
+        cut.em = null;
+        testFindRangeEmNullGeneric(desde, hasta);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testEditException() {
+        cut.em = null;
+        testEditEmNullGeneric();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testRemoveException() {
+        cut.em = null;
+        testRemoveEmNullGeneric();
+    }
+
+    @Test
+    public void testFindAllEmpty() {
+        cut.em = null;
+        testFinAllEmptyGeneric();
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testFindIdException() {
         Object i = 1;
@@ -78,12 +109,10 @@ public class PasoReparacionFacadeTest extends SessionBeanTest<PasoReparacion> {
     }
 
 // </editor-fold>
-    
     @Test
     public void testFindRange() {
         testFingRangeGeneric(registrosEsperados);
     }
-
 
     @Test
     public void testEdit() {

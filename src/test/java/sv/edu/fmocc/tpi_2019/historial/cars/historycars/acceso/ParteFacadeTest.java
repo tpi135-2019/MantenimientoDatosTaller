@@ -37,7 +37,38 @@ public class ParteFacadeTest extends SessionBeanTest<Parte> {
         testFindAllGeneric(registrosEsperados);
     }
 
-     @Test
+    @Test(expected = NullPointerException.class)
+    public void testCountEmNull() {
+        cut.em = null;
+        testCountEmNullGeneric();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFindEmNull() {
+        int desde = 0, hasta = 6;
+        cut.em = null;
+        testFindRangeEmNullGeneric(desde, hasta);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testEditException() {
+        cut.em = null;
+        testEditEmNullGeneric();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testRemoveException() {
+        cut.em = null;
+        testRemoveEmNullGeneric();
+    }
+
+    @Test
+    public void testFindAllEmpty() {
+        cut.em = null;
+        testFinAllEmptyGeneric();
+    }
+
+    @Test
     public void testFindId() {
         testFindIdGeneric();
     }
@@ -77,7 +108,6 @@ public class ParteFacadeTest extends SessionBeanTest<Parte> {
     }
 
 // </editor-fold>
-    
     @Test
     public void testFindRange() {
         testFingRangeGeneric(registrosEsperados);

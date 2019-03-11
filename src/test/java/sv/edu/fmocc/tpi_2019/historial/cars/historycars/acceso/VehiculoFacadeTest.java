@@ -32,6 +32,37 @@ public class VehiculoFacadeTest extends SessionBeanTest<Vehiculo> {
         cut.em = em;
     }
 
+        @Test(expected = NullPointerException.class)
+    public void testCountEmNull(){
+        cut.em=null;
+       testCountEmNullGeneric();
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testFindEmNull(){
+        int desde=0,hasta=6;
+        cut.em=null;
+        testFindRangeEmNullGeneric(desde, hasta);
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testEditException(){
+        cut.em=null;
+        testEditEmNullGeneric();
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testRemoveException(){
+        cut.em=null;
+        testRemoveEmNullGeneric();
+    }
+    
+    @Test
+    public void testFindAllEmpty(){
+        cut.em=null;
+        testFinAllEmptyGeneric();
+    }
+    
     @Test
     public void testFindAll() {
         testFindAllGeneric(registrosEsperados);
