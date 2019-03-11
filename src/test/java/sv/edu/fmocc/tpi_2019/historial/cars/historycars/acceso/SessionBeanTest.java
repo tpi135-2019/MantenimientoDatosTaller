@@ -6,8 +6,8 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.List;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -54,6 +54,7 @@ public abstract class SessionBeanTest<T> {
         Mockito.when(em.getCriteriaBuilder()).thenReturn(cb);
         cutGeneric = getSessionBean();
         entity = getEntity();
+
     }
 
     public void testFindAllGeneric(List<T> registrosEsperados) {
@@ -79,16 +80,29 @@ public abstract class SessionBeanTest<T> {
         mockLista(registrosEsperados);
         List lista = cutGeneric.findRange(1, 2);
         Assert.assertEquals(registrosEsperados.size(), lista.size());
-
     }
-
+    
+    //*******TESTS FIND GENERICO
+    
     public void testFindIdGeneric() {
         System.out.println("FindId");
         Mockito.when(em.find(entityClass, 1)).thenReturn(entity);
         Object obtenido = cutGeneric.find(1);
         Assert.assertEquals(entity, obtenido);
-        //fail("¿fallo,donde?");
     }
+
+    public void testFindIdExceptionGeneric(Object id) {
+        System.out.println("FindIdException");
+        Mockito.doThrow(new IllegalArgumentException()).when(em).find(entityClass, id);
+        cutGeneric.find(id);
+    }
+
+    public void testFindIdEmNuloGeneric() throws NullPointerException {
+        System.out.println("createException");
+        cutGeneric.find(null);
+    }
+    
+    //******** TESTS CREATE GENERICO
 
     public void testCreateGeneric() {
         System.out.println("create");
@@ -96,19 +110,25 @@ public abstract class SessionBeanTest<T> {
         cutGeneric.create(entity);
         Mockito.verify(em).persist(entity);
     }
-    
-    public void testCreateGenericException() throws PersistenceException{
-        System.out.println("create");
-        Mockito.doThrow(new PersistenceException()).when(em).persist(entity);
+
+    public void testCreateEmNuloGeneric() throws NullPointerException {
+        System.out.println("createException");
         cutGeneric.create(entity);
-        Mockito.verify(em).persist(entity);
     }
 
+    public void testCreateExceptionGeneric() {
+        System.out.println("createException");
+        Mockito.doThrow(new EntityExistsException()).when(em).persist(entity);
+        cutGeneric.create(entity);
+    }
+
+    
+    
+    
     public void testEditGeneric() {
         System.out.println("edit");
         cutGeneric.edit(entity);
         Mockito.verify(em).merge(entity);
-
     }
 
     public void testRemoveGeneric() {
@@ -118,10 +138,6 @@ public abstract class SessionBeanTest<T> {
         Mockito.verify(em).remove(em.merge(entity));
     }
 
-    public void testFindIdExceptionGeneric(Object i) {
-        System.out.println("FindIdException");
-        Assert.assertNotNull(cutGeneric.find(i));
-    }
     /**
      * Mockea los metodos necesarios para obtener la lista de findAll y
      * findRange
