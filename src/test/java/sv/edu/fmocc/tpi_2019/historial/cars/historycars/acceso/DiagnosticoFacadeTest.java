@@ -100,15 +100,25 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
     }
     
     @Test(expected = NullPointerException.class)
-    public void testEditException(){
+    public void testEditEmNulo(){
         cut.em=null;
         testEditEmNullGeneric();
     }
     
+    @Test(expected = IllegalArgumentException.class)
+    public void testEditException(){
+        testEditExceptionGeneric();
+    }
+    
     @Test(expected = NullPointerException.class)
-    public void testRemoveException(){
+    public void testRemoveEmNulo(){
         cut.em=null;
         testRemoveEmNullGeneric();
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveException(){
+        testRemoveExceptionGeneric();
     }
     
     @Test
