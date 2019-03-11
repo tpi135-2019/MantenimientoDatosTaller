@@ -37,21 +37,21 @@ public class PersonalFacadeTest extends SessionBeanTest<Personal> {
         testFindAllGeneric(registrosEsperados);
     }
 
-    @Test
+     @Test
     public void testFindId() {
         testFindIdGeneric();
     }
-    
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testFindIdException() {
-        Object i = null;
+        Object i = 1;
         testFindIdExceptionGeneric(i);
     }
 
-    @Test
-    public void testFindRange() {
-        testFingRangeGeneric(registrosEsperados);
+    @Test(expected = NullPointerException.class)
+    public void testFindIdEmNulo() {
+        cut.em = null;
+        testFindIdEmNuloGeneric();
     }
 
     @Test
@@ -59,9 +59,28 @@ public class PersonalFacadeTest extends SessionBeanTest<Personal> {
         testCountGeneric(10);
     }
 
+// <editor-fold desc="/*****TESTS CREATE*******/">
     @Test
     public void testCreate() {
         testCreateGeneric();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testCreateEmNulo() {
+        cut.em = null;
+        testCreateEmNuloGeneric();
+    }
+
+    @Test(expected = Exception.class)
+    public void testCreateException() {
+        testCreateExceptionGeneric();
+    }
+
+// </editor-fold>
+    
+    @Test
+    public void testFindRange() {
+        testFingRangeGeneric(registrosEsperados);
     }
 
     @Test
