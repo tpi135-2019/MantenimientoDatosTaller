@@ -6,5 +6,5 @@
 *.sh
 *.pdf
 *.zip
-
+*.log
 /nbproject/
