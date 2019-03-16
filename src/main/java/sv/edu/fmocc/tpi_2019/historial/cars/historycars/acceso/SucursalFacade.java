@@ -20,7 +20,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Sucursal;
 public class SucursalFacade extends AbstractFacade<Sucursal> implements FacadeGenerico<Sucursal>{
 
     @PersistenceContext(unitName = "PU_talleres")
-    protected EntityManager em;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

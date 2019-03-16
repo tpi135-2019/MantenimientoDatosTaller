@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Marca;
 
 /**
@@ -27,55 +28,21 @@ public class MarcaFacadeTest extends SessionBeanTest<Marca> {
         registrosEsperados.add(new Marca(2, "toyota"));
     }
 
-    @Override
-    protected FacadeGenerico getSessionBean() {
-        return cut;
-    }
-
-        @Test(expected = NullPointerException.class)
-    public void testCountEmNull(){
-        cut.em=null;
-       testCountEmNullGeneric();
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testFindEmNull(){
-        int desde=0,hasta=6;
-        cut.em=null;
-        testFindRangeEmNullGeneric(desde, hasta);
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testEditException(){
-        cut.em=null;
-        testEditEmNullGeneric();
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testRemoveException(){
-        cut.em=null;
-        testRemoveEmNullGeneric();
-    }
-    
-    @Test
-    public void testFindAllEmpty(){
-        cut.em=null;
-        testFinAllEmptyGeneric();
-    }
-    
-    @Override
-    protected Marca getEntity() {
-        return marca;
-    }
+   
 
     @Before
-    public void init() {
-        cut.em = em;
+    public void first() {
+        Whitebox.setInternalState(cut, "em", em);
     }
 
     @Test
     public void testFindAll() {
         testFindAllGeneric(registrosEsperados);
+    }
+
+    @Test
+    public void testFindRange() {
+        testFingRangeGeneric(registrosEsperados);
     }
 
     @Test
@@ -91,7 +58,7 @@ public class MarcaFacadeTest extends SessionBeanTest<Marca> {
 
     @Test(expected = NullPointerException.class)
     public void testFindIdEmNulo() {
-        cut.em = null;
+         Whitebox.setInternalState(cut, "em", em);
         testFindIdEmNuloGeneric();
     }
 
@@ -108,7 +75,7 @@ public class MarcaFacadeTest extends SessionBeanTest<Marca> {
 
     @Test(expected = NullPointerException.class)
     public void testCreateEmNulo() {
-        cut.em = null;
+         Whitebox.setInternalState(cut, "em", null);
         testCreateEmNuloGeneric();
     }
 
@@ -117,13 +84,50 @@ public class MarcaFacadeTest extends SessionBeanTest<Marca> {
         testCreateExceptionGeneric();
     }
 
-// </editor-fold>
-
-    @Test
-    public void testFindRange() {
-        testFingRangeGeneric(registrosEsperados);
+// </editor-fold>}
+    
+        @Test(expected = NullPointerException.class)
+    public void testCountEmNull(){
+         Whitebox.setInternalState(cut, "em", null);
+       testCountEmNullGeneric();
     }
-
+    
+    @Test(expected = NullPointerException.class)
+    public void testFindEmNull(){
+        int desde=0,hasta=6;
+         Whitebox.setInternalState(cut, "em", null);
+        testFindRangeEmNullGeneric(desde, hasta);
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testEditEmNulo(){
+         Whitebox.setInternalState(cut, "em", null);
+        testEditEmNullGeneric();
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testEditException(){
+        testEditExceptionGeneric();
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testRemoveEmNulo(){
+         Whitebox.setInternalState(cut, "em", null);
+        testRemoveEmNullGeneric();
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveException(){
+        testRemoveExceptionGeneric();
+    }
+    
+    @Test
+    public void testFindAllEmpty(){
+        Whitebox.setInternalState(cut, "em", null);
+        testFinAllEmptyGeneric();
+    }
+    
+    
     @Test
     public void testEdit() {
         testEditGeneric();
@@ -132,6 +136,16 @@ public class MarcaFacadeTest extends SessionBeanTest<Marca> {
     @Test
     public void testRemove() {
         testRemoveGeneric();
+    }
+
+     @Override
+    protected FacadeGenerico getSessionBean() {
+        return cut;
+    }
+    
+    @Override
+    protected Marca getEntity() {
+        return marca;
     }
 
 }

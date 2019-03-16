@@ -20,7 +20,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Paso;
 public class PasoFacade extends AbstractFacade<Paso> implements FacadeGenerico<Paso>{
 
     @PersistenceContext(unitName = "PU_talleres")
-    protected EntityManager em;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

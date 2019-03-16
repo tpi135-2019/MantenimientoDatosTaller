@@ -20,7 +20,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Marca;
 public class MarcaFacade extends AbstractFacade<Marca> implements FacadeGenerico<Marca>{
 
     @PersistenceContext(unitName = "PU_talleres")
-    protected EntityManager em;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

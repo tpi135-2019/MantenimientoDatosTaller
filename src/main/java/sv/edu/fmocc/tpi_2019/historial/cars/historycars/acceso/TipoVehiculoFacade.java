@@ -20,7 +20,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.TipoVehiculo;
 public class TipoVehiculoFacade extends AbstractFacade<TipoVehiculo> implements FacadeGenerico<TipoVehiculo>{
 
     @PersistenceContext(unitName = "PU_talleres")
-    protected EntityManager em;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
