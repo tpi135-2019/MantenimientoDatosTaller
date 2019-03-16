@@ -20,16 +20,16 @@ public class PropietarioFacadeIT {
     @Test
     public void crearTest(){
         System.out.println("crear");
-        long r;
+        long result;
         EntityManager em = Persistence.createEntityManagerFactory("Test_db").createEntityManager();
         Assert.assertNotNull(em);
-        r = (long) em.createQuery("select COUNT(t) from Propietario t").getSingleResult();
-        Assert.assertEquals(0, r);
+        result = (long) em.createQuery("select COUNT(t) from Propietario t").getSingleResult();
+        Assert.assertEquals(0, result);
         em.getTransaction().begin();
         em.persist(new Propietario(1));
         em.getTransaction().commit();
-         r = (long) em.createQuery("select COUNT(t) from Propietario t").getSingleResult();
-        Assert.assertEquals(1, r);
+         result = (long) em.createQuery("select COUNT(t) from Propietario t").getSingleResult();
+        Assert.assertEquals(1, result);
     }
     
 }
