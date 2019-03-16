@@ -6,11 +6,12 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.internal.util.reflection.Whitebox;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Diagnostico;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
 
 /**
  *
@@ -24,8 +25,8 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
 
     public DiagnosticoFacadeTest() {
         super(Diagnostico.class);
-        registrosEsperados.add(new Diagnostico(1, "ah esta jodido ese bolado", "fecha"));
-        registrosEsperados.add(new Diagnostico(2, "ah esta jodido ese bolado", "fecha"));
+        registrosEsperados.add(new Diagnostico(1, "ah esta jodido ese bolado", new Date()));
+        registrosEsperados.add(new Diagnostico(2, "ah esta jodido ese bolado", new Date()));
 
     }
 

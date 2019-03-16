@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.Before;
 import org.mockito.internal.util.reflection.Whitebox;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Proceso;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
 
 /**
  *

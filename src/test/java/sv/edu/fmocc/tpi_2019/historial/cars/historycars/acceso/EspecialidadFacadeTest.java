@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import org.junit.Before;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Especialidad;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Especialidad;
 
 /**
  *

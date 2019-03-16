@@ -7,9 +7,9 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.integration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Propietario;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
 
 /**
  *
