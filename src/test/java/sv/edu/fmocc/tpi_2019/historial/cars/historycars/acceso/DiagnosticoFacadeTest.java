@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Diagnostico;
 
 /**
@@ -30,7 +31,7 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
 
     @Before
     public void first() {
-        cut.em = em;
+        Whitebox.setInternalState(cut, "em", em);
     }
 
     @Test
@@ -40,8 +41,6 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
 
     @Test
     public void testFindRange() {
-        System.out.println("range");
-        cut.em = em;
         testFingRangeGeneric(registrosEsperados);
     }
 
@@ -58,7 +57,7 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
 
     @Test(expected = NullPointerException.class)
     public void testFindIdEmNulo() {
-        cut.em = null;
+         Whitebox.setInternalState(cut, "em", em);
         testFindIdEmNuloGeneric();
     }
 
@@ -75,7 +74,7 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
 
     @Test(expected = NullPointerException.class)
     public void testCreateEmNulo() {
-        cut.em = null;
+         Whitebox.setInternalState(cut, "em", null);
         testCreateEmNuloGeneric();
     }
 
@@ -88,20 +87,20 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
     
         @Test(expected = NullPointerException.class)
     public void testCountEmNull(){
-        cut.em=null;
+         Whitebox.setInternalState(cut, "em", null);
        testCountEmNullGeneric();
     }
     
     @Test(expected = NullPointerException.class)
     public void testFindEmNull(){
         int desde=0,hasta=6;
-        cut.em=null;
+         Whitebox.setInternalState(cut, "em", null);
         testFindRangeEmNullGeneric(desde, hasta);
     }
     
     @Test(expected = NullPointerException.class)
     public void testEditEmNulo(){
-        cut.em=null;
+         Whitebox.setInternalState(cut, "em", null);
         testEditEmNullGeneric();
     }
     
@@ -112,7 +111,7 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
     
     @Test(expected = NullPointerException.class)
     public void testRemoveEmNulo(){
-        cut.em=null;
+         Whitebox.setInternalState(cut, "em", null);
         testRemoveEmNullGeneric();
     }
     
@@ -123,7 +122,7 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
     
     @Test
     public void testFindAllEmpty(){
-        cut.em=null;
+        Whitebox.setInternalState(cut, "em", null);
         testFinAllEmptyGeneric();
     }
     

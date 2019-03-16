@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import org.junit.Before;
+import org.mockito.internal.util.reflection.Whitebox;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Paso;
 
 /**
@@ -29,47 +30,21 @@ public class PasoFacadeTest extends SessionBeanTest<Paso> {
     }
 
     @Before
-    public void algo() {
-        cut.em = em;
+    public void first() {
+        Whitebox.setInternalState(cut, "em", em);
     }
 
-        @Test(expected = NullPointerException.class)
-    public void testCountEmNull(){
-        cut.em=null;
-       testCountEmNullGeneric();
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testFindEmNull(){
-        int desde=0,hasta=6;
-        cut.em=null;
-        testFindRangeEmNullGeneric(desde, hasta);
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testEditException(){
-        cut.em=null;
-        testEditEmNullGeneric();
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testRemoveException(){
-        cut.em=null;
-        testRemoveEmNullGeneric();
-    }
-    
-    @Test
-    public void testFindAllEmpty(){
-        cut.em=null;
-        testFinAllEmptyGeneric();
-    }
-    
     @Test
     public void testFindAll() {
         testFindAllGeneric(registrosEsperados);
     }
 
-     @Test
+    @Test
+    public void testFindRange() {
+        testFingRangeGeneric(registrosEsperados);
+    }
+
+    @Test
     public void testFindId() {
         testFindIdGeneric();
     }
@@ -82,7 +57,7 @@ public class PasoFacadeTest extends SessionBeanTest<Paso> {
 
     @Test(expected = NullPointerException.class)
     public void testFindIdEmNulo() {
-        cut.em = null;
+         Whitebox.setInternalState(cut, "em", em);
         testFindIdEmNuloGeneric();
     }
 
@@ -99,7 +74,7 @@ public class PasoFacadeTest extends SessionBeanTest<Paso> {
 
     @Test(expected = NullPointerException.class)
     public void testCreateEmNulo() {
-        cut.em = null;
+         Whitebox.setInternalState(cut, "em", null);
         testCreateEmNuloGeneric();
     }
 
@@ -108,14 +83,50 @@ public class PasoFacadeTest extends SessionBeanTest<Paso> {
         testCreateExceptionGeneric();
     }
 
-// </editor-fold>
+// </editor-fold>}
+    
+        @Test(expected = NullPointerException.class)
+    public void testCountEmNull(){
+         Whitebox.setInternalState(cut, "em", null);
+       testCountEmNullGeneric();
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testFindEmNull(){
+        int desde=0,hasta=6;
+         Whitebox.setInternalState(cut, "em", null);
+        testFindRangeEmNullGeneric(desde, hasta);
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testEditEmNulo(){
+         Whitebox.setInternalState(cut, "em", null);
+        testEditEmNullGeneric();
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testEditException(){
+        testEditExceptionGeneric();
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testRemoveEmNulo(){
+         Whitebox.setInternalState(cut, "em", null);
+        testRemoveEmNullGeneric();
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveException(){
+        testRemoveExceptionGeneric();
+    }
     
     @Test
-    public void testFindRange() {
-        testFingRangeGeneric(registrosEsperados);
+    public void testFindAllEmpty(){
+        Whitebox.setInternalState(cut, "em", null);
+        testFinAllEmptyGeneric();
     }
-
-
+    
+    
     @Test
     public void testEdit() {
         testEditGeneric();

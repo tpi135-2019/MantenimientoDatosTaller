@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.Propietario;
 
 /**
@@ -33,57 +34,24 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
 
     public PropietarioFacadeTest() {
         super(Propietario.class);
+        registrosEsperados = listarRegistros();
     }
     
-    @Before
+   @Before
     public void first() {
-        cut.em = em;
+        Whitebox.setInternalState(cut, "em", em);
     }
-    
+
     @Test
     public void testFindAll() {
-        registrosEsperados = listarRegistros();
         testFindAllGeneric(registrosEsperados);
     }
 
     @Test
     public void testFindRange() {
-        registrosEsperados = listarRegistros();
         testFingRangeGeneric(registrosEsperados);
     }
 
-
-    @Test(expected = NullPointerException.class)
-    public void testCountEmNull(){
-        cut.em=null;
-       testCountEmNullGeneric();
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testFindEmNull(){
-        int desde=0,hasta=6;
-        cut.em=null;
-        testFindRangeEmNullGeneric(desde, hasta);
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testEditException(){
-        cut.em=null;
-        testEditEmNullGeneric();
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testRemoveException(){
-        cut.em=null;
-        testRemoveEmNullGeneric();
-    }
-    
-    @Test
-    public void testFindAllEmpty(){
-        cut.em=null;
-        testFinAllEmptyGeneric();
-    }
-    
     @Test
     public void testFindId() {
         testFindIdGeneric();
@@ -97,7 +65,7 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
 
     @Test(expected = NullPointerException.class)
     public void testFindIdEmNulo() {
-        cut.em = null;
+         Whitebox.setInternalState(cut, "em", em);
         testFindIdEmNuloGeneric();
     }
 
@@ -114,7 +82,7 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
 
     @Test(expected = NullPointerException.class)
     public void testCreateEmNulo() {
-        cut.em = null;
+         Whitebox.setInternalState(cut, "em", null);
         testCreateEmNuloGeneric();
     }
 
@@ -123,8 +91,50 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
         testCreateExceptionGeneric();
     }
 
-// </editor-fold>
-
+// </editor-fold>}
+    
+        @Test(expected = NullPointerException.class)
+    public void testCountEmNull(){
+         Whitebox.setInternalState(cut, "em", null);
+       testCountEmNullGeneric();
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testFindEmNull(){
+        int desde=0,hasta=6;
+         Whitebox.setInternalState(cut, "em", null);
+        testFindRangeEmNullGeneric(desde, hasta);
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testEditEmNulo(){
+         Whitebox.setInternalState(cut, "em", null);
+        testEditEmNullGeneric();
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testEditException(){
+        testEditExceptionGeneric();
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testRemoveEmNulo(){
+         Whitebox.setInternalState(cut, "em", null);
+        testRemoveEmNullGeneric();
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveException(){
+        testRemoveExceptionGeneric();
+    }
+    
+    @Test
+    public void testFindAllEmpty(){
+        Whitebox.setInternalState(cut, "em", null);
+        testFinAllEmptyGeneric();
+    }
+    
+    
     @Test
     public void testEdit() {
         testEditGeneric();
@@ -132,7 +142,7 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
 
     @Test
     public void testRemove() {
-      testRemoveGeneric();
+        testRemoveGeneric();
     }
 
     public Propietario crearRegistro(int id, String nombre, String apellido, String direccion, String cel) {
