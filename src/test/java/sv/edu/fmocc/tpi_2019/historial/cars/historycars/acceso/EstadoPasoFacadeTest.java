@@ -9,13 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.internal.util.reflection.Whitebox;
+import org.mockito.runners.MockitoJUnitRunner;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.EstadoPaso;
 
 /**
  *
  * @author kevin
  */
+@RunWith(MockitoJUnitRunner.class)
 public class EstadoPasoFacadeTest extends SessionBeanTest<EstadoPaso> {
 
     private EstadoPasoFacade cut = new EstadoPasoFacade();

@@ -9,13 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.mockito.internal.util.reflection.Whitebox;
+import org.mockito.runners.MockitoJUnitRunner;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
 
 /**
  *
  * @author kevin
  */
+@RunWith(MockitoJUnitRunner.class)
 public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
 
     public PasoProcesoFacadeTest() {

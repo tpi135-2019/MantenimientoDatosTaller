@@ -16,6 +16,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.junit.Assert;
 import org.junit.Before;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 /**
@@ -25,14 +26,20 @@ import org.mockito.Mockito;
  */
 public abstract class SessionBeanTest<T> {
 
+    @Mock
     EntityManager em;
-    Class<T> entityClass;
+    @Mock
     CriteriaQuery cQueryTest;
+    @Mock
     Query query;
+    @Mock
     TypedQuery<T> tq;
+    @Mock
     CriteriaBuilder cb;
+    @Mock
     Root<T> rt;
     FacadeGenerico cutGeneric;
+    Class<T> entityClass;
     T entity;
 
     protected abstract FacadeGenerico getSessionBean();
@@ -46,12 +53,6 @@ public abstract class SessionBeanTest<T> {
 
     @Before
     public void setUp() {
-        rt = Mockito.mock(Root.class);
-        query = Mockito.mock(Query.class);
-        cb = Mockito.mock(CriteriaBuilder.class);
-        cQueryTest = Mockito.mock(CriteriaQuery.class);
-        em = Mockito.mock(EntityManager.class);
-        tq = Mockito.mock(TypedQuery.class);
         Mockito.when(em.getCriteriaBuilder()).thenReturn(cb);
         cutGeneric = getSessionBean();
         entity = getEntity();

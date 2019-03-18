@@ -9,13 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.mockito.internal.util.reflection.Whitebox;
+import org.mockito.runners.MockitoJUnitRunner;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
 
 /**
  *
  * @author kevin
  */
+@RunWith(MockitoJUnitRunner.class)
 public class PiezaFacadeTest extends SessionBeanTest<Pieza> {
 
     private PiezaFacade cut = new PiezaFacade();

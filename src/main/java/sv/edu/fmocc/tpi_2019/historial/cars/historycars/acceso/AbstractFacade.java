@@ -28,7 +28,6 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    
     public void create(T entity) {
         EntityManager em = getEntityManager();
         if (em != null && entity != null) {
@@ -85,6 +84,7 @@ public abstract class AbstractFacade<T> {
                 throw e;
             }
         } else {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Entity Manager o Entity nulo");
             throw new NullPointerException("EntityManager o id nulo");
         }
     }
