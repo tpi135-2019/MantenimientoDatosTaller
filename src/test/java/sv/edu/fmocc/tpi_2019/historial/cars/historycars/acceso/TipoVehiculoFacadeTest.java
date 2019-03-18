@@ -9,13 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.mockito.internal.util.reflection.Whitebox;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.entities.TipoVehiculo;
+import org.mockito.runners.MockitoJUnitRunner;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.TipoVehiculo;
 
 /**
  *
  * @author kevin
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TipoVehiculoFacadeTest extends SessionBeanTest<TipoVehiculo> {
 
     public TipoVehiculoFacadeTest() {
