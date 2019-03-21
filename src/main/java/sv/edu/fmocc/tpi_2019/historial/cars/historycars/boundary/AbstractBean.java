@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.fmocc.tpi_2019.historial.cars.historycars.controller;
+package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 
@@ -20,36 +20,21 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
  * @author kevin
  * @param <T>
  */
-public abstract class AbstractBean<T> implements Serializable{
- 
+public abstract class AbstractBean<T> implements Serializable {
+
     List<T> lista = new ArrayList<>();
-    LazyDataModel <T> lazyModel;
-   
+    LazyDataModel<T> lazyModel;
+    T registro;
+    protected EstadosCRUD estado;
 
     public enum EstadosCRUD {
         NONE, NUEVO, EDITAR, ELIMINAR, AGREGAR;
     }
 
     protected void inicializar() {
-        llenar();
+        estado = EstadosCRUD.NONE;
+        crearNuevo();
         modelo();
-    }
-
-     public static boolean isValidationFailed() {
-        return FacesContext.getCurrentInstance().isValidationFailed();
-    }
-
-    /**
-     * todos los registros existentes
-     *
-     * @return
-     */
-    public List<T> llenar() {
-        if (getFacadeLocal().findAll() != null) {
-            return this.lista = getFacadeLocal().findAll();
-        } else {
-            return this.lista = Collections.EMPTY_LIST;
-        }
     }
 
     /**
@@ -62,41 +47,39 @@ public abstract class AbstractBean<T> implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public void addMessageError(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
     /**
      * metodo generico para persistir un registro
      */
     public void crear() {
-        if (getFacadeLocal() != null) {
+        estado = EstadosCRUD.AGREGAR;
+        FacadeGenerico facade = getFacadeLocal();
+        registro = getEntity();
+        if (facade != null) {
             try {
-                getFacadeLocal().create(getEntity());
-                llenar();
+                facade.create(registro);
+
                 addMessage("Registro creado correctamente.");
             } catch (Exception ex) {
                 System.out.println("Error: " + ex);
-                addMessageError("Error al crear registro.");
+                addMessage("Error al crear registro.");
             }
         }
-      
-        
+
     }
 
     /**
      * modificar(editar) un registro de cualquier entidad
      */
     public void modificar() {
+        estado = EstadosCRUD.EDITAR;
         if (getFacadeLocal() != null) {
             try {
                 getFacadeLocal().edit(getEntity());
-                llenar();
+
                 addMessage("Edicion realizada correctamente.");
             } catch (Exception ex) {
                 System.out.println("Error: " + ex);
-                addMessageError("Error al editar registro.");
+                addMessage("Error al editar registro.");
             }
         }
     }
@@ -105,14 +88,16 @@ public abstract class AbstractBean<T> implements Serializable{
      * elimar un registro de cualquier entidad
      */
     public void eliminar() {
+        estado = EstadosCRUD.ELIMINAR;
+
         if (getFacadeLocal() != null) {
             try {
                 getFacadeLocal().remove(getEntity());
-                llenar();
+
                 addMessage("Registro eliminado correctamente");
             } catch (Exception ex) {
                 System.out.println("Error: " + ex);
-                addMessageError("Error al eliminar registro");
+                addMessage("Error al eliminar registro");
             }
         }
     }
@@ -159,7 +144,6 @@ public abstract class AbstractBean<T> implements Serializable{
                     return ls;
                 }
 
-              
             };
 
         } catch (Exception e) {
@@ -167,14 +151,32 @@ public abstract class AbstractBean<T> implements Serializable{
         }
 
     }
-    
+
+    public EstadosCRUD getEstado() {
+        return estado;
+    }
+
+    public void onRowSelect(SelectEvent event) {
+        estado = EstadosCRUD.EDITAR;
+        registro = (T) event.getObject();
+
+    }
+
+    public T getRegistro() {
+        if (registro == null) {
+            crearNuevo();
+        }
+        return registro;
+    }
+
+    protected abstract void crearNuevo();
+
     protected abstract T getrowD(String rowkey);
 
     protected abstract Object getKey(T entity);
 
-    protected abstract FacadeGenerico<T> getFacadeLocal();
+    protected abstract FacadeGenerico getFacadeLocal();
 
     protected abstract T getEntity();
 
-    
 }

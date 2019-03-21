@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.internal.util.reflection.Whitebox;
@@ -22,6 +23,7 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietar
  * @author kevin
  */
 public class PropietarioFacadeIT {
+
 
     PropietarioFacade cut = new PropietarioFacade();
     @Rule
@@ -60,7 +62,6 @@ public class PropietarioFacadeIT {
         System.out.println("CrearIT");
         result = cut.count();
         Assert.assertEquals(0, result);
-
         tx.begin();
         cut.create(propietario1);
         tx.commit();
@@ -163,5 +164,6 @@ public class PropietarioFacadeIT {
         Assert.assertEquals(2, result);
 
     }
+
 
 }
