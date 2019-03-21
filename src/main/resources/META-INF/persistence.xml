@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="PU_talleres" transaction-type="JTA">
+
     <jta-data-source>jdbc/taller_tpi</jta-data-source>
+
     <class>ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico</class>
     <class>ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Especialidad</class>
     <class>ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.EstadoPaso</class>

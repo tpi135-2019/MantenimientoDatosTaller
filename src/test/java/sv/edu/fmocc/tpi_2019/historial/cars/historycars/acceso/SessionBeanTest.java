@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 
 /**
  *
@@ -29,13 +30,13 @@ public abstract class SessionBeanTest<T> {
     @Mock
     EntityManager em;
     @Mock
-    CriteriaQuery cQueryTest;
+    CriteriaQuery cQueryMock;
     @Mock
-    Query query;
+    Query queryMock;
     @Mock
-    TypedQuery<T> tq;
+    TypedQuery<T> typedQueyMock;
     @Mock
-    CriteriaBuilder cb;
+    CriteriaBuilder criteriaBuilderMock;
     @Mock
     Root<T> rt;
     FacadeGenerico cutGeneric;
@@ -53,13 +54,13 @@ public abstract class SessionBeanTest<T> {
 
     @Before
     public void setUp() {
-        Mockito.when(em.getCriteriaBuilder()).thenReturn(cb);
+        Mockito.when(em.getCriteriaBuilder()).thenReturn(criteriaBuilderMock);
         cutGeneric = getSessionBean();
         entity = getEntity();
 
     }
-//***** TEST FINDALL
 
+//***** TEST FINDALL
     public void testFindAllGeneric(List<T> registrosEsperados) {
         System.out.println("findAll");
         mockLista(registrosEsperados);
@@ -69,20 +70,20 @@ public abstract class SessionBeanTest<T> {
 
     public void testFinAllEmptyGeneric() {
         System.out.println("testFindAllEmpty");
-        Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryTest);
-        Mockito.when(em.createQuery(cQueryTest)).thenReturn(tq);
-        Mockito.when(tq.getResultList()).thenReturn(Collections.EMPTY_LIST);
+        Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryMock);
+        Mockito.when(em.createQuery(cQueryMock)).thenReturn(typedQueyMock);
+        Mockito.when(typedQueyMock.getResultList()).thenReturn(Collections.EMPTY_LIST);
         List lista = cutGeneric.findAll();
         Assert.assertEquals(lista.size(), Collections.EMPTY_LIST.size());
     }
-    //*******TEST COUNT
 
+    //*******TEST COUNT
     public void testCountGeneric(long esperado) {
         System.out.println("count");
-        Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryTest);
-        Mockito.when(cQueryTest.from(entityClass)).thenReturn(rt);
-        Mockito.when(em.createQuery(cQueryTest)).thenReturn(tq);
-        Mockito.when(tq.getSingleResult()).thenReturn((T) (Long) esperado);
+        Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryMock);
+        Mockito.when(cQueryMock.from(entityClass)).thenReturn(rt);
+        Mockito.when(em.createQuery(cQueryMock)).thenReturn(typedQueyMock);
+        Mockito.when(typedQueyMock.getSingleResult()).thenReturn((T) (Long) esperado);
         int count = cutGeneric.count();
         Assert.assertEquals(esperado, count);
     }
@@ -191,9 +192,9 @@ public abstract class SessionBeanTest<T> {
      * @param registrosEsperados
      */
     public void mockLista(List<T> registrosEsperados) {
-        Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryTest);
-        Mockito.when(em.createQuery(cQueryTest)).thenReturn(tq);
-        Mockito.when(tq.getResultList()).thenReturn(registrosEsperados);
+        Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryMock);
+        Mockito.when(em.createQuery(cQueryMock)).thenReturn(typedQueyMock);
+        Mockito.when(typedQueyMock.getResultList()).thenReturn(registrosEsperados);
     }
 
 }

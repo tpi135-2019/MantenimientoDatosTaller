@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.internal.util.reflection.Whitebox;
@@ -31,13 +32,8 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
         super(Diagnostico.class);
         registrosEsperados.add(new Diagnostico(1, "ah esta jodido ese bolado", new Date()));
         registrosEsperados.add(new Diagnostico(2, "ah esta jodido ese bolado", new Date()));
-
     }
 
-//    @Before
-//    public void first() {
-//        //Whitebox.setInternalState(cut, "em", em);
-//    }
     @Test
     public void testFindAll() {
 
