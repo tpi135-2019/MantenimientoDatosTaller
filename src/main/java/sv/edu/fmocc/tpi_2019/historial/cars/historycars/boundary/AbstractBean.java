@@ -52,9 +52,11 @@ public abstract class AbstractBean<T> implements Serializable {
      */
     public void crear() {
         estado = EstadosCRUD.AGREGAR;
-        if (getFacadeLocal() != null) {
+        FacadeGenerico facade = getFacadeLocal();
+        registro = getEntity();
+        if (facade != null) {
             try {
-                getFacadeLocal().create(getEntity());
+                facade.create(registro);
 
                 addMessage("Registro creado correctamente.");
             } catch (Exception ex) {
@@ -167,16 +169,13 @@ public abstract class AbstractBean<T> implements Serializable {
         return registro;
     }
 
-    public void crearNuevo() {
-     
-    }
-
+    protected abstract void crearNuevo();
 
     protected abstract T getrowD(String rowkey);
 
     protected abstract Object getKey(T entity);
 
-    protected abstract FacadeGenerico<T> getFacadeLocal();
+    protected abstract FacadeGenerico getFacadeLocal();
 
     protected abstract T getEntity();
 

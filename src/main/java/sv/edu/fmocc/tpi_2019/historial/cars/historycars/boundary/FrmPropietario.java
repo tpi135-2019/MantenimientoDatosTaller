@@ -41,21 +41,6 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
 
     }
 
-    @Override
-    public void crear() { 
-        super.crear();
-    }
-
-    @Override
-    public void modificar() {
-        super.modificar();
-    }
-
-    @Override
-    public void eliminar() {
-        super.eliminar();
-    }
-
     public void btncancelarHandler() {
         this.estado = EstadosCRUD.NONE;
         crearNuevo();
@@ -95,7 +80,7 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
     }
 
     @Override
-    protected FacadeGenerico<Propietario> getFacadeLocal() {
+    protected FacadeGenerico getFacadeLocal() {
         return propietarioFacade;
     }
 
@@ -103,7 +88,7 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
     protected Propietario getEntity() {
         return this.registro;
     }
-
+    
     public PropietarioFacade getPropietarioFacade() {
         return propietarioFacade;
     }
