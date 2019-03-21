@@ -5,14 +5,14 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.integration;
 
+import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import javax.persistence.EntityTransaction;
+import org.junit.After;
 import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 import org.mockito.internal.util.reflection.Whitebox;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
@@ -24,63 +24,144 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietar
 public class PropietarioFacadeIT {
 
     PropietarioFacade cut = new PropietarioFacade();
-    EntityManager em = Persistence.createEntityManagerFactory("Test_db").createEntityManager();
+    @Rule
+    public EntityManagerProvider emp = EntityManagerProvider.getInstance("Test_db");
+    EntityManager em;
+    EntityTransaction tx;
+    Propietario propietario1 = new Propietario(1, "random", "lazo");
+    Propietario propietario2 = new Propietario(2, "daft", "punk");
+    Propietario propietario3 = new Propietario(3, "roundabout", "yes");
+    Propietario encontrado;
+    int result;
+    List encontrados;
 
     @Before
-    public void init() {
+    public void before() {
+        em = emp.getEm();
+        tx = emp.getTransaction();
+        Assert.assertNotNull(em);
         Whitebox.setInternalState(cut, "em", em);
     }
 
-   @Test
-    public void crearTest() {
-        System.out.println("crear");
-        long result;
-        Propietario p = new Propietario(1, "juan", "perez");
-        Assert.assertNotNull(em);
-        result = cut.count();
-        Assert.assertEquals(0, result);
+    @After
+    public void after() {
         
-        //em.getTransaction().begin();
-        cut.create(p);
-        //em.getTransaction().commit();
-        result = cut.count();
-        Propietario test = (Propietario) em.createNamedQuery("SELECT p FROM Propietario p WHERE p.idPropietario = 1").getSingleResult();
-        Assert.assertNotNull(test);
-       // Assert.assertEquals(1, result);
-       
+        tx.begin();
+        cut.remove(propietario1);
+        cut.remove(propietario2);
+        cut.remove(propietario3);
+        tx.commit();
+        result = 0;
+
     }
 
-    //@Test
+    @Test
+    public void crearTest() {
+        System.out.println("CrearIT");
+        result = cut.count();
+        Assert.assertEquals(0, result);
+
+        tx.begin();
+        cut.create(propietario1);
+        tx.commit();
+        em.detach(propietario1);
+        result = cut.count();
+        encontrado = cut.find(1);
+        Assert.assertNotNull(encontrado);
+        Assert.assertEquals(1, result);
+
+    }
+
+    @Test
     public void testDelete() {
-        Propietario propietario1 = new Propietario(2, "random", "lazo");
-        Propietario propietario2 = new Propietario(3, "daft", "punk");
-        em.getTransaction().begin();
+        System.out.println("DeleteIT");
+        tx.begin();
         cut.create(propietario1);
         cut.create(propietario2);
-        em.getTransaction().commit();
-        em.getTransaction().begin();
+        tx.commit();
+
+        tx.begin();
         cut.remove(propietario1);
-        em.getTransaction().commit();
-        int result = cut.count();
-        Assert.assertNotNull(cut.find(3));
+        tx.commit();
+        result = cut.count();
+        encontrado = cut.find(1);
+        Assert.assertNull(encontrado);
         Assert.assertEquals(1, result);
-       
     }
 
     @Test
     public void testEdit() {
-        Propietario propietario = new Propietario(4, "random", "lazo");
-        Propietario propietario2;
-        em.getTransaction().begin();
-        cut.create(propietario);
-        em.getTransaction().commit();
-        propietario2 = cut.find(4);
-        em.getTransaction().begin();
-        Propietario p1 = new Propietario(4, "juan", "alv");
-        cut.edit(p1);
-        em.getTransaction().commit();
-        Assert.assertSame(p1, propietario2);
-        Assert.assertTrue(propietario2.equals(cut.find(4)));
+        System.out.println("EditIT");
+
+        tx.begin();
+        cut.create(propietario1);
+        tx.commit();
+        em.detach(propietario1);
+
+        encontrado = cut.find(1);
+        em.detach(encontrado);
+
+        propietario1.setNombre("El");
+        propietario1.setApellido("Lechero");
+
+        tx.begin();
+        cut.edit(propietario1);
+        tx.commit();
+        Assert.assertNotEquals(encontrado.getNombre(), propietario1.getNombre());
+    }
+
+    @Test
+    public void testFind() {
+        System.out.println("testFindIT");
+        tx.begin();
+        cut.create(propietario1);
+        tx.commit();
+        em.detach(propietario1);
+        encontrado = cut.find(1);
+        Assert.assertEquals(propietario1.getNombre(), encontrado.getNombre());
+
+    }
+
+    @Test
+    public void testFindAll() {
+        System.out.println("testFindAllIT");
+        result = cut.count();
+        Assert.assertEquals(0, result);
+        tx.begin();
+        cut.create(propietario1);
+        cut.create(propietario2);
+        cut.create(propietario3);
+        tx.commit();
+        encontrados = cut.findAll();
+        Assert.assertEquals(3, encontrados.size());
+
+    }
+
+    @Test
+    public void testFindRange() {
+        System.out.println("testFindRAngeIT");
+        result = cut.count();
+        Assert.assertEquals(0, result);
+        tx.begin();
+        cut.create(propietario1);
+        cut.create(propietario2);
+        cut.create(propietario3);
+        tx.commit();
+        encontrados = cut.findRange(1, 2);
+        Assert.assertEquals(2, encontrados.size());
+    }
+    @Test
+    public void testCount() {
+        System.out.println("testCountIT");
+        result = cut.count();
+        Assert.assertEquals(0, result);
+        tx.begin();
+        cut.create(propietario1);
+        cut.create(propietario2);
+        tx.commit();
+        result = cut.count();
+        Assert.assertEquals(2, result);
+
     }
 
 }

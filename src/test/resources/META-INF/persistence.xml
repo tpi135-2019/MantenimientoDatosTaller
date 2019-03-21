@@ -29,7 +29,7 @@
         <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
         <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
-    
+     
      <!-->
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
@@ -39,7 +39,7 @@
       <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
       <property name="eclipselink.ddl-generation.output-mode" value="database"/>
     </properties>
-    <-->
+   <-->
     
   </persistence-unit>
 </persistence>
