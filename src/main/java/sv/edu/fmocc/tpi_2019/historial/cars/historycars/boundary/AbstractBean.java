@@ -37,10 +37,6 @@ public abstract class AbstractBean<T> implements Serializable {
         modelo();
     }
 
-//    public static boolean isValidationFailed() {
-//        return FacesContext.getCurrentInstance().isValidationFailed();
-//    }
-
     /**
      * mensaje para mostrar informacion de procesos
      *
