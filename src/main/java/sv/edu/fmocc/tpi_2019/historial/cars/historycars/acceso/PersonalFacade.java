@@ -5,6 +5,7 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
+import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,4 +32,8 @@ public class PersonalFacade extends AbstractFacade<Personal> implements FacadeGe
         super(Personal.class);
     }
     
+       @Override
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
 }

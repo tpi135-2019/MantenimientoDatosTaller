@@ -7,9 +7,12 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.runners.MockitoJUnitRunner;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
@@ -21,9 +24,17 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietar
 @RunWith(MockitoJUnitRunner.class)
 public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
 
-    Propietario propietario = new Propietario(1);
+    @Mock
+    EntityManager ema;
+    @InjectMocks
     PropietarioFacade cut = new PropietarioFacade();
+    Propietario propietario = new Propietario(1);
     List<Propietario> registrosEsperados;
+
+    public PropietarioFacadeTest() {
+        super(Propietario.class);
+        this.registrosEsperados = listarRegistros();
+    }
 
     @Override
     protected FacadeGenerico<Propietario> getSessionBean() {
@@ -35,117 +46,14 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
         return propietario;
     }
 
-    public PropietarioFacadeTest() {
-        super(Propietario.class);
-        registrosEsperados = listarRegistros();
-    }
-    
-   @Before
-    public void first() {
-        Whitebox.setInternalState(cut, "em", em);
+    @Override
+    protected EntityManager getEntityManager() {
+        return ema;
     }
 
-    @Test
-    public void testFindAll() {
-        testFindAllGeneric(registrosEsperados);
-    }
-
-    @Test
-    public void testFindRange() {
-        testFingRangeGeneric(registrosEsperados);
-    }
-
-    @Test
-    public void testFindId() {
-        testFindIdGeneric();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testFindIdException() {
-        Object i = 1;
-        testFindIdExceptionGeneric(i);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testFindIdEmNulo() {
-         Whitebox.setInternalState(cut, "em", em);
-        testFindIdEmNuloGeneric();
-    }
-
-    @Test
-    public void testCount() {
-        testCountGeneric(10);
-    }
-
-// <editor-fold desc="/*****TESTS CREATE*******/">
-    @Test
-    public void testCreate() {
-        testCreateGeneric();
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testCreateEmNulo() {
-         Whitebox.setInternalState(cut, "em", null);
-        testCreateEmNuloGeneric();
-    }
-
-    @Test(expected = Exception.class)
-    public void testCreateException() {
-        testCreateExceptionGeneric();
-    }
-
-// </editor-fold>}
-    
-        @Test(expected = NullPointerException.class)
-    public void testCountEmNull(){
-         Whitebox.setInternalState(cut, "em", null);
-       testCountEmNullGeneric();
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testFindEmNull(){
-        int desde=0,hasta=6;
-         Whitebox.setInternalState(cut, "em", null);
-        testFindRangeEmNullGeneric(desde, hasta);
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testEditEmNulo(){
-         Whitebox.setInternalState(cut, "em", null);
-        testEditEmNullGeneric();
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testEditException(){
-        testEditExceptionGeneric();
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testRemoveEmNulo(){
-         Whitebox.setInternalState(cut, "em", null);
-        testRemoveEmNullGeneric();
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testRemoveException(){
-        testRemoveExceptionGeneric();
-    }
-    
-    @Test
-    public void testFindAllEmpty(){
-        Whitebox.setInternalState(cut, "em", null);
-        testFinAllEmptyGeneric();
-    }
-    
-    
-    @Test
-    public void testEdit() {
-        testEditGeneric();
-    }
-
-    @Test
-    public void testRemove() {
-        testRemoveGeneric();
+    @Override
+    protected List<Propietario> getLista() {
+        return registrosEsperados;
     }
 
     public Propietario crearRegistro(int id, String nombre, String apellido, String direccion, String cel) {
