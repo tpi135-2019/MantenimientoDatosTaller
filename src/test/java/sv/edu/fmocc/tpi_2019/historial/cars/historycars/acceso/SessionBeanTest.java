@@ -7,6 +7,8 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -16,19 +18,31 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.RuleChain;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.reflect.Whitebox;
 
 /**
  *
  * @author kevin
  * @param <T>
  */
+@RunWith(MockitoJUnitRunner.class)
 public abstract class SessionBeanTest<T> {
 
-    @Mock
-    EntityManager em;
+    @Spy
+    Logger logger = Logger.getGlobal();
     @Mock
     CriteriaQuery cQueryMock;
     @Mock
@@ -39,11 +53,17 @@ public abstract class SessionBeanTest<T> {
     CriteriaBuilder criteriaBuilderMock;
     @Mock
     Root<T> rt;
-    FacadeGenerico cutGeneric;
+    FacadeGenerico cutGeneric = getSessionBean();
+    EntityManager em;
     Class<T> entityClass;
     T entity;
+    List<T> registrosEsperados;
 
     protected abstract FacadeGenerico getSessionBean();
+
+    protected abstract EntityManager getEntityManager();
+
+    protected abstract List<T> getLista();
 
     protected abstract T getEntity();
 
@@ -54,32 +74,40 @@ public abstract class SessionBeanTest<T> {
 
     @Before
     public void setUp() {
+        em = getEntityManager();
         Mockito.when(em.getCriteriaBuilder()).thenReturn(criteriaBuilderMock);
         cutGeneric = getSessionBean();
         entity = getEntity();
-
+        cutGeneric.setLogger(logger);
+        registrosEsperados = getLista();
     }
 
 //***** TEST FINDALL
-    public void testFindAllGeneric(List<T> registrosEsperados) {
+    @Test
+    //@Ignore
+    public void testFindAllGeneric() {
         System.out.println("findAll");
         mockLista(registrosEsperados);
         List lista = cutGeneric.findAll();
         Assert.assertEquals(registrosEsperados.size(), lista.size());
     }
 
+    @Test
+    // @Ignore
     public void testFinAllEmptyGeneric() {
         System.out.println("testFindAllEmpty");
-        Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryMock);
-        Mockito.when(em.createQuery(cQueryMock)).thenReturn(typedQueyMock);
-        Mockito.when(typedQueyMock.getResultList()).thenReturn(Collections.EMPTY_LIST);
+        setEmNull();
         List lista = cutGeneric.findAll();
         Assert.assertEquals(lista.size(), Collections.EMPTY_LIST.size());
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
     }
 
     //*******TEST COUNT
-    public void testCountGeneric(long esperado) {
+    @Test
+    //@Ignore
+    public void testCountGeneric() {
         System.out.println("count");
+        long esperado = 10;
         Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryMock);
         Mockito.when(cQueryMock.from(entityClass)).thenReturn(rt);
         Mockito.when(em.createQuery(cQueryMock)).thenReturn(typedQueyMock);
@@ -88,20 +116,29 @@ public abstract class SessionBeanTest<T> {
         Assert.assertEquals(esperado, count);
     }
 
+    @Test
     public void testCountEmNullGeneric() {
         System.out.println("CountException");
-        Mockito.when(cutGeneric.count())
-                .thenThrow(NullPointerException.class);
+        setEmNull();
+        int result = cutGeneric.count();
+        Assert.assertEquals(0, result);
+
     }
 
     //*********TEST FIND_RANGE
-    public void testFindRangeEmNullGeneric(int desde, int hasta) {
+    @Test
+    public void testFindRangeEmNullGeneric() {
         System.out.println("findRangeException");
-        Mockito.when(cutGeneric.findRange(desde, hasta))
-                .thenThrow(NullPointerException.class);
+        setEmNull();
+        List lista = cutGeneric.findRange(0, 4);
+        Assert.assertEquals(lista.size(), Collections.EMPTY_LIST.size());
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+
     }
 
-    public void testFingRangeGeneric(List<T> registrosEsperados) {
+    @Test
+    //@Ignore
+    public void testFingRangeGeneric() {
         System.out.println("findRange");
         mockLista(registrosEsperados);
         List lista = cutGeneric.findRange(1, 2);
@@ -109,31 +146,43 @@ public abstract class SessionBeanTest<T> {
     }
 
     //******TEST EDIT
+    @Test
+    //@Ignore
     public void testEditEmNullGeneric() {
         System.out.println("editException");
-        Mockito.doThrow(new IllegalArgumentException()).when(em).merge(entity);
+        setEmNull();
         cutGeneric.edit(entity);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
     }
 
+    @Test
+    //@Ignore
     public void testEditGeneric() {
         System.out.println("edit");
         cutGeneric.edit(entity);
         Mockito.verify(em).merge(entity);
     }
 
+    @Test
+    // @Ignore
     public void testEditExceptionGeneric() {
         System.out.println("editException");
         Mockito.doThrow(new IllegalArgumentException()).when(em).merge(entity);
         cutGeneric.edit(entity);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString(), Matchers.any(Exception.class));
     }
 
     //******+TEST REMOVE
+    @Test
     public void testRemoveEmNullGeneric() {
         System.out.println("RemoveException");
-        Mockito.doThrow(new IllegalArgumentException()).when(em).remove(em.merge(entity));
+        setEmNull();
         cutGeneric.remove(entity);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
     }
 
+    @Test
+    // @Ignore
     public void testRemoveGeneric() {
         System.out.println("remove");
         Mockito.doNothing().when(em).remove(entity);
@@ -141,13 +190,18 @@ public abstract class SessionBeanTest<T> {
         Mockito.verify(em).remove(em.merge(entity));
     }
 
+    @Test
+    // @Ignore
     public void testRemoveExceptionGeneric() {
         System.out.println("removeException");
         Mockito.doThrow(new IllegalArgumentException()).when(em).remove(em.merge(entity));
         cutGeneric.remove(entity);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString(), Matchers.any(Exception.class));
     }
 
     //*******TESTS FIND GENERICO
+    @Test
+    //  @Ignore
     public void testFindIdGeneric() {
         System.out.println("FindId");
         Mockito.when(em.find(entityClass, 1)).thenReturn(entity);
@@ -155,18 +209,28 @@ public abstract class SessionBeanTest<T> {
         Assert.assertEquals(entity, obtenido);
     }
 
-    public void testFindIdExceptionGeneric(Object id) {
+    @Test
+    //  @Ignore
+    public void testFindIdExceptionGeneric() {
         System.out.println("FindIdException");
-        Mockito.doThrow(new IllegalArgumentException()).when(em).find(entityClass, id);
-        cutGeneric.find(id);
+        Mockito.doThrow(new IllegalArgumentException()).when(em).find(entityClass, 1);
+        Object found = cutGeneric.find(1);
+        Assert.assertNull(found);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString(), Matchers.any(Exception.class));
     }
 
-    public void testFindIdEmNuloGeneric() throws NullPointerException {
+    @Test
+    public void testFindIdEmNuloGeneric() {
         System.out.println("createException");
-        cutGeneric.find(null);
+        setEmNull();
+        Object found = cutGeneric.find(null);
+        Assert.assertNull(found);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
     }
 
     //******** TESTS CREATE GENERICO
+    @Test
+    // @Ignore
     public void testCreateGeneric() {
         System.out.println("create");
         Mockito.doNothing().when(em).persist(entity);
@@ -174,15 +238,21 @@ public abstract class SessionBeanTest<T> {
         Mockito.verify(em).persist(entity);
     }
 
-    public void testCreateEmNuloGeneric() throws NullPointerException {
+    @Test
+    public void testCreateEmNuloGeneric() {
         System.out.println("createException");
+        setEmNull();
         cutGeneric.create(entity);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
     }
 
+    @Test
+    // @Ignore
     public void testCreateExceptionGeneric() {
         System.out.println("createException");
         Mockito.doThrow(new EntityExistsException()).when(em).persist(entity);
         cutGeneric.create(entity);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString(), Matchers.any(Exception.class));
     }
 
     /**
@@ -191,10 +261,15 @@ public abstract class SessionBeanTest<T> {
      *
      * @param registrosEsperados
      */
-    public void mockLista(List<T> registrosEsperados) {
+    private void mockLista(List<T> registrosEsperados) {
         Mockito.when(cutGeneric.obtenerCriteriaQueryComun(em)).thenReturn(cQueryMock);
         Mockito.when(em.createQuery(cQueryMock)).thenReturn(typedQueyMock);
         Mockito.when(typedQueyMock.getResultList()).thenReturn(registrosEsperados);
+    }
+
+    private void setEmNull() {
+        this.em = null;
+        Whitebox.setInternalState(cutGeneric, "em", em);
     }
 
 }

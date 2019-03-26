@@ -7,9 +7,12 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.runners.MockitoJUnitRunner;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
@@ -21,7 +24,10 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 @RunWith(MockitoJUnitRunner.class)
 public class SucursalFacadeTest extends SessionBeanTest<Sucursal> {
 
-    private SucursalFacade cut = new SucursalFacade();
+    @Mock
+    EntityManager ema;
+    @InjectMocks
+    private SucursalFacade cut;
     private Sucursal sucursal = new Sucursal(1);
     private List<Sucursal> registrosEsperados = new ArrayList<>();
 
@@ -31,112 +37,14 @@ public class SucursalFacadeTest extends SessionBeanTest<Sucursal> {
         registrosEsperados.add(new Sucursal(2, "taller chepito"));
     }
 
-    @Before
-    public void first() {
-        Whitebox.setInternalState(cut, "em", em);
+     @Override
+    protected EntityManager getEntityManager() {
+        return ema;
     }
 
-    @Test
-    public void testFindAll() {
-        testFindAllGeneric(registrosEsperados);
-    }
-
-    @Test
-    public void testFindRange() {
-        testFingRangeGeneric(registrosEsperados);
-    }
-
-    @Test
-    public void testFindId() {
-        testFindIdGeneric();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testFindIdException() {
-        Object i = 1;
-        testFindIdExceptionGeneric(i);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testFindIdEmNulo() {
-         Whitebox.setInternalState(cut, "em", em);
-        testFindIdEmNuloGeneric();
-    }
-
-    @Test
-    public void testCount() {
-        testCountGeneric(10);
-    }
-
-// <editor-fold desc="/*****TESTS CREATE*******/">
-    @Test
-    public void testCreate() {
-        testCreateGeneric();
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testCreateEmNulo() {
-         Whitebox.setInternalState(cut, "em", null);
-        testCreateEmNuloGeneric();
-    }
-
-    @Test(expected = Exception.class)
-    public void testCreateException() {
-        testCreateExceptionGeneric();
-    }
-
-// </editor-fold>}
-    
-        @Test(expected = NullPointerException.class)
-    public void testCountEmNull(){
-         Whitebox.setInternalState(cut, "em", null);
-       testCountEmNullGeneric();
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testFindEmNull(){
-        int desde=0,hasta=6;
-         Whitebox.setInternalState(cut, "em", null);
-        testFindRangeEmNullGeneric(desde, hasta);
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testEditEmNulo(){
-         Whitebox.setInternalState(cut, "em", null);
-        testEditEmNullGeneric();
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testEditException(){
-        testEditExceptionGeneric();
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testRemoveEmNulo(){
-         Whitebox.setInternalState(cut, "em", null);
-        testRemoveEmNullGeneric();
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void testRemoveException(){
-        testRemoveExceptionGeneric();
-    }
-    
-    @Test
-    public void testFindAllEmpty(){
-        Whitebox.setInternalState(cut, "em", null);
-        testFinAllEmptyGeneric();
-    }
-    
-    
-    @Test
-    public void testEdit() {
-        testEditGeneric();
-    }
-
-    @Test
-    public void testRemove() {
-        testRemoveGeneric();
+    @Override
+    protected List<Sucursal> getLista() {
+        return registrosEsperados;
     }
 
     @Override

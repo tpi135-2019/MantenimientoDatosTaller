@@ -21,6 +21,7 @@ import javax.persistence.criteria.Root;
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
+    protected Logger logger = Logger.getGlobal();
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -34,12 +35,10 @@ public abstract class AbstractFacade<T> {
             try {
                 em.persist(entity);
             } catch (Exception e) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
-                throw e;
+                logger.log(Level.SEVERE, e.getMessage(), e);
             }
         } else {
-            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Entity Manager o Entity nulo");
-            throw new NullPointerException("Entity Manager o Entity nulo");
+            logger.log(Level.WARNING, "Entity Manager o Entity nulo");
         }
 
     }
@@ -50,12 +49,11 @@ public abstract class AbstractFacade<T> {
             try {
                 em.merge(entity);
             } catch (Exception e) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
-                throw e;
+                logger.log(Level.SEVERE, e.getMessage(), e);
             }
 
         } else {
-            throw new NullPointerException("algo es nulo");
+            logger.log(Level.WARNING, "Entity Manager o Entity nulo");
         }
 
     }
@@ -66,11 +64,10 @@ public abstract class AbstractFacade<T> {
             try {
                 em.remove(em.merge(entity));
             } catch (Exception e) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
-                throw e;
+                logger.log(Level.SEVERE, e.getMessage(), e);
             }
         } else {
-            throw new NullPointerException("EntityManager o entidad nula");
+            logger.log(Level.WARNING, "Entity Manager o Entity nulo");
         }
     }
 
@@ -80,12 +77,12 @@ public abstract class AbstractFacade<T> {
             try {
                 return em.find(entityClass, id);
             } catch (Exception e) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
-                throw e;
+                logger.log(Level.SEVERE, e.getMessage(), e);
+                return null;
             }
         } else {
-            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Entity Manager o Entity nulo");
-            throw new NullPointerException("EntityManager o id nulo");
+            logger.log(Level.WARNING, "Entity Manager o Entity nulo");
+            return null;
         }
     }
 
@@ -96,6 +93,7 @@ public abstract class AbstractFacade<T> {
             cq.select(cq.from(entityClass));
             return em.createQuery(cq).getResultList();
         } else {
+            logger.log(Level.WARNING, "Entity Manager");
             return Collections.EMPTY_LIST;
         }
 
@@ -111,20 +109,21 @@ public abstract class AbstractFacade<T> {
             q.setFirstResult(desde);
             return q.getResultList();
         } else {
-            throw new NullPointerException("entityManager Nulo");
+            logger.log(Level.WARNING, "Entity Manager");
+            return Collections.EMPTY_LIST;
         }
     }
 
     public int count() {
         EntityManager em = getEntityManager();
-        if (em == null) {
-            throw new NullPointerException("entityManager Nulo");
-        } else {
+        if (em != null) {
             CriteriaQuery cq = obtenerCriteriaQueryComun(em);
             Root<T> rt = cq.from(entityClass);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } else {
+            return 0;
         }
     }
 
