@@ -17,6 +17,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacion;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 
 /**
  *
@@ -62,6 +63,7 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
             try {
                 Query query = em.createNamedQuery("Reparacion.Diagnostico");
                 query.setParameter("id", idDiagnostico);
+                return query.getResultList();
             } catch (Exception e) {
                 logger.log(Level.WARNING, e.getMessage());
             }
@@ -98,5 +100,6 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
         return Collections.EMPTY_LIST;
         
     }
+
 
 }

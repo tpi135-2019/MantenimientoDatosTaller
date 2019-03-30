@@ -63,6 +63,20 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
     }
 
  
-    
+        @Test
+    public void diagnosticoPlaca() {
+        System.out.println("diagnosticoPorPlaca");
+        String placa = "P234-321";
+        Mockito.when(getEntityManager().createNamedQuery("DiagnosticoPorPlaca"))
+                .thenReturn(queryMock);
+        Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
+        List ls = cut.diagnosticoPorPlaca(placa);
+        Assert.assertEquals(registrosEsperados.size(), ls.size());
+        ls = cut.diagnosticoPorPlaca(null);
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
+        setEmNull();
+        cut.diagnosticoPorPlaca(placa);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+    }
 
 }
