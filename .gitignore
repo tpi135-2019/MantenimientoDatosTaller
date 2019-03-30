@@ -1,6 +1,6 @@
 ## directorios
 /target/
-
+/docker/
 ##otro tipo de archivos 
 *.txt
 *.sh
