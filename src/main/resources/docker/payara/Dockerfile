@@ -7,7 +7,7 @@ RUN wget -O $PAYARA_PATH/glassfish/lib/mariadb.jar https://downloads.mariadb.com
 WORKDIR $PAYARA_PATH/bin
 RUN ./asadmin start-domain && \
 ./asadmin -I false --user admin --passwordfile $PAYARA_PATH/pass.txt create-jdbc-connection-pool \
---datasourceclassname org.mariadb.jdbc.MariaDbDataSource --restype javax.sql.DataSource --property \ user=cmansky:password=pass:servername=hostinho:portnumber=3306:databasename=mydb talleres && \
+--datasourceclassname org.mariadb.jdbc.MariaDbDataSource --restype javax.sql.DataSource --property \ user=cmansky:password=pass:servername=hostinho:portnumber=3306:databasename=taller talleres && \
 ./asadmin -I false --user admin --passwordfile $PAYARA_PATH/pass.txt create-jdbc-resource --connectionpoolid talleres jdbc/taller_tpi && \
 ./asadmin -I false --user admin --passwordfile $PAYARA_PATH/pass.txt stop-domain
 WORKDIR $PAYARA_PATH
