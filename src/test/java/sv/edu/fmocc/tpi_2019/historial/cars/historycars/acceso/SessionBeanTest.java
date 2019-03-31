@@ -18,13 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.RuleChain;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
 import org.mockito.Mock;
@@ -71,6 +65,8 @@ public abstract class SessionBeanTest<T> {
         this.entityClass = entityClass;
 
     }
+//     @Rule
+//    public EmNulo emnull = new EmNulo(cutGeneric);
 
     @Before
     public void setUp() {
@@ -267,7 +263,7 @@ public abstract class SessionBeanTest<T> {
         Mockito.when(typedQueyMock.getResultList()).thenReturn(registrosEsperados);
     }
 
-    private void setEmNull() {
+    protected void setEmNull() {
         this.em = null;
         Whitebox.setInternalState(cutGeneric, "em", em);
     }

@@ -80,6 +80,19 @@
             <groupId>ues.fmocc.ingenieria.tpi135-2019.accesodatos</groupId>
             <artifactId>libreriaDatosTaller</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+            <version>2.5.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -219,7 +232,28 @@
                 <version>2.22.1</version>
             </plugin> 
             
-           
+           <!-- este plugin se va a borrar en la final (se lo puse para no estar moviendo el war a pata xd)-->
+            
+              <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <executable>cp</executable>
+                    <arguments>
+                        <argument>${project.basedir}/target/HistoryCars-1.0-SNAPSHOT.war</argument>
+                        <argument>${project.basedir}/src/main/resources/docker/payara</argument>
+                    </arguments>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             
         </plugins>
     </build>

@@ -6,15 +6,19 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
-import org.mockito.internal.util.reflection.Whitebox;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
 
@@ -24,7 +28,7 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnosti
  */
 @RunWith(MockitoJUnitRunner.class)
 public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
-    
+
     @Mock
     EntityManager ema;
     @InjectMocks
@@ -37,7 +41,7 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
         registrosEsperados.add(new Diagnostico(1, "ah esta jodido ese bolado", new Date()));
         registrosEsperados.add(new Diagnostico(2, "ah esta jodido ese bolado", new Date()));
     }
-    
+
     @Override
     protected FacadeGenerico getSessionBean() {
         return cut;
@@ -57,8 +61,22 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
     protected List<Diagnostico> getLista() {
         return registrosEsperados;
     }
-    
-    
-   
+
+ 
+        @Test
+    public void diagnosticoPlaca() {
+        System.out.println("diagnosticoPorPlaca");
+        String placa = "P234-321";
+        Mockito.when(getEntityManager().createNamedQuery("DiagnosticoPorPlaca"))
+                .thenReturn(queryMock);
+        Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
+        List ls = cut.diagnosticoPorPlaca(placa);
+        Assert.assertEquals(registrosEsperados.size(), ls.size());
+        ls = cut.diagnosticoPorPlaca(null);
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
+        setEmNull();
+        cut.diagnosticoPorPlaca(placa);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+    }
 
 }

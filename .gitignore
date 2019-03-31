@@ -1,10 +1,12 @@
 ## directorios
 /target/
-
+/docker/
 ##otro tipo de archivos 
 *.txt
 *.sh
 *.pdf
 *.zip
 *.log
+*.sql
+*.war
 /nbproject/

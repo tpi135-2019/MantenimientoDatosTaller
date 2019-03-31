@@ -5,11 +5,15 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
 
 /**
@@ -18,7 +22,7 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnosti
  */
 @Stateless
 @LocalBean
-public class DiagnosticoFacade extends AbstractFacade<Diagnostico> implements FacadeGenerico<Diagnostico>{
+public class DiagnosticoFacade extends AbstractFacade<Diagnostico> implements FacadeGenerico<Diagnostico> {
 
     @PersistenceContext(unitName = "PU_talleres")
     private EntityManager em;
@@ -36,5 +40,19 @@ public class DiagnosticoFacade extends AbstractFacade<Diagnostico> implements Fa
     public void setLogger(Logger logger) {
         this.logger = logger;
     }
-    
+
+    public List diagnosticoPorPlaca(String placa) {
+
+        if(placa!=null && !placa.isEmpty()){
+        try {
+            Query query = em.createNamedQuery("DiagnosticoPorPlaca");
+            query.setParameter("placa", placa);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.log(Level.WARNING, e.getMessage());
+        }
+    }
+        return Collections.EMPTY_LIST;
+    }
+
 }
