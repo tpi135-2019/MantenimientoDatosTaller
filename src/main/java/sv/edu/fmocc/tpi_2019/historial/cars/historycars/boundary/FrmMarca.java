@@ -13,8 +13,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.MarcaFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Marca;
 
 /**
  *
@@ -22,63 +22,60 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietar
  */
 @Named
 @ViewScoped
-public class FrmPropietario extends AbstractBean<Propietario> implements Serializable {
+public class FrmMarca extends AbstractBean<Marca> implements Serializable{
 
     @Inject
-    PropietarioFacade propietarioFacade;
-
+    MarcaFacade marcaFacade;
+    
     @PostConstruct
     @Override
-    public void init() {
+    public void init(){
         super.init();
-    }
-
-    /*
-    sobreCarga de metodos !!
-     */
-    @Override
-    public void crearNuevo() {
-        this.registro = new Propietario();
-
     }
 
     @Override
     public void crear() {
-        estado=EstadosCRUD.AGREGAR;
-        super.crear(); 
+    estado =EstadosCRUD.AGREGAR;
+        super.crear();
     }
 
     @Override
     public void modificar() {
         estado=EstadosCRUD.EDITAR;
-        super.modificar(); 
+        super.modificar();
     }
 
-    
     @Override
     public void eliminar() {
         estado=EstadosCRUD.ELIMINAR;
-        super.eliminar(); 
+        super.eliminar();
     }
+
     
-    public void btncancelarHandler() {
+      public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
+
+    }
+    
+    @Override
+    protected void crearNuevo() {
+        this.registro= new Marca();
     }
 
     @Override
-    protected Propietario getrowD(String rowkey) {
-
+    protected Marca getrowD(String rowkey) {
+        
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
             try {
 
-                for (Propietario item : (List<Propietario>) this.getLazyModel().getWrappedData()) {
+                for (Marca item : (List<Marca>) this.getLazyModel().getWrappedData()) {
                     Integer registry = new Integer(rowkey);
-                    if (item.getIdPropietario().compareTo(registry) == 0) {
+                    if (item.getIdMarca().compareTo(registry) == 0) {
                         return item;
                     }
 
@@ -90,64 +87,55 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
         }
 
         return null;
-
     }
 
     @Override
-    protected Object getKey(Propietario entity) {
-        return entity.getIdPropietario();
+    protected Object getKey(Marca entity) {
+        return entity.getIdMarca();
     }
 
     @Override
     protected FacadeGenerico getFacadeLocal() {
-        return propietarioFacade;
+        return marcaFacade;
     }
 
     @Override
-    protected Propietario getEntity() {
+    protected Marca getEntity() {
         return this.registro;
     }
     
-    public PropietarioFacade getPropietarioFacade() {
-        return propietarioFacade;
+    
+    // getters y setters
+
+    public MarcaFacade getMarcaFacade() {
+        return marcaFacade;
     }
 
-    public void setPropietarioFacade(PropietarioFacade propietarioFacade) {
-        this.propietarioFacade = propietarioFacade;
+    public void setMarcaFacade(MarcaFacade marcaFacade) {
+        this.marcaFacade = marcaFacade;
     }
 
-    public List<Propietario> getLista() {
-        return lista;
-    }
-
-    public void setLista(List<Propietario> lista) {
-        this.lista = lista;
-    }
-
-    public LazyDataModel<Propietario> getLazyModel() {
+    public LazyDataModel<Marca> getLazyModel() {
         return lazyModel;
     }
 
-    public void setLazyModel(LazyDataModel<Propietario> lazyModel) {
+    public void setLazyModel(LazyDataModel<Marca> lazyModel) {
         this.lazyModel = lazyModel;
     }
 
     @Override
-    public Propietario getRegistro() {
+    public Marca getRegistro() {
         return registro;
     }
 
-    public void setRegistro(Propietario registro) {
+    public void setRegistro(Marca registro) {
         this.registro = registro;
     }
-
-    @Override
-    public EstadosCRUD getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadosCRUD estado) {
-        this.estado = estado;
-    }
-
+    
+    
+    
+    
+    
+    
+    
 }

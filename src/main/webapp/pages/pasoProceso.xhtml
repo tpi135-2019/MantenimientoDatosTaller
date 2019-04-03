@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+         xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+      
+         <gg:menuBar></gg:menuBar>
+
+        <h:form id="frm">
+
+
+            <h:outputText value="PasoProceso"/>
+
+
+            <p:dataTable id="tbl" value="#{frmPasoProceso.lazyModel}" var="t"
+                         lazy="true" rows="5" paginator="true" selectionMode="single"
+                         paginatorPosition="bottom"
+                         rowsPerPageTemplate="5,10,15"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         selection="#{frmPasoProceso.registro}"
+                         sortBy="#{t.idPasoProceso}"
+                         >
+                <p:ajax event="rowSelect" listener="#{frmPasoProceso.onRowSelect}" update=":frm2 @form" />
+
+
+
+                <p:column headerText="IdPasoProceso">
+                    <h:outputText  value="#{t.idPasoProceso}"/>
+                </p:column>
+                <p:column headerText="Paso">
+                    <h:outputText  value="#{t.idPaso.nombre}"/>
+                </p:column>
+                <p:column headerText="Proceso">
+                    <h:outputText  value="#{t.idProceso.nombre}"/>
+                </p:column>
+                <p:column headerText="numeroPaso">
+                    <h:outputText  value="#{t.numeroPaso}"/>
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+
+        <h:form id="frm2">
+
+
+            <p:panelGrid columns="2" rendered="#{frmPasoProceso.estado!='NONE'}">
+                ID<p:inputText id="txtID" immediate="true" value="#{frmPasoProceso.registro.idPasoProceso}" required="true" requiredMessage="Agrege un IDENTIFICADOR " />
+                Numero de Paso <p:inputText id="txtnombre" immediate="true" value="#{frmPasoProceso.registro.numeroPaso}" required="true" requiredMessage="Agrege un nombre " />
+
+               Paso <h:selectOneMenu id="idMarca" value="#{frmPasoProceso.idPasoSeleccionado}" >
+                   <f:selectItems value="#{frmPasoProceso.listaPaso}"
+                                   var="idIt"
+                                   itemValue="#{idIt.idPaso}"
+                                   itemLabel="#{idIt.nombre.toString()}"
+                                   />
+
+                </h:selectOneMenu>
+               Proceso <h:selectOneMenu id="idTPV" value="#{frmPasoProceso.idProcesoSeleccionado}"  >
+                   <f:selectItems value="#{frmPasoProceso.listaProceso}"
+                                   var="idItem"
+                                   itemValue="#{idItem.idProceso}"
+                                   itemLabel="#{idItem.nombre.toString()}"
+                                   />
+
+                </h:selectOneMenu>
+
+
+            </p:panelGrid>
+
+            <gg:botones id="btnes" backingBean="#{frmPasoProceso}" formularioTabla="frm" formularioRegistro="@form"/>
+
+        </h:form>
+
+        
+    </h:body>
+</html>
+

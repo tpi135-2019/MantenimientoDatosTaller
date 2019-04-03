@@ -27,13 +27,13 @@ public class HistorialPropietarioFacadeTest extends SessionBeanTest<HistorialPro
     EntityManager ema;
     @InjectMocks
     private HistorialPropietarioFacade cut;
-    private HistorialPropietario historialPropietario = new HistorialPropietario("P123-456", 1);
+    private HistorialPropietario historialPropietario = new HistorialPropietario(1);
     private List<HistorialPropietario> registrosEsperados = new ArrayList<>();
 
     public HistorialPropietarioFacadeTest() {
         super(HistorialPropietario.class);
-        registrosEsperados.add(new HistorialPropietario("P123-789", 1));
-        registrosEsperados.add(new HistorialPropietario("P654-789", 2));
+        registrosEsperados.add(new HistorialPropietario(1, "P232-123", 1));
+        registrosEsperados.add(new HistorialPropietario(2, "P432-187", 2));
 
     }
 

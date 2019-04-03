@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="backingBean" shortDescription="Bean a implementar"/>
+        <cc:attribute name="formularioTabla" 
+                      shortDescription="id del formulario que contine la tabla"/>
+        <cc:attribute name="formularioRegistro" 
+                      shortDescription="id del fromulario que contiene la parte de registro"/>
+
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        
+        
+
+        <p:commandButton id="agg" value="Agregar" rendered="#{cc.attrs.backingBean.estado=='NUEVO'}" actionListener="#{cc.attrs.backingBean.crear()}" 
+                          ajax="true" update="#{cc.attrs.formularioRegistro} :#{cc.attrs.formularioTabla}"/>
+
+        <p:commandButton id="cancel" value="Cancelar" rendered="#{cc.attrs.backingBean.estado!='NONE'}" actionListener="#{cc.attrs.backingBean.btncancelarHandler()}" 
+                         immediate="true" resetValues="true" ajax="true" update="#{cc.attrs.formularioRegistro} :#{cc.attrs.formularioTabla}" process="@this"/>      
+
+        <p:commandButton id="edit" value="Editar"  actionListener="#{cc.attrs.backingBean.modificar()}" rendered="#{cc.attrs.backingBean.estado!='NONE' and cc.attrs.backingBean.estado!='NUEVO' }"
+                         ajax="true" update="#{cc.attrs.formularioRegistro} :#{cc.attrs.formularioTabla}" />      
+
+        <p:commandButton id="delete" value="Eliminar"  actionListener="#{cc.attrs.backingBean.eliminar()}" rendered="#{cc.attrs.backingBean.estado!='NONE' and cc.attrs.backingBean.estado!='NUEVO'}"
+                          ajax="true" update="#{cc.attrs.formularioRegistro} :#{cc.attrs.formularioTabla}" />   
+
+        <p:commandButton  id="nuevoRegistro" value="Nuevo"  actionListener="#{cc.attrs.backingBean.btnNuevoHandler()}" rendered="#{cc.attrs.backingBean.estado=='NONE'}"
+                          ajax="true" update="#{cc.attrs.formularioRegistro} :#{cc.attrs.formularioTabla}" />
+
+        
+    </cc:implementation>
+</html>

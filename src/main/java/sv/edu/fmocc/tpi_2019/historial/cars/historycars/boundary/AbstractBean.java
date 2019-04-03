@@ -31,7 +31,7 @@ public abstract class AbstractBean<T> implements Serializable {
         NONE, NUEVO, EDITAR, ELIMINAR, AGREGAR;
     }
 
-    protected void inicializar() {
+    protected void init() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
         modelo();
@@ -51,7 +51,7 @@ public abstract class AbstractBean<T> implements Serializable {
      * metodo generico para persistir un registro
      */
     public void crear() {
-        estado = EstadosCRUD.AGREGAR;
+        estado = EstadosCRUD.NONE;
         FacadeGenerico facade = getFacadeLocal();
         registro = getEntity();
         if (facade != null) {
@@ -71,7 +71,7 @@ public abstract class AbstractBean<T> implements Serializable {
      * modificar(editar) un registro de cualquier entidad
      */
     public void modificar() {
-        estado = EstadosCRUD.EDITAR;
+               estado = EstadosCRUD.NONE;
         if (getFacadeLocal() != null) {
             try {
                 getFacadeLocal().edit(getEntity());
@@ -88,7 +88,7 @@ public abstract class AbstractBean<T> implements Serializable {
      * elimar un registro de cualquier entidad
      */
     public void eliminar() {
-        estado = EstadosCRUD.ELIMINAR;
+               estado = EstadosCRUD.NONE;
 
         if (getFacadeLocal() != null) {
             try {
@@ -167,6 +167,10 @@ public abstract class AbstractBean<T> implements Serializable {
             crearNuevo();
         }
         return registro;
+    }
+    
+     public void setRegistro(T registro) {
+        this.registro = registro;
     }
 
     protected abstract void crearNuevo();

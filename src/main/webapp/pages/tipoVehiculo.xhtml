@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <gg:menuBar></gg:menuBar>
+
+        <h:form id="frm">
+
+
+            <h:outputText value="tipoVehiculo"/>
+
+
+            <p:dataTable id="tbl" value="#{frmTipoVehiculo.lazyModel}" var="t"
+                         lazy="true" rows="5" paginator="true" selectionMode="single"
+                         paginatorPosition="bottom"
+                         rowsPerPageTemplate="5,10,15"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         selection="#{frmTipoVehiculo.registro}"
+                         sortBy="#{t.idTipoVehiculo}"
+                         >
+                <p:ajax event="rowSelect" listener="#{frmTipoVehiculo.onRowSelect}" update=":form2" />
+
+
+
+                <p:column headerText="Id">
+                    <h:outputText  value="#{t.idTipoVehiculo}"/>
+                </p:column>
+                <p:column headerText="nombre">
+                    <h:outputText  value="#{t.nombre}"/>
+                </p:column>
+                <p:column headerText="Estado">
+                    <h:outputText  value="#{t.activo?'ACTIVO':'INACTIVO'}"/>
+                </p:column>
+                <p:column headerText="Cantidad de Ejes">
+                    <h:outputText  value="#{t.cantidadEjes}"/>
+                </p:column>
+                <p:column headerText="Descripcion">
+                    <h:outputText  value="#{t.descripcion}"/>
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+
+        <h:form id="form2">
+
+
+            <p:panelGrid columns="2" rendered="#{frmTipoVehiculo.estado!='NONE'}">
+                ID<p:inputText id="txtID" immediate="true" value="#{frmTipoVehiculo.registro.idTipoVehiculo}" required="true" requiredMessage="Agrege un IDENTIFICADOR " />
+                Nombre <p:inputText id="txtnombre" immediate="true" value="#{frmTipoVehiculo.registro.nombre}" required="true" requiredMessage="Agrege un nombre " />
+                Activo <p:selectBooleanCheckbox id="ckbActivo" value="#{frmTipoVehiculo.registro.activo}"/>
+                Cantidad de Ejes <p:inputText id="txtejes" immediate="true" value="#{frmTipoVehiculo.registro.cantidadEjes}" />
+                Descripcion <p:inputTextarea id="txtArea" value="#{frmTipoVehiculo.registro.descripcion}"/>
+            </p:panelGrid>
+
+            <gg:botones id="btnes" backingBean="#{frmTipoVehiculo}" formularioTabla="frm" formularioRegistro="@form"/>
+
+
+        </h:form>
+
+
+    </h:body>
+</html>
+
