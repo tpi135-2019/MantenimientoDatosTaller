@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+           <gg:menuBar></gg:menuBar>
+
+        <h:form id="frm">
+
+
+            <h:outputText value="Diagnostico"/>
+
+
+            <p:dataTable id="tbl" value="#{frmDiagnostico.lazyModel}" var="t"
+                         lazy="true" rows="5" paginator="true" selectionMode="single"
+                         paginatorPosition="bottom"
+                         rowsPerPageTemplate="5,10,15"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         selection="#{frmDiagnostico.registro}"
+                         sortBy="#{t.idDiagnostico}"
+                         >
+                <p:ajax event="rowSelect" listener="#{frmDiagnostico.onRowSelect}" update=":frm2" />
+
+
+
+                <p:column headerText="idDiagnostico">
+                    <h:outputText  value="#{t.idDiagnostico}"/>
+                </p:column>
+                <p:column headerText="Diagnostico">
+                    <h:outputText  value="#{t.diagnostico}"/>
+                </p:column>
+                <p:column headerText="Placa Vehiculo">
+                    <h:outputText  value="#{t.idVehiculo.idVehiculo} #{t.idVehiculo.idModelo.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Fecha">
+                    <h:outputText  value="#{t.fecha}"/>
+                </p:column>
+                
+            </p:dataTable>
+
+        </h:form>
+
+
+        <h:form id="frm2">
+
+
+            <p:panelGrid columns="2" rendered="#{frmDiagnostico.estado!='NONE'}">
+                Id<p:inputText id="txtID" immediate="true" value="#{frmDiagnostico.registro.idDiagnostico}" />
+
+               diagnostico <p:inputText id="txtnombre" immediate="true" value="#{frmDiagnostico.registro.diagnostico}" required="true" />
+                
+
+               Vehiculo <h:selectOneMenu id="idModelo" value="#{frmDiagnostico.idVehiculoSeleccionado}" >
+                   <f:selectItems value="#{frmDiagnostico.listaVehiculo}"
+                                   var="idIt"
+                                   itemValue="#{idIt.idVehiculo}"
+                                   itemLabel="#{idIt.idVehiculo}"
+                                   />
+
+                </h:selectOneMenu>
+              
+               fecha <p:calendar id="fecha" value="#{frmDiagnostico.registro.fecha}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+
+            </p:panelGrid>
+
+            <gg:botones id="btnes" backingBean="#{frmDiagnostico}" formularioTabla="frm" formularioRegistro="@form"/>
+
+
+        </h:form>
+        
+    </h:body>
+</html>
+
