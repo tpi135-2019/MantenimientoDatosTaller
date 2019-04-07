@@ -14,10 +14,12 @@
 
         <gg:menuBar></gg:menuBar>
 
+        <h:outputText value="Reparacion"/>
+
+
+
         <h:form id="frm">
 
-
-            <h:outputText value="Reparacion"/>
 
 
             <p:dataTable id="tbl" value="#{frmReparacion.lazyModel}" var="t"
@@ -28,11 +30,12 @@
                          selection="#{frmReparacion.registro}"
                          sortBy="#{t.idReparacion}"
                          >
+
                 <p:ajax event="rowSelect" listener="#{frmReparacion.onRowSelect}" update=":frm2" />
 
 
 
-                <p:column headerText="idReparacion">
+                <p:column  headerText="idReparacion">
                     <h:outputText  value="#{t.idReparacion}"/>
                 </p:column>
                 <p:column headerText="Diagnostico">
