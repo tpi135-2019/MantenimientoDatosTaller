@@ -1,0 +1,317 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
+      >
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <gg:menuBar></gg:menuBar>
+
+        <h:form id="frmTexto">
+
+            <p:tabView>
+
+                <p:tab title="Buscar Por Placa">
+                    <h:panelGrid columns="2" cellpadding="10">
+                       Ingrese el numero de Placa <h:inputText id="plca" value="#{frmUtilidades.placa}" /> 
+                        <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarPorPlaca()}"
+                                          update=":frmTabla frmTexto" 
+                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
+                                          />
+                    </h:panelGrid>
+                </p:tab>
+
+                <!-- separando tabs-->
+
+
+                <p:tab title="Buscar Por Diagnostico">
+                    <h:panelGrid columns="2" cellpadding="10">
+                              
+                       Ingrese el identificador del diagnostico <h:inputText id="diagnostico" value="#{frmUtilidades.select}" > 
+                        </h:inputText>
+                        <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarReparacionesPorDiagnostico()}"
+                                          update=":frmTabla frmTexto" 
+                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
+                                          />
+                    </h:panelGrid>
+                </p:tab>
+
+                <!-- separando tabs-->
+
+
+                <p:tab title="Reparaciones por Personal">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                        Ingrese el identificador del mecanico <h:inputText id="perso" value="#{frmUtilidades.person}" > 
+                        </h:inputText>
+                        <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarReparacionesPorPersonal()}"
+                                          update=":frmTabla frmTexto" 
+                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
+                                          />
+
+                    </h:panelGrid>
+                </p:tab>
+
+                <!-- separando tabs-->
+
+
+                <p:tab title="Reparaciones entre Fechas">
+                    <h:panelGrid columns="1" cellpadding="10">
+
+                        Seleccione las fechas:
+                        <br/>
+
+                        <p:outputLabel for="popup" value="Desde:" />
+                        <p:calendar id="popup" value="#{frmUtilidades.desde}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+
+                        <p:outputLabel for="popup2" value="hasta:" />
+                        <p:calendar id="popup2" value="#{frmUtilidades.hasta}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+
+
+                        <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarReparacionesEntreFechas()}"
+                                          update=":frmTabla frmTexto" 
+                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
+                                          />
+
+                    </h:panelGrid>
+                </p:tab>
+
+                <!-- separando tabs-->
+
+
+                <p:tab title="Taller por Reparación">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                     Ingrese el identificador de la Reparación <h:inputText  value="#{frmUtilidades.rep}" > 
+                        </h:inputText>
+                        <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarSucursalPorReparacion()}"
+                                          update=":frmTabla frmTexto" 
+                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
+                                          />
+
+                    </h:panelGrid>
+                </p:tab>
+
+                <!-- separando tabs-->
+
+
+                <p:tab title="Diagnosticos por Placa">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                        Ingrese el numerod de placa <h:inputText  value="#{frmUtilidades.diagnos}" > 
+                        </h:inputText>
+                        <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarDiagnosticoPorPlaca()}"
+                                          update=":frmTabla frmTexto" 
+                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
+                                          />
+
+                    </h:panelGrid>
+                </p:tab>
+
+                <!-- separando tabs-->
+                <p:tab title="Piezas Reparacion">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                       Introdusca el id de la reparacion <h:inputText  value="#{frmUtilidades.pieza}" > 
+                        </h:inputText>
+                        <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarPiezasPorReparacion()}"
+                                          update=":frmTabla frmTexto" 
+                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
+                                          />
+
+                    </h:panelGrid>
+                </p:tab>
+
+                <!-- separando tabs-->
+                <p:tab title="Paso de la Reparacion">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                       Ingrese el id de la reparacion <h:inputText  value="#{frmUtilidades.paso}" > 
+                        </h:inputText>
+                        <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarPasoPorReparacion()}"
+                                          update=":frmTabla frmTexto" 
+                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
+                                          />
+
+                    </h:panelGrid>
+                </p:tab>
+                 <!-- separando tabs-->
+                <p:tab title="Historial de Propietarios">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                        Ingrese la placa del Vehiculo <h:inputText  value="#{frmUtilidades.propietario}" > 
+                        </h:inputText>
+                        <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarHistorialDePropietarios()}"
+                                          update=":frmTabla frmTexto" 
+                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
+                                          />
+
+                    </h:panelGrid>
+                </p:tab>
+
+            </p:tabView>
+        </h:form>
+
+        <h:form id="frmTabla" >
+            <p:dataTable var="item" value="#{frmUtilidades.listaReparacion}" paginator="true"
+                         paginatorTemplate=" {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         style="background-color: #6E0E91"
+                         emptyMessage="No se encontraron Registros"
+                         rendered="#{frmUtilidades.tbl=='REPARACION'}">
+
+                <p:column  headerText="idReparacion">
+                    <h:outputText  value="#{item.idReparacion}"/>
+                </p:column>
+                <p:column headerText="Diagnostico">
+                    <h:outputText  value="#{item.idDiagnostico.diagnostico}"/>
+                </p:column>
+                <p:column headerText="Fecha">
+                    <h:outputText  value="#{item.fecha}"/>
+                </p:column>
+
+                <p:column headerText="Observacion">
+                    <h:outputText  value="#{item.observacion}"/>
+                </p:column>
+
+            </p:dataTable>
+
+            <!-- otro componente-->
+            <p:dataTable var="t" value="#{frmUtilidades.listaDiagnostico}" paginator="true"
+                         paginatorTemplate=" {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         style="background-color: #6E0E91"
+                         emptyMessage="No se encontraron Registros"
+                         rendered="#{frmUtilidades.tbl=='DIAGNOSTICO'}">
+
+                <p:column headerText="idDiagnostico">
+                    <h:outputText  value="#{t.idDiagnostico}"/>
+                </p:column>
+                <p:column headerText="Diagnostico">
+                    <h:outputText  value="#{t.diagnostico}"/>
+                </p:column>
+                <p:column headerText="Placa Vehiculo">
+                    <h:outputText  value="#{t.idVehiculo.idVehiculo} #{t.idVehiculo.idModelo.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Fecha">
+                    <h:outputText  value="#{t.fecha}"/>
+                </p:column>
+
+            </p:dataTable>
+
+            <!-- otro componente-->
+
+
+            <p:carousel rendered="#{frmUtilidades.tbl=='SUCURSAL'}" value="#{frmUtilidades.listaSucursal}" headerText="Talleres" var="i"  itemStyle="text-align:center" responsive="true">
+                <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+
+                    <h:outputText value="Id:" />
+                    <h:outputText value="#{i.idSucursal}" />
+
+                    <h:outputText value="Nombre" />
+                    <h:outputText value="#{i.nombre}" />
+
+                    <h:outputText value="Activo" />
+                    <h:outputText value="#{i.activo?'ACTIVO':'INACTIVO'}"/>
+
+                    <h:outputText value="Telefono" />
+                    <h:outputText value="#{i.telefono}" />
+
+                    <h:outputText value="Direccion" />
+                    <h:outputText value="#{i.direccion}" />
+                </p:panelGrid>
+
+            </p:carousel>
+
+            <!-- otro componente-->
+
+            <p:dataTable var="tt" value="#{frmUtilidades.listaPaso}" paginator="true"
+                         paginatorTemplate=" {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         style="background-color: #6E0E91"
+                         emptyMessage="No se encontraron Registros"
+                         rendered="#{frmUtilidades.tbl=='PASO'}">
+
+                <p:column headerText="Id">
+                    <h:outputText  value="#{tt.idPaso}"/>
+                </p:column>
+                <p:column headerText="Paso">
+                    <h:outputText  value="#{tt.nombre}"/>
+                </p:column>
+                <p:column headerText="Estado">
+                    <h:outputText  value="#{tt.activo?'ACTIVO':'INACTIVO'}"/>
+                </p:column>
+
+                <p:column headerText="Descripcion">
+                    <h:outputText  value="#{tt.descripcion}"/>
+                </p:column>
+
+            </p:dataTable>
+
+            <!-- otro componente-->
+
+            <p:dataTable var="v" value="#{frmUtilidades.listaPieza}" paginator="true"
+                         paginatorTemplate=" {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         style="background-color: #6E0E91"
+                         emptyMessage="No se encontraron Registros"
+                         rendered="#{frmUtilidades.tbl=='PIEZA'}">
+                <p:column headerText="idPieza">
+                    <h:outputText  value="#{v.idPieza}"/>
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText  value="#{v.nombre}"/>
+                </p:column>
+                <p:column headerText="SubParte">
+                    <h:outputText  value="#{v.idSubParte.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Estado">
+                    <h:outputText  value="#{v.activo?'ACTIVO':'INACTIVO'}"/>
+                </p:column>
+                <p:column headerText="Observacion">
+                    <h:outputText  value="#{v.observacion}"/>
+                </p:column>
+
+            </p:dataTable>
+            
+            
+            <!-- otro componente-->
+            <p:dataTable var="m" value="#{frmUtilidades.listaPropietario}" paginator="true"
+                         paginatorTemplate=" {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         style="background-color: #6E0E91"
+                         emptyMessage="No se encontraron Registros"
+                         rendered="#{frmUtilidades.tbl=='PROPIETARIO'}">
+                <p:column headerText="Id">
+                    <h:outputText  value="#{m.idPropietario}"/>
+                </p:column>
+                <p:column headerText="nombre">
+                    <h:outputText  value="#{m.nombre}"/>
+                </p:column>
+                <p:column headerText="apellido">
+                    <h:outputText  value="#{m.apellido}"/>
+                </p:column>
+
+                <p:column headerText="telefono">
+                    <h:outputText  value="#{m.telefono}"/>
+                </p:column>
+                <p:column headerText="Direccion">
+                    <h:outputText  value="#{m.direccion}"/>
+                </p:column>
+
+            </p:dataTable>
+
+
+        </h:form>
+
+
+
+    </h:body>
+</html>
+

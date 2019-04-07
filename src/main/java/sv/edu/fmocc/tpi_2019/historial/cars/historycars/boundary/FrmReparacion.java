@@ -182,20 +182,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         this.lazyModel = lazyModel;
     }
 
-    public Reparacion getRegistro() {
-        return registro;
-    }
 
-    public void setRegistro(Reparacion registro) {
-        this.registro = registro;
-    }
 
-    public EstadosCRUD getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadosCRUD estado) {
-        this.estado = estado;
-    }
-
+    
 }
