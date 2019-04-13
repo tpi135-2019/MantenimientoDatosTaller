@@ -73,11 +73,11 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         this.registro = new Reparacion();
     }
 
-    public void listarDiagnosticos() {
+    public List listarDiagnosticos() {
         try {
-            listaDiagnostico = diagnosticoFacade.findAll();
+            return listaDiagnostico = diagnosticoFacade.findAll();
         } catch (Exception e) {
-            listaDiagnostico = Collections.EMPTY_LIST;
+           return listaDiagnostico = Collections.EMPTY_LIST;
         }
     }
 
@@ -105,12 +105,10 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
 
     @Override
     protected Object getKey(Reparacion entity) {
-        try {
+       
             return entity.getIdReparacion();
 
-        } catch (Exception e) {
-        }
-        return null;
+     
     }
 
     @Override
@@ -123,24 +121,6 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         return this.registro;
     }
 
-    public Integer getIdDiagnosticoSeleccionado() {
-        if (this.registro != null && this.registro.getIdDiagnostico() != null) {
-            return this.registro.getIdDiagnostico().getIdDiagnostico();
-        }
-        return null;
-    }
-
-    public void setIdDiagnosticoSeleccionado(Integer idDiagnostico) {
-        if (this.registro != null && this.listaDiagnostico != null) {
-            try {
-                this.registro.setIdDiagnostico(this.listaDiagnostico.stream().
-                        filter(d -> d.getIdDiagnostico().compareTo(idDiagnostico) == 0)
-                        .collect(Collectors.toList()).get(0));
-            } catch (Exception e) {
-
-            }
-        }
-    }
 
     public ReparacionFacade getReparacionFacade() {
         return reparacionFacade;

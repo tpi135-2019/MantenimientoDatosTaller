@@ -85,11 +85,7 @@ public class FrmEspecialidad extends AbstractBean<Especialidad> implements Seria
 
     @Override
     protected Object getKey(Especialidad entity) {
-        try {
-            return entity.getIdEspecialidad();
-        } catch (Exception e) {
-        }
-        return null;
+        return entity.getIdEspecialidad();
     }
 
     @Override

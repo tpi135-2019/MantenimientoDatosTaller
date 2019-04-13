@@ -137,17 +137,10 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
         return registro;
     }
 
-    public void setRegistro(Propietario registro) {
-        this.registro = registro;
-    }
-
     @Override
     public EstadosCRUD getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadosCRUD estado) {
-        this.estado = estado;
-    }
 
 }

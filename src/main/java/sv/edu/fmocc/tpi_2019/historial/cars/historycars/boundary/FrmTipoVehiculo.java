@@ -115,9 +115,6 @@ public class FrmTipoVehiculo extends AbstractBean<TipoVehiculo> implements Seria
         return registro;
     }
 
-    public void setRegistro(TipoVehiculo registro) {
-        this.registro = registro;
-    }
 
     @Override
     protected Object getKey(TipoVehiculo entity) {

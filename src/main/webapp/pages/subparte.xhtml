@@ -65,10 +65,10 @@
                 Estado <p:selectBooleanCheckbox id="ckbActivo" value="#{frmSubParte.registro.activo}"/>
 
 
-                Parte <h:selectOneMenu id="idSucu" value="#{frmSubParte.idParteSeleccionada}" >
+                Parte <h:selectOneMenu id="idParte" value="#{frmSubParte.registro.idParte}" converter="omnifaces.SelectItemsConverter" >
                     <f:selectItems value="#{frmSubParte.listaParte}"
                                    var="idItem"
-                                   itemValue="#{idItem.idParte}"
+                                   itemValue="#{idItem}"
                                    itemLabel="#{idItem.nombre.toString()}"
                                    />
 

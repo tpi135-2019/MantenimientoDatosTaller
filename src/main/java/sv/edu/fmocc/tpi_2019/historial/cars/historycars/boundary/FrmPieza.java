@@ -69,11 +69,11 @@ public class FrmPieza extends AbstractBean<Pieza> implements Serializable{
     }
     
     
-    public void listarSubpartes(){
+    public List listarSubpartes(){
         try {
-            listaSubParte=subparteFacade.findAll();
+            return listaSubParte=subparteFacade.findAll();
         } catch (Exception e) {
-        listaSubParte=Collections.EMPTY_LIST;
+        return listaSubParte=Collections.EMPTY_LIST;
         }
     }
     
@@ -97,11 +97,9 @@ public class FrmPieza extends AbstractBean<Pieza> implements Serializable{
 
     @Override
     protected Object getKey(Pieza entity) {
-        try {
+     
             return entity.getIdPieza();
-        } catch (Exception e) {
-        }
-        return null;
+    
     }
 
     @Override
@@ -130,23 +128,5 @@ public class FrmPieza extends AbstractBean<Pieza> implements Serializable{
         this.lazyModel = lazyModel;
     }
     
-   public Integer getIdSubParteSeleccionada() {
-        if (this.registro != null && this.registro.getIdSubParte()!= null) {
-            return this.registro.getIdSubParte().getIdSubParte();
-        }
-        return null;
-    }
-
-    public void setIdSubParteSeleccionada(Integer idSParte) {
-        if (this.registro != null && this.listaSubParte != null) {
-            try {
-                this.registro.setIdSubParte(this.listaSubParte.stream().
-                        filter(d -> d.getIdSubParte().compareTo(idSParte) == 0)
-                        .collect(Collectors.toList()).get(0));
-            } catch (Exception e) {
-
-            }
-        }
-    }
     
 }

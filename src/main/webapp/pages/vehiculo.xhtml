@@ -70,19 +70,19 @@
                 Vin <p:inputText id="txtVin" immediate="true" value="#{frmVehiculo.registro.vin}" required="true" />
                 color <p:inputText id="txtColor" immediate="true" value="#{frmVehiculo.registro.color}" required="true" />
 
-                Modelo <h:selectOneMenu id="idModelo" value="#{frmVehiculo.idModeloSeleccionado}" >
+                Modelo <h:selectOneMenu id="idModelo" value="#{frmVehiculo.registro.idModelo}" converter="omnifaces.SelectItemsConverter" >
                     <f:selectItems value="#{frmVehiculo.listaModelo}"
                                    var="idIt"
-                                   itemValue="#{idIt.idModelo}"
+                                   itemValue="#{idIt}"
                                    itemLabel="#{idIt.nombre.toString()}"
                                    />
 
                 </h:selectOneMenu>
 
-                Propietario <h:selectOneMenu id="idPropietario" value="#{frmVehiculo.idPropietarioSeleccionado}" >
+                Propietario <h:selectOneMenu id="idPropietario" value="#{frmVehiculo.registro.idPropietario}" converter="omnifaces.SelectItemsConverter" >
                     <f:selectItems value="#{frmVehiculo.listaPropietario}"
                                    var="idItem"
-                                   itemValue="#{idItem.idPropietario}"
+                                   itemValue="#{idItem}"
                                    itemLabel="#{idItem.nombre.toString()} #{idItem.apellido.toString()}"
                                    />
 

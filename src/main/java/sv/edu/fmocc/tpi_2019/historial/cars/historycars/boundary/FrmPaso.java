@@ -85,11 +85,9 @@ public class FrmPaso extends AbstractBean<Paso> implements Serializable {
 
     @Override
     protected Object getKey(Paso entity) {
-        try {
+        
             return entity.getIdPaso();
-        } catch (Exception e) {
-        }
-        return null;
+        
     }
 
     @Override

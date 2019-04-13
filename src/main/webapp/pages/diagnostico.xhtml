@@ -59,10 +59,10 @@
                diagnostico <p:inputText id="txtnombre" immediate="true" value="#{frmDiagnostico.registro.diagnostico}" required="true" />
                 
 
-               Vehiculo <h:selectOneMenu id="idModelo" value="#{frmDiagnostico.idVehiculoSeleccionado}" >
+               Vehiculo <h:selectOneMenu id="idModelo" value="#{frmDiagnostico.registro.idVehiculo}" converter="omnifaces.SelectItemsConverter" >
                    <f:selectItems value="#{frmDiagnostico.listaVehiculo}"
                                    var="idIt"
-                                   itemValue="#{idIt.idVehiculo}"
+                                   itemValue="#{idIt}"
                                    itemLabel="#{idIt.idVehiculo}"
                                    />
 

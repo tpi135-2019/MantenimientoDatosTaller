@@ -68,11 +68,11 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
         estado = EstadosCRUD.NUEVO;
     }
 
-    public void listarEspecialidades() {
+    public List listarEspecialidades() {
         try {
-            listaEspecialidad = especialidadFacade.findAll();
+            return listaEspecialidad = especialidadFacade.findAll();
         } catch (Exception e) {
-            listaEspecialidad = Collections.EMPTY_LIST;
+          return  listaEspecialidad = Collections.EMPTY_LIST;
         }
     }
 
@@ -101,11 +101,9 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
 
     @Override
     protected Object getKey(Proceso entity) {
-        try {
+     
             return entity.getIdProceso();
-        } catch (Exception e) {
-        }
-        return null;
+     
     }
 
     @Override
@@ -134,19 +132,5 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
         this.lazyModel = lazyModel;
     }
 
-    public Integer getIdEspecialdadSeleccionada() {
-        if (this.registro != null && this.registro.getIdEspecialidad() != null) {
-            return this.registro.getIdEspecialidad().getIdEspecialidad();
-        }
-        return null;
-    }
-
-    public void setIdEspecialdadSeleccionada(Integer idEspecialidad) {
-        if (this.registro != null && listaEspecialidad != null) {
-            this.registro.setIdEspecialidad(this.listaEspecialidad.stream()
-                    .filter(es -> es.getIdEspecialidad().compareTo(idEspecialidad) == 0)
-                    .collect(Collectors.toList()).get(0));
-        }
-    }
 
 }

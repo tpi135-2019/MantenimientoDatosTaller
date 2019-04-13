@@ -46,7 +46,7 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         listarModelos();
         listarPropietarios();
     }
-   
+
     public List listarModelos() {
         try {
             return listaModelo = modeloFacade.findAll();
@@ -54,15 +54,16 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
             return listaModelo = Collections.EMPTY_LIST;
         }
     }
-    
-    public List listarPropietarios(){
+
+    public List listarPropietarios() {
         try {
-            return listaPropietario=propietarioFacade.findAll();
+            return listaPropietario = propietarioFacade.findAll();
         } catch (Exception e) {
-            return listaPropietario=propietarioFacade.findAll();
+            return listaPropietario = Collections.EMPTY_LIST;
         }
     }
-  @Override
+
+    @Override
     public void crear() {
         estado = EstadosCRUD.AGREGAR;
         super.crear();
@@ -89,7 +90,6 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         estado = EstadosCRUD.NUEVO;
     }
 
-
     @Override
     protected Vehiculo getrowD(String rowkey) {
 
@@ -114,12 +114,9 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
 
     @Override
     protected Object getKey(Vehiculo entity) {
-        try {
-            return entity.getIdVehiculo();
-        } catch (Exception e) {
 
-        }
-        return null;
+        return entity.getIdVehiculo();
+
     }
 
     @Override
@@ -156,53 +153,10 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         this.listaPropietario = listaPropietario;
     }
 
-//************ esto o omnifaces :v
-     public Integer getIdModeloSeleccionado() {
-        if (this.registro != null && this.registro.getIdModelo()!= null) {
-            return this.registro.getIdModelo().getIdModelo();
-        }
-        return null;
-    }
-
-  
-    public void setIdModeloSeleccionado(Integer idModel) {
-        if (this.registro != null && this.listaModelo != null) {
-            try {
-                this.registro.setIdModelo(this.listaModelo.stream()
-                        .filter(m -> m.getIdModelo().compareTo(idModel) == 0).
-                        collect(Collectors.toList()).get(0));
-            } catch (Exception e) {
-
-            }
-        }
-    }
-
-  
-    public Integer getIdPropietarioSeleccionado() {
-        if (this.registro != null && this.registro.getIdPropietario()!= null) {
-            return this.registro.getIdPropietario().getIdPropietario();
-        }
-        return null;
-    }
-
-    
-    public void setIdPropietarioSeleccionado(Integer idPropietario) {
-        if (this.registro != null && this.listaPropietario != null) {
-            try {
-                this.registro.setIdPropietario(this.listaPropietario.stream().
-                        filter(r -> r.getIdPropietario().compareTo(idPropietario) == 0)
-                        .collect(Collectors.toList()).get(0));
-            } catch (Exception e) {
-
-            }
-        }
-    }
 
     @Override
     protected void crearNuevo() {
-        this.registro=new Vehiculo();
+        this.registro = new Vehiculo();
     }
 
-    
-    
 }

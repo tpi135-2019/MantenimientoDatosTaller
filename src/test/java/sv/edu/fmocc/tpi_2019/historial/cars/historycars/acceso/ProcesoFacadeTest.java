@@ -32,7 +32,6 @@ public class ProcesoFacadeTest extends SessionBeanTest<Proceso> {
         super(Proceso.class);
         registrosEsperados.add(new Proceso(1, "cambio de aceite"));
         registrosEsperados.add(new Proceso(2, "cambio de frenos"));
-
     }
 
        

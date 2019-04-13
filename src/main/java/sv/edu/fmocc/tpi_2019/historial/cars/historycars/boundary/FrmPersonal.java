@@ -43,11 +43,11 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable{
         listarSucursales();
     }
 
-    public void listarSucursales(){
+    public List listarSucursales(){
         try {
-            listaSucursal=sucursalFacade.findAll();
+            return listaSucursal=sucursalFacade.findAll();
         } catch (Exception e) {
-            listaSucursal=Collections.EMPTY_LIST;
+           return listaSucursal=Collections.EMPTY_LIST;
         }
     }
     
@@ -102,11 +102,9 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable{
 
     @Override
     protected Object getKey(Personal entity) {
-        try {
+      
             return entity.getIdMecanico();
-        } catch (Exception e) {
-        }
-        return null;
+      
     }
 
     @Override

@@ -118,7 +118,7 @@ public class ReparacionFacadeTest extends SessionBeanTest<Reparacion> {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date desde = null, hasta = null;
         try {
-            desde = dateFormat.parse("2005-11-03");
+            desde = dateFormat.parse("2000-02-03");
             hasta = dateFormat.parse("2019-11-03");
         } catch (ParseException ex) {
             Logger.getLogger(ReparacionFacadeTest.class.getName()).log(Level.SEVERE, null, ex);
