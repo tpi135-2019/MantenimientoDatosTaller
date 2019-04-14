@@ -80,7 +80,6 @@
             <groupId>ues.fmocc.ingenieria.tpi135-2019.accesodatos</groupId>
             <artifactId>libreriaDatosTaller</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -144,9 +143,7 @@
             <version>2.4</version>
             <scope>test</scope>
         </dependency>
-
-      
-
+        
         <!-- dependecia para el lazyDataModel-->
         <dependency>
             <groupId>org.primefaces</groupId>
@@ -154,7 +151,14 @@
             <version>6.2</version>
             <type>jar</type>
         </dependency>
+        
+        <dependency>
+            <groupId>com.github.adminfaces</groupId>
+            <artifactId>admin-theme</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
+        
     </dependencies>
 
     <build>
@@ -204,11 +208,11 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- plugin para saber la covertura de mis test-->
+            <!-- plugin para saber la cobertura de mis test-->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.7.201606060606</version>
+                <version>0.7.9</version>
                 <executions>
                     <execution>
                         <goals>
@@ -225,16 +229,16 @@
                 </executions>
             </plugin>
             
-           <!--dependencia de Surefire-->
+            <!--dependencia de Surefire-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
             </plugin> 
             
-           <!-- este plugin se va a borrar en la final (se lo puse para no estar moviendo el war a pata xd)-->
+            <!-- este plugin se va a borrar en la final (se lo puse para no estar moviendo el war a pata xd)-->
             
-              <!--plugin>
+            <!--plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
@@ -257,5 +261,6 @@
             
         </plugins>
     </build>
+    
 
 </project>
