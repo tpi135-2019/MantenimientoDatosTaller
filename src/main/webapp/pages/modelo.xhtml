@@ -59,18 +59,18 @@
                 ID<p:inputText id="txtID" immediate="true" value="#{frmModelo.registro.idModelo}" required="true" requiredMessage="Agrege un IDENTIFICADOR " />
                 Nombre <p:inputText id="txtnombre" immediate="true" value="#{frmModelo.registro.nombre}" required="true" requiredMessage="Agrege un nombre " />
 
-                Marca <h:selectOneMenu id="idMarca" value="#{frmModelo.idMarcaSeleccionada}" >
+                Marca <h:selectOneMenu id="idMarca" value="#{frmModelo.registro.idMarca}" converter="omnifaces.SelectItemsConverter" >
                     <f:selectItems value="#{frmModelo.listaMarcas}"
                                    var="idMarcaItem"
-                                   itemValue="#{idMarcaItem.idMarca}"
+                                   itemValue="#{idMarcaItem}"
                                    itemLabel="#{idMarcaItem.nombre.toString()}"
                                    />
 
                 </h:selectOneMenu>
-                TipoVehiculo <h:selectOneMenu id="idTPV" value="#{frmModelo.idTipoVehiculoSeleccionado}"  >
+                TipoVehiculo <h:selectOneMenu id="idTPV" value="#{frmModelo.registro.idTipoVehiculo}"  converter="omnifaces.SelectItemsConverter" >
                     <f:selectItems value="#{frmModelo.listaTipoVehiculo}"
                                    var="idItem"
-                                   itemValue="#{idItem.idTipoVehiculo}"
+                                   itemValue="#{idItem}"
                                    itemLabel="#{idItem.nombre.toString()}"
                                    />
 

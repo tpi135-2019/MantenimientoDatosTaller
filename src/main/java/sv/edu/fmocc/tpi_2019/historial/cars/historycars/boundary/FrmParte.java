@@ -6,9 +6,7 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -88,11 +86,8 @@ public class FrmParte extends AbstractBean<Parte> implements Serializable {
 
     @Override
     protected Object getKey(Parte entity) {
-        try {
-            return entity.getIdParte();
-        } catch (Exception e) {
-        }
-        return null;
+        return entity.getIdParte();
+
     }
 
     @Override

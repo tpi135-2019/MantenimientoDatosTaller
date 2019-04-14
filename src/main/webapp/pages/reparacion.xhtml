@@ -61,10 +61,10 @@
                 Id<p:inputText id="txtID" immediate="true" value="#{frmReparacion.registro.idReparacion}" />
 
 
-                Diagnostico <h:selectOneMenu id="idDiagnostico" value="#{frmReparacion.idDiagnosticoSeleccionado}" >
+                Diagnostico <h:selectOneMenu id="idDiagnostico" value="#{frmReparacion.registro.idDiagnostico}" converter="omnifaces.SelectItemsConverter" >
                     <f:selectItems value="#{frmReparacion.listaDiagnostico}"
                                    var="idIt"
-                                   itemValue="#{idIt.idDiagnostico}"
+                                   itemValue="#{idIt}"
                                    itemLabel="#{idIt.diagnostico.toString()}"
                                    />
 

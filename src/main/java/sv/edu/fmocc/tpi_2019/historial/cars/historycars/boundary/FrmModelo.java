@@ -50,7 +50,6 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
     public List listarMarcas() {
         try {
             return listaMarcas = marcaFacade.findAll();
-
         } catch (Exception e) {
             return listaMarcas = Collections.emptyList();
         }
@@ -165,29 +164,6 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
 
     public void setListaTipoVehiculo(List<TipoVehiculo> listaTipoVehiculo) {
         this.listaTipoVehiculo = listaTipoVehiculo;
-    }
-
-    //**************************
-  
-   
-    public Integer getIdMarcaSeleccionada() {
-        if (this.registro != null && this.registro.getIdMarca() != null) {
-            return this.registro.getIdMarca().getIdMarca();
-        }
-        return null;
-    }
-
-  
-    public void setIdMarcaSeleccionada(Integer idMarca) {
-        if (this.registro != null && this.listaMarcas != null) {
-            try {
-                this.registro.setIdMarca(this.listaMarcas.stream()
-                        .filter(m -> m.getIdMarca().compareTo(idMarca) == 0).
-                        collect(Collectors.toList()).get(0));
-            } catch (Exception e) {
-
-            }
-        }
     }
 
   

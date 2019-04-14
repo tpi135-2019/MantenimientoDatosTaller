@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
@@ -26,7 +28,7 @@ public abstract class AbstractBean<T> implements Serializable {
     LazyDataModel<T> lazyModel;
     T registro;
     protected EstadosCRUD estado;
-
+    protected Logger logger = Logger.getGlobal();
     public enum EstadosCRUD {
         NONE, NUEVO, EDITAR, ELIMINAR, AGREGAR;
     }
@@ -54,14 +56,15 @@ public abstract class AbstractBean<T> implements Serializable {
         estado = EstadosCRUD.NONE;
         FacadeGenerico facade = getFacadeLocal();
         registro = getEntity();
+
         if (facade != null) {
+
             try {
                 facade.create(registro);
-
                 addMessage("Registro creado correctamente.");
             } catch (Exception ex) {
-                System.out.println("Error: " + ex);
                 addMessage("Error al crear registro.");
+                logger.log(Level.SEVERE, ex.getMessage());
             }
         }
 
@@ -71,15 +74,15 @@ public abstract class AbstractBean<T> implements Serializable {
      * modificar(editar) un registro de cualquier entidad
      */
     public void modificar() {
-               estado = EstadosCRUD.NONE;
+        estado = EstadosCRUD.NONE;
         if (getFacadeLocal() != null) {
             try {
                 getFacadeLocal().edit(getEntity());
 
                 addMessage("Edicion realizada correctamente.");
             } catch (Exception ex) {
-                System.out.println("Error: " + ex);
                 addMessage("Error al editar registro.");
+                logger.log(Level.SEVERE, ex.getMessage());
             }
         }
     }
@@ -88,16 +91,16 @@ public abstract class AbstractBean<T> implements Serializable {
      * elimar un registro de cualquier entidad
      */
     public void eliminar() {
-               estado = EstadosCRUD.NONE;
-
+        estado = EstadosCRUD.NONE;
         if (getFacadeLocal() != null) {
             try {
                 getFacadeLocal().remove(getEntity());
 
                 addMessage("Registro eliminado correctamente");
             } catch (Exception ex) {
-                System.out.println("Error: " + ex);
                 addMessage("Error al eliminar registro");
+                logger.log(Level.SEVERE, ex.getMessage());
+
             }
         }
     }
@@ -112,12 +115,7 @@ public abstract class AbstractBean<T> implements Serializable {
 
                 @Override
                 public Object getRowKey(T entity) {
-
-                    if (entity != null) {
-                        return getKey(entity);
-                    }
-                    return null;
-
+                    return getKey(entity);
                 }
 
                 @Override
@@ -138,7 +136,7 @@ public abstract class AbstractBean<T> implements Serializable {
                             ls = getFacadeLocal().findRange(first, pageSize);
                         }
                     } catch (Exception e) {
-                        System.out.println("Excepcion" + e.getMessage());
+                        logger.log(Level.SEVERE, e.getMessage());
                     }
 
                     return ls;
@@ -147,7 +145,8 @@ public abstract class AbstractBean<T> implements Serializable {
             };
 
         } catch (Exception e) {
-            System.out.println("Excepcion" + e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
+
         }
 
     }
@@ -168,9 +167,13 @@ public abstract class AbstractBean<T> implements Serializable {
         }
         return registro;
     }
-    
-     public void setRegistro(T registro) {
+
+    public void setRegistro(T registro) {
         this.registro = registro;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 
     protected abstract void crearNuevo();

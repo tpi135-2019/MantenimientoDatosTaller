@@ -86,11 +86,9 @@ public class FrmSucursal extends AbstractBean<Sucursal> implements Serializable{
 
     @Override
     protected Object getKey(Sucursal entity) {
-        try {
+     
             return entity.getIdSucursal();
-        } catch (Exception e) {
-        }
-        return null;
+     
     }
 
     @Override

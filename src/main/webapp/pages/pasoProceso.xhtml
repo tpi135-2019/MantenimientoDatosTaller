@@ -56,18 +56,18 @@
                 ID<p:inputText id="txtID" immediate="true" value="#{frmPasoProceso.registro.idPasoProceso}" required="true" requiredMessage="Agrege un IDENTIFICADOR " />
                 Numero de Paso <p:inputText id="txtnombre" immediate="true" value="#{frmPasoProceso.registro.numeroPaso}" required="true" requiredMessage="Agrege un nombre " />
 
-               Paso <h:selectOneMenu id="idMarca" value="#{frmPasoProceso.idPasoSeleccionado}" >
+                Paso <h:selectOneMenu id="idMarca" value="#{frmPasoProceso.registro.idPaso}" converter="omnifaces.SelectItemsConverter" >
                    <f:selectItems value="#{frmPasoProceso.listaPaso}"
                                    var="idIt"
-                                   itemValue="#{idIt.idPaso}"
+                                   itemValue="#{idIt}"
                                    itemLabel="#{idIt.nombre.toString()}"
                                    />
 
                 </h:selectOneMenu>
-               Proceso <h:selectOneMenu id="idTPV" value="#{frmPasoProceso.idProcesoSeleccionado}"  >
+               Proceso <h:selectOneMenu id="idTPV" value="#{frmPasoProceso.registro.idProceso}" converter="omnifaces.SelectItemsConverter"  >
                    <f:selectItems value="#{frmPasoProceso.listaProceso}"
                                    var="idItem"
-                                   itemValue="#{idItem.idProceso}"
+                                   itemValue="#{idItem}"
                                    itemLabel="#{idItem.nombre.toString()}"
                                    />
 

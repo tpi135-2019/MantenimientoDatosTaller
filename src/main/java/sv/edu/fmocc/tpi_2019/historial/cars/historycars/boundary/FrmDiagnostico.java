@@ -68,11 +68,11 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
         estado = EstadosCRUD.NUEVO;
     }
 
-    public void listarVehiculos() {
+    public List listarVehiculos() {
         try {
-            listaVehiculo = vehiculoFacade.findAll();
+            return listaVehiculo = vehiculoFacade.findAll();
         } catch (Exception e) {
-            listaVehiculo = Collections.EMPTY_LIST;
+            return listaVehiculo = Collections.EMPTY_LIST;
         }
     }
 
@@ -105,12 +105,7 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
 
     @Override
     protected Object getKey(Diagnostico entity) {
-        try {
             return entity.getIdDiagnostico();
-        } catch (Exception e) {
-           
-        }
-         return null;
     }
 
     @Override
@@ -121,25 +116,6 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
     @Override
     protected Diagnostico getEntity() {
         return this.registro;
-    }
-
-    public String getIdVehiculoSeleccionado() {
-        if (this.registro != null && this.registro.getIdVehiculo() != null) {
-            return this.registro.getIdVehiculo().getIdVehiculo();
-        }
-        return null;
-    }
-
-    public void setIdVehiculoSeleccionado(String idVehiculo) {
-        if (this.registro != null && this.listaVehiculo != null) {
-            try {
-                this.registro.setIdVehiculo(this.listaVehiculo.stream()
-                        .filter(m -> m.getIdVehiculo().compareTo(idVehiculo) == 0).
-                        collect(Collectors.toList()).get(0));
-            } catch (Exception e) {
-
-            }
-        }
     }
 
     public List<Vehiculo> getListaVehiculo() {

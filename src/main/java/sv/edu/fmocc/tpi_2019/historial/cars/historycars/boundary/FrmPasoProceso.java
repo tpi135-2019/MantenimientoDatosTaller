@@ -76,18 +76,18 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
         estado = EstadosCRUD.NUEVO;
     }
     
-    public void listarPasos(){
+    public List listarPasos(){
         try {
-            listaPaso=pasofacade.findAll();
+            return listaPaso=pasofacade.findAll();
         } catch (Exception e) {
-            listaPaso=Collections.EMPTY_LIST;
+            return listaPaso=Collections.EMPTY_LIST;
         }
     }
-    public void listarProcesos(){
+    public List listarProcesos(){
         try {
-            listaProceso=procesoFacade.findAll();
+           return listaProceso=procesoFacade.findAll();
         } catch (Exception e) {
-            listaProceso=Collections.EMPTY_LIST;
+           return  listaProceso=Collections.EMPTY_LIST;
         }
     }
     
@@ -114,11 +114,9 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
 
     @Override
     protected Object getKey(PasoProceso entity) {
-        try {
+       
             return entity.getIdPasoProceso();
-        } catch (Exception e) {
-        }
-        return null;
+     
     }
 
     @Override
@@ -155,31 +153,4 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
         this.lazyModel = lazyModel;
     }
 
-    public Integer getIdProcesoSeleccionado() {
-        if (this.registro != null && this.registro.getIdProceso() != null) {
-            return this.registro.getIdProceso().getIdProceso();
-        }
-        return null;
-    }
-
-    public void setIdProcesoSeleccionado(Integer idProc) {
-        if (this.registro != null && this.listaProceso != null) {
-            this.registro.setIdProceso(this.listaProceso.stream()
-                    .filter(p -> p.getIdProceso().compareTo(idProc) == 0).collect(Collectors.toList()).get(0));
-        }
-    }
-
-    public Integer getIdPasoSeleccionado() {
-        if (this.registro != null && this.registro.getIdPaso() != null) {
-            return this.registro.getIdPaso().getIdPaso();
-        }
-        return null;
-    }
-
-    public void setIdPasoSeleccionado(Integer idPaso) {
-        if (this.registro != null && this.listaPaso != null) {
-            this.registro.setIdPaso(this.listaPaso.stream()
-                    .filter(p -> p.getIdPaso().compareTo(idPaso) == 0).collect(Collectors.toList()).get(0));
-        }
-    }
 }
