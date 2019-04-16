@@ -68,7 +68,7 @@ public class FrmParte extends AbstractBean<Parte> implements Serializable {
     @Override
     protected Parte getrowD(String rowkey) {
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-            try {
+           
 
                 for (Parte item : (List<Parte>) this.getLazyModel().getWrappedData()) {
                     Integer registry = new Integer(rowkey);
@@ -78,8 +78,6 @@ public class FrmParte extends AbstractBean<Parte> implements Serializable {
 
                 }
 
-            } catch (Exception e) {
-            }
         }
         return null;
     }
@@ -98,10 +96,6 @@ public class FrmParte extends AbstractBean<Parte> implements Serializable {
     @Override
     protected Parte getEntity() {
         return this.registro;
-    }
-
-    public LazyDataModel<Parte> getLazyModel() {
-        return lazyModel;
     }
 
     public void setLazyModel(LazyDataModel<Parte> lazyModel) {

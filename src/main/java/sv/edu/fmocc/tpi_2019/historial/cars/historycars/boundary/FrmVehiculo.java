@@ -8,7 +8,6 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -94,19 +93,15 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
     protected Vehiculo getrowD(String rowkey) {
 
         if (rowkey != null) {
-            try {
 
-                for (Vehiculo item : (List<Vehiculo>) this.getLazyModel().getWrappedData()) {
-                    String registry = (rowkey);
-                    if (item.getIdVehiculo().compareTo(registry) == 0) {
-                        return item;
-                    }
-
+            for (Vehiculo item : (List<Vehiculo>) this.getLazyModel().getWrappedData()) {
+                String registry = (rowkey);
+                if (item.getIdVehiculo().compareTo(registry) == 0) {
+                    return item;
                 }
 
-            } catch (NumberFormatException e) {
-                System.out.println("Excepcion" + e.getMessage());
             }
+
         }
 
         return null;
@@ -129,10 +124,6 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         return this.registro;
     }
 
-    public LazyDataModel<Vehiculo> getLazyModel() {
-        return lazyModel;
-    }
-
     public void setLazyModel(LazyDataModel<Vehiculo> lazyModel) {
         this.lazyModel = lazyModel;
     }
@@ -152,7 +143,6 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
     public void setListaPropietario(List<Propietario> listaPropietario) {
         this.listaPropietario = listaPropietario;
     }
-
 
     @Override
     protected void crearNuevo() {

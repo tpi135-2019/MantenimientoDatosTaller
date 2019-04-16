@@ -22,6 +22,7 @@ import org.mockito.Spy;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 
 /**
@@ -38,10 +39,8 @@ public abstract class BackingBeanTest<T> extends IniciarTest {
     protected abstract FacadeGenerico<T> getFacade();
 
     protected abstract T getEntity();
-    
-    protected abstract List<T> getLista();
-    
 
+    protected abstract List<T> getLista();
 
     @Spy
     Logger logger = Logger.getGlobal();
@@ -54,15 +53,6 @@ public abstract class BackingBeanTest<T> extends IniciarTest {
         getBean().setLogger(logger);
     }
 
-//    @Test
-//    public void LoadTest(){
-//        System.out.println("Load");
-//        getBean().modelo();
-//        Mockito.verify(getFacade()).findRange(Matchers.anyInt(), Matchers.anyInt());
-//        
-//         //Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
-//    }
-    
     @Test
     public void messageTest() {
         System.out.println("addMessage");
@@ -83,7 +73,24 @@ public abstract class BackingBeanTest<T> extends IniciarTest {
         Assert.assertNotNull(getEntity());
         Object b = getBean().getKey(getEntity());
         Assert.assertNotNull(b);
-        //  Assert.fail("muere");
+    }
+
+    @Spy
+    LazyDataModel lazyDataModel= new LazyDataModel() {
+};
+    
+    
+    public void getRowDataTest(String rowkey) {
+        if(rowkey==null || rowkey.isEmpty()){
+            rowkey="1";
+        }
+        Object entidad = getBean().getrowD(null);
+        Assert.assertNull(entidad);
+        Mockito.when(getBean().getLazyModel()).thenReturn(lazyDataModel);
+        Mockito.when(lazyDataModel.getWrappedData()).thenReturn(getLista());
+        entidad = getBean().getrowD(rowkey);
+        Assert.assertNotNull(entidad);
+
     }
 
     @Test

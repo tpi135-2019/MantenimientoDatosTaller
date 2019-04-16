@@ -42,6 +42,7 @@ public class FrmPersonalTest extends BackingBeanTest<Personal> {
     List<Personal> registrosPersonal = new ArrayList<>();
 
     @Before
+    @Override
     public void setup() {
         registrosSucursal.add(new Sucursal(1, "Taller los 3 chepes"));
         registrosSucursal.add(new Sucursal(1, "Taller los 3 chepes"));
@@ -80,5 +81,11 @@ public class FrmPersonalTest extends BackingBeanTest<Personal> {
     protected List<Personal> getLista() {
         return registrosPersonal;
     }
+    
+      @Test
+   public void getRowDTest(){
+       String key="";
+       getRowDataTest(key);
+   }
 
 }

@@ -47,6 +47,7 @@ public class FrmVehiculoTest extends BackingBeanTest<Vehiculo> {
     List<Vehiculo> registrosVehiculo = new ArrayList<>();
 
     @Before
+    @Override
     public void setup() {
         registrosModelo.add(new Modelo(1, "corolla"));
         registrosModelo.add(new Modelo(1, "prius"));
@@ -100,4 +101,9 @@ public class FrmVehiculoTest extends BackingBeanTest<Vehiculo> {
         return registrosVehiculo;
     }
 
+    @Test
+   public void getRowDTest(){
+       String key="P232-22";
+       getRowDataTest(key);
+   }  
 }

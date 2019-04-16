@@ -43,6 +43,7 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
     List<Reparacion> registrosReparacion = new ArrayList<>();
 
     @Before
+    @Override
     public void setup() {
         registrosDiagnostico.add(new Diagnostico(1, "se le pincho la llanta patron", new Date()));
         registrosDiagnostico.add(new Diagnostico(2, "necesita un cambio de acite", new Date()));
@@ -83,4 +84,9 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
         return registrosReparacion;
     }
 
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
+    }
 }

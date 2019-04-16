@@ -20,7 +20,6 @@
                        Ingrese el numero de Placa <h:inputText id="plca" value="#{frmUtilidades.placa}" /> 
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarPorPlaca()}"
                                           update=":frmTabla frmTexto" 
-                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
                                           />
                     </h:panelGrid>
                 </p:tab>
@@ -35,7 +34,6 @@
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarReparacionesPorDiagnostico()}"
                                           update=":frmTabla frmTexto" 
-                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
                                           />
                     </h:panelGrid>
                 </p:tab>
@@ -50,7 +48,6 @@
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarReparacionesPorPersonal()}"
                                           update=":frmTabla frmTexto" 
-                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
                                           />
 
                     </h:panelGrid>
@@ -74,7 +71,6 @@
 
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarReparacionesEntreFechas()}"
                                           update=":frmTabla frmTexto" 
-                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
                                           />
 
                     </h:panelGrid>
@@ -90,7 +86,6 @@
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarSucursalPorReparacion()}"
                                           update=":frmTabla frmTexto" 
-                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
                                           />
 
                     </h:panelGrid>
@@ -106,7 +101,6 @@
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarDiagnosticoPorPlaca()}"
                                           update=":frmTabla frmTexto" 
-                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
                                           />
 
                     </h:panelGrid>
@@ -120,7 +114,6 @@
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarPiezasPorReparacion()}"
                                           update=":frmTabla frmTexto" 
-                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
                                           />
 
                     </h:panelGrid>
@@ -134,7 +127,6 @@
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarPasoPorReparacion()}"
                                           update=":frmTabla frmTexto" 
-                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
                                           />
 
                     </h:panelGrid>
@@ -147,7 +139,6 @@
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarHistorialDePropietarios()}"
                                           update=":frmTabla frmTexto" 
-                                          style=" background-color: #2146FF ;" styleClass="ui-priority-primary" 
                                           />
 
                     </h:panelGrid>
@@ -160,7 +151,6 @@
             <p:dataTable var="item" value="#{frmUtilidades.listaReparacion}" paginator="true"
                          paginatorTemplate=" {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"
-                         style="background-color: #6E0E91"
                          emptyMessage="No se encontraron Registros"
                          rendered="#{frmUtilidades.tbl=='REPARACION'}">
 
@@ -184,7 +174,6 @@
             <p:dataTable var="t" value="#{frmUtilidades.listaDiagnostico}" paginator="true"
                          paginatorTemplate=" {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"
-                         style="background-color: #6E0E91"
                          emptyMessage="No se encontraron Registros"
                          rendered="#{frmUtilidades.tbl=='DIAGNOSTICO'}">
 
@@ -233,7 +222,6 @@
             <p:dataTable var="tt" value="#{frmUtilidades.listaPaso}" paginator="true"
                          paginatorTemplate=" {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"
-                         style="background-color: #6E0E91"
                          emptyMessage="No se encontraron Registros"
                          rendered="#{frmUtilidades.tbl=='PASO'}">
 
@@ -258,7 +246,6 @@
             <p:dataTable var="v" value="#{frmUtilidades.listaPieza}" paginator="true"
                          paginatorTemplate=" {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"
-                         style="background-color: #6E0E91"
                          emptyMessage="No se encontraron Registros"
                          rendered="#{frmUtilidades.tbl=='PIEZA'}">
                 <p:column headerText="idPieza">
@@ -285,7 +272,6 @@
             <p:dataTable var="m" value="#{frmUtilidades.listaPropietario}" paginator="true"
                          paginatorTemplate=" {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"
-                         style="background-color: #6E0E91"
                          emptyMessage="No se encontraron Registros"
                          rendered="#{frmUtilidades.tbl=='PROPIETARIO'}">
                 <p:column headerText="Id">

@@ -43,6 +43,7 @@ public class FrmSubParteTest extends BackingBeanTest<SubParte> {
     List<SubParte> registrosSubParte = new ArrayList<>();
 
     @Before
+    @Override
     public void setup() {
         registrosParte.add(new Parte(1, "motor"));
         registrosParte.add(new Parte(2, "interiores"));
@@ -81,5 +82,11 @@ public class FrmSubParteTest extends BackingBeanTest<SubParte> {
     @Override
     protected List<SubParte> getLista() {
         return registrosSubParte;
+    }
+
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
     }
 }

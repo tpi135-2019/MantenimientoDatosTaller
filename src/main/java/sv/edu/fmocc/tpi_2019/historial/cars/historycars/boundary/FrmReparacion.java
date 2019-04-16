@@ -8,7 +8,6 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -77,26 +76,21 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         try {
             return listaDiagnostico = diagnosticoFacade.findAll();
         } catch (Exception e) {
-           return listaDiagnostico = Collections.EMPTY_LIST;
+            return listaDiagnostico = Collections.EMPTY_LIST;
         }
     }
 
     @Override
     protected Reparacion getrowD(String rowkey) {
 
-        if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData()!=null) {
-            try {
+        if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
 
-                for (Reparacion item : (List<Reparacion>) this.getLazyModel().getWrappedData()) {
-                    Integer registry = new Integer(rowkey);
-                    if (item.getIdReparacion().compareTo(registry) == 0) {
-                        return item;
-                    }
-
+            for (Reparacion item : (List<Reparacion>) this.getLazyModel().getWrappedData()) {
+                Integer registry = new Integer(rowkey);
+                if (item.getIdReparacion().compareTo(registry) == 0) {
+                    return item;
                 }
 
-            } catch (NumberFormatException e) {
-                System.out.println("Excepcion" + e.getMessage());
             }
         }
 
@@ -105,10 +99,9 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
 
     @Override
     protected Object getKey(Reparacion entity) {
-       
-            return entity.getIdReparacion();
 
-     
+        return entity.getIdReparacion();
+
     }
 
     @Override
@@ -120,7 +113,6 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     protected Reparacion getEntity() {
         return this.registro;
     }
-
 
     public ReparacionFacade getReparacionFacade() {
         return reparacionFacade;
@@ -154,15 +146,8 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         this.lista = lista;
     }
 
-    public LazyDataModel<Reparacion> getLazyModel() {
-        return lazyModel;
-    }
-
     public void setLazyModel(LazyDataModel<Reparacion> lazyModel) {
         this.lazyModel = lazyModel;
     }
 
-
-
-    
 }

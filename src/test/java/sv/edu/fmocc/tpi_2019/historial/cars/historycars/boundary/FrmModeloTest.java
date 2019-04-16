@@ -49,7 +49,8 @@ public class FrmModeloTest extends BackingBeanTest<Modelo> {
     List<Modelo> registrosModelo = new ArrayList<>();
 
     @Before
-    public void setUp() {
+    @Override
+    public void setup() {
         registrosMarca.add(new Marca(1, "Toyota"));
         registrosMarca.add(new Marca(2, "Nissan"));
         registrosTipoVehiculo.add(new TipoVehiculo(1, "sedan"));
@@ -72,6 +73,10 @@ public class FrmModeloTest extends BackingBeanTest<Modelo> {
     @Override
     protected Modelo getEntity() {
         return modelo;
+    }
+      @Override
+    protected List<Modelo> getLista() {
+        return registrosModelo;
     }
 
     @Test
@@ -96,9 +101,11 @@ public class FrmModeloTest extends BackingBeanTest<Modelo> {
         org.junit.Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
-    @Override
-    protected List<Modelo> getLista() {
-        return registrosModelo;
+  
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
     }
-
+    
 }
