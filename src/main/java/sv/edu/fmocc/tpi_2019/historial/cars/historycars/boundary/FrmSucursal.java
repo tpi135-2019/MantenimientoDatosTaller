@@ -22,12 +22,11 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
  */
 @Named
 @ViewScoped
-public class FrmSucursal extends AbstractBean<Sucursal> implements Serializable{
+public class FrmSucursal extends AbstractBean<Sucursal> implements Serializable {
 
     @Inject
     SucursalFacade sucursalFacade;
-    
-    
+
     @PostConstruct
     @Override
     protected void init() {
@@ -60,35 +59,32 @@ public class FrmSucursal extends AbstractBean<Sucursal> implements Serializable{
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
-    
+
     @Override
     protected void crearNuevo() {
-        this.registro= new Sucursal();
+        this.registro = new Sucursal();
     }
 
     @Override
     protected Sucursal getrowD(String rowkey) {
-        if(rowkey!=null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData()!=null){
-            try {
-                 for (Sucursal item :(List<Sucursal>) this.getLazyModel().getWrappedData()) {
-                Integer resgistry= new Integer(rowkey);
-                if(item.getIdSucursal().compareTo(resgistry)==0){
+        if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
+
+            for (Sucursal item : (List<Sucursal>) this.getLazyModel().getWrappedData()) {
+                Integer resgistry = new Integer(rowkey);
+                if (item.getIdSucursal().compareTo(resgistry) == 0) {
                     return item;
                 }
             }
-            } catch (NumberFormatException e) {
-                
-            }
-           
-    }
+
+        }
         return null;
     }
 
     @Override
     protected Object getKey(Sucursal entity) {
-     
-            return entity.getIdSucursal();
-     
+
+        return entity.getIdSucursal();
+
     }
 
     @Override
@@ -101,14 +97,8 @@ public class FrmSucursal extends AbstractBean<Sucursal> implements Serializable{
         return this.registro;
     }
 
-    public LazyDataModel<Sucursal> getLazyModel() {
-        return lazyModel;
-    }
-
     public void setLazyModel(LazyDataModel<Sucursal> lazyModel) {
         this.lazyModel = lazyModel;
     }
-    
-    
-    
+
 }

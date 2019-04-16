@@ -8,7 +8,6 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -72,7 +71,7 @@ public class FrmSubParte extends AbstractBean<SubParte> implements Serializable 
         try {
             return listaParte = parteFacade.findAll();
         } catch (Exception e) {
-          return  listaParte = Collections.EMPTY_LIST;
+            return listaParte = Collections.EMPTY_LIST;
         }
     }
 
@@ -96,9 +95,9 @@ public class FrmSubParte extends AbstractBean<SubParte> implements Serializable 
 
     @Override
     protected Object getKey(SubParte entity) {
-      
-            return entity.getIdSubParte();
-      
+
+        return entity.getIdSubParte();
+
     }
 
     @Override
@@ -117,10 +116,6 @@ public class FrmSubParte extends AbstractBean<SubParte> implements Serializable 
 
     public void setListaParte(List<Parte> listaParte) {
         this.listaParte = listaParte;
-    }
-
-    public LazyDataModel<SubParte> getLazyModel() {
-        return lazyModel;
     }
 
     public void setLazyModel(LazyDataModel<SubParte> lazyModel) {

@@ -7,19 +7,15 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.powermock.modules.junit4.PowerMockRunner;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.EspecialidadFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Especialidad;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
 
 /**
@@ -36,13 +32,14 @@ public class FrmPropietarioTest extends BackingBeanTest<Propietario> {
     FrmPropietario cut = new FrmPropietario();
 
     Propietario propietario = new Propietario(1);
-    List<Propietario> registrosPropietario= new ArrayList<>();
+    List<Propietario> registrosPropietario = new ArrayList<>();
 
-@Before
-public void setup(){
-    registrosPropietario.add(new Propietario(1, "Pepe", "Grillo"));
-    registrosPropietario.add(new Propietario(2, "Rolando", "Guirolla"));
-}
+    @Before
+    @Override
+    public void setup() {
+        registrosPropietario.add(new Propietario(1, "Pepe", "Grillo"));
+        registrosPropietario.add(new Propietario(2, "Rolando", "Guirolla"));
+    }
 
     @Override
     protected AbstractBean<Propietario> getBean() {
@@ -59,16 +56,14 @@ public void setup(){
         return propietario;
     }
 
-
-    //    @Test
-//    public void getFacadeTest() {
-//        System.out.println("getFacade");
-//        PropietarioFacade pfc = (PropietarioFacade) cut.getFacadeLocal();
-//        Assert.assertEquals(pfc, propietarioFacade);
-//    }
-
     @Override
     protected List<Propietario> getLista() {
         return registrosPropietario;
+    }
+
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
     }
 }

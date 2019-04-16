@@ -8,6 +8,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -33,11 +34,11 @@ public class FrmPasoTest extends BackingBeanTest<Paso> {
     List<Paso> registrosPaso = new ArrayList<>();
 
     @Before
-    public void setup(){
+    public void setup() {
         registrosPaso.add(new Paso(1, "quitar llanta"));
         registrosPaso.add(new Paso(2, "poner nueva llanta"));
     }
-    
+
     @Override
     protected AbstractBean<Paso> getBean() {
         return cut;
@@ -58,4 +59,9 @@ public class FrmPasoTest extends BackingBeanTest<Paso> {
         return registrosPaso;
     }
 
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
+    }
 }

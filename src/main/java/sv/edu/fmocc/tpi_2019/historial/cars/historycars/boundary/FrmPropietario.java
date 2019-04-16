@@ -44,23 +44,22 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
 
     @Override
     public void crear() {
-        estado=EstadosCRUD.AGREGAR;
-        super.crear(); 
+        estado = EstadosCRUD.AGREGAR;
+        super.crear();
     }
 
     @Override
     public void modificar() {
-        estado=EstadosCRUD.EDITAR;
-        super.modificar(); 
+        estado = EstadosCRUD.EDITAR;
+        super.modificar();
     }
 
-    
     @Override
     public void eliminar() {
-        estado=EstadosCRUD.ELIMINAR;
-        super.eliminar(); 
+        estado = EstadosCRUD.ELIMINAR;
+        super.eliminar();
     }
-    
+
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
@@ -74,19 +73,14 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
     protected Propietario getrowD(String rowkey) {
 
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-            try {
 
-                for (Propietario item : (List<Propietario>) this.getLazyModel().getWrappedData()) {
-                    Integer registry = new Integer(rowkey);
-                    if (item.getIdPropietario().compareTo(registry) == 0) {
-                        return item;
-                    }
-
+            for (Propietario item : (List<Propietario>) this.getLazyModel().getWrappedData()) {
+                Integer registry = new Integer(rowkey);
+                if (item.getIdPropietario().compareTo(registry) == 0) {
+                    return item;
                 }
-
-            } catch (NumberFormatException e) {
-                System.out.println("Excepcion" + e.getMessage());
             }
+
         }
 
         return null;
@@ -107,7 +101,7 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
     protected Propietario getEntity() {
         return this.registro;
     }
-    
+
     public PropietarioFacade getPropietarioFacade() {
         return propietarioFacade;
     }
@@ -124,23 +118,8 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
         this.lista = lista;
     }
 
-    public LazyDataModel<Propietario> getLazyModel() {
-        return lazyModel;
-    }
-
     public void setLazyModel(LazyDataModel<Propietario> lazyModel) {
         this.lazyModel = lazyModel;
     }
-
-    @Override
-    public Propietario getRegistro() {
-        return registro;
-    }
-
-    @Override
-    public EstadosCRUD getEstado() {
-        return estado;
-    }
-
 
 }

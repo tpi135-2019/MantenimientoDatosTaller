@@ -8,6 +8,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,22 +23,23 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Especiali
  * @author kevin
  */
 @RunWith(PowerMockRunner.class)
-public class FrmEspecialidadTest extends BackingBeanTest<Especialidad>{
-    
+public class FrmEspecialidadTest extends BackingBeanTest<Especialidad> {
+
     @Mock
     EspecialidadFacade especialidadFacade;
     @Spy
     @InjectMocks
     FrmEspecialidad cut = new FrmEspecialidad();
     Especialidad especialidad = new Especialidad(1);
-    List<Especialidad> registrosEspecialidad= new ArrayList<>();
-    
-@Before
-public void setup(){
-    registrosEspecialidad.add(new Especialidad(1, "mecanica General"));
-    registrosEspecialidad.add(new Especialidad(2, "Electrico"));
-}
-    
+    List<Especialidad> registrosEspecialidad = new ArrayList<>();
+
+    @Before
+    @Override
+    public void setup() {
+        registrosEspecialidad.add(new Especialidad(1, "mecanica General"));
+        registrosEspecialidad.add(new Especialidad(2, "Electrico"));
+    }
+
     @Override
     protected AbstractBean<Especialidad> getBean() {
         return cut;
@@ -57,5 +59,10 @@ public void setup(){
     protected List<Especialidad> getLista() {
         return registrosEspecialidad;
     }
-    
+
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
+    }
 }

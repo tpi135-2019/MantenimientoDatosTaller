@@ -69,15 +69,14 @@ public class FrmPaso extends AbstractBean<Paso> implements Serializable {
     @Override
     protected Paso getrowD(String rowkey) {
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-            try {
+         
                 for (Paso item : (List<Paso>) this.getLazyModel().getWrappedData()) {
                     Integer registry = new Integer(rowkey);
                     if (item.getIdPaso().compareTo(registry) == 0) {
                         return item;
                     }
                 }
-            } catch (Exception e) {
-            }
+           
         }
 
         return null;
@@ -98,10 +97,6 @@ public class FrmPaso extends AbstractBean<Paso> implements Serializable {
     @Override
     protected Paso getEntity() {
         return this.registro;
-    }
-
-    public LazyDataModel<Paso> getLazyModel() {
-        return lazyModel;
     }
 
     public void setLazyModel(LazyDataModel<Paso> lazyModel) {

@@ -8,12 +8,10 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.MarcaFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ModeloFacade;
@@ -107,7 +105,7 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
     protected Modelo getrowD(String rowkey) {
 
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-            try {
+           
 
                 for (Modelo item : (List<Modelo>) this.getLazyModel().getWrappedData()) {
                     Integer registry = new Integer(rowkey);
@@ -117,9 +115,7 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
 
                 }
 
-            } catch (NumberFormatException e) {
-                System.out.println("Excepcion" + e.getMessage());
-            }
+         
         }
 
         return null;
@@ -135,20 +131,10 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
         return modeloFacade;
     }
 
-    @Override
-    protected Modelo getEntity() {
-        return registro;
-    }
-
-   
-
     public List<Modelo> getLista() {
         return lista;
     }
 
-    public LazyDataModel<Modelo> getLazyModel() {
-        return lazyModel;
-    }
 
     public List<Marca> getListaMarcas() {
         return listaMarcas;
@@ -166,25 +152,9 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
         this.listaTipoVehiculo = listaTipoVehiculo;
     }
 
-  
-    public Integer getIdTipoVehiculoSeleccionado() {
-        if (this.registro != null && this.registro.getIdTipoVehiculo() != null) {
-            return this.registro.getIdTipoVehiculo().getIdTipoVehiculo();
-        }
-        return null;
-    }
-
-    
-    public void setIdTipoVehiculoSeleccionado(Integer idTipoSeleccionado) {
-        if (this.registro != null && this.listaTipoVehiculo != null) {
-            try {
-                this.registro.setIdTipoVehiculo(this.listaTipoVehiculo.stream().
-                        filter(r -> r.getIdTipoVehiculo().compareTo(idTipoSeleccionado) == 0)
-                        .collect(Collectors.toList()).get(0));
-            } catch (Exception e) {
-
-            }
-        }
+    @Override
+    protected Modelo getEntity() {
+        return this.registro;
     }
 
 }

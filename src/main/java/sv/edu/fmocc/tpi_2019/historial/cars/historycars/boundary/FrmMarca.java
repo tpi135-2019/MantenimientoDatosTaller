@@ -7,7 +7,6 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -72,7 +71,7 @@ public class FrmMarca extends AbstractBean<Marca> implements Serializable{
     protected Marca getrowD(String rowkey) {
         
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-            try {
+          
 
                 for (Marca item : (List<Marca>) this.getLazyModel().getWrappedData()) {
                     Integer registry = new Integer(rowkey);
@@ -82,9 +81,7 @@ public class FrmMarca extends AbstractBean<Marca> implements Serializable{
 
                 }
 
-            } catch (NumberFormatException e) {
-                System.out.println("Excepcion" + e.getMessage());
-            }
+          
         }
 
         return null;
@@ -108,35 +105,9 @@ public class FrmMarca extends AbstractBean<Marca> implements Serializable{
     
     // getters y setters
 
-    public MarcaFacade getMarcaFacade() {
-        return marcaFacade;
-    }
-
-    public void setMarcaFacade(MarcaFacade marcaFacade) {
-        this.marcaFacade = marcaFacade;
-    }
-
-    public LazyDataModel<Marca> getLazyModel() {
-        return lazyModel;
-    }
-
     public void setLazyModel(LazyDataModel<Marca> lazyModel) {
         this.lazyModel = lazyModel;
     }
 
-    @Override
-    public Marca getRegistro() {
-        return registro;
-    }
-
-    public void setRegistro(Marca registro) {
-        this.registro = registro;
-    }
-    
-    
-    
-    
-    
-    
     
 }

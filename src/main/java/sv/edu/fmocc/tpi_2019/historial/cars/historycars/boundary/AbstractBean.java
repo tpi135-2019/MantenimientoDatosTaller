@@ -172,6 +172,10 @@ public abstract class AbstractBean<T> implements Serializable {
         this.registro = registro;
     }
 
+    public LazyDataModel<T> getLazyModel() {
+        return lazyModel;
+    }
+
     public void setLogger(Logger logger) {
         this.logger = logger;
     }

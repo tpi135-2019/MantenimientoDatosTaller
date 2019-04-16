@@ -8,6 +8,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -30,14 +31,14 @@ public class FrmSucursalTest extends BackingBeanTest<Sucursal> {
     @InjectMocks
     FrmSucursal cut = new FrmSucursal();
     Sucursal sucursal = new Sucursal(1);
-    List<Sucursal> registrosSucursal= new ArrayList<>();
-    
+    List<Sucursal> registrosSucursal = new ArrayList<>();
+
     @Before
-    public void setup(){
+    @Override
+    public void setup() {
         registrosSucursal.add(new Sucursal(1, "Taller los 3 Chepes"));
         registrosSucursal.add(new Sucursal(2, "Taller el vecino"));
     }
-
 
     @Override
     protected AbstractBean<Sucursal> getBean() {
@@ -59,4 +60,9 @@ public class FrmSucursalTest extends BackingBeanTest<Sucursal> {
         return registrosSucursal;
     }
 
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
+    }
 }

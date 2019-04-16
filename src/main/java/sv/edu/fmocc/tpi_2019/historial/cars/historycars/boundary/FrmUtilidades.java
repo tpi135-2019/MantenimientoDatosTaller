@@ -99,15 +99,9 @@ public class FrmUtilidades implements Serializable {
         tbl = estadosTbl.REPARACION;
         listaReparacion = new ArrayList<>();
         if(select!=null){
-             Integer key=0;
+          
             try {
-                key=Integer.valueOf(select);
-            } catch (NumberFormatException e) {
-             logger.log(Level.SEVERE, "parseo incorrecto");
-            }
-   
-            try {
-              return listaReparacion = reparacionFacade.reparacionPorDiagnostico(key);
+              return listaReparacion = reparacionFacade.reparacionPorDiagnostico(new Integer(select));
                 
             } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
@@ -123,17 +117,11 @@ public class FrmUtilidades implements Serializable {
     public List buscarReparacionesPorPersonal() {
         tbl = estadosTbl.REPARACION;
         listaReparacion = new ArrayList<>();
-        if (select != null) {
+        if (person != null) {
             try {
-                List<Reparacion> ls = reparacionFacade.reparacionPorPersonal(new Integer(person));
-                ls.forEach((item) -> {
-                    listaReparacion.add(item);
-                });
-
-                if (listaReparacion != null && !listaReparacion.isEmpty()) {
-                    return listaReparacion;
-                }
-            } catch (Exception ex) {
+               return listaReparacion = reparacionFacade.reparacionPorPersonal(new Integer(person));
+               
+            } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
 
             }
@@ -169,16 +157,9 @@ public class FrmUtilidades implements Serializable {
         listaSucursal = new ArrayList<>();
         if (rep != null) {
             try {
-                List<Sucursal> ls = sucursalFacade.lugarReparacion(new Integer(rep));
-                ls.forEach((item) -> {
-                    listaSucursal.add(item);
-                });
-
-                if (listaSucursal != null && !listaSucursal.isEmpty()) {
-                    return listaSucursal;
-                }
-
-            } catch (Exception ex) {
+              return listaSucursal= sucursalFacade.lugarReparacion(new Integer(rep));
+             
+            } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
 
             }
@@ -222,15 +203,9 @@ public class FrmUtilidades implements Serializable {
         listaPieza = new ArrayList<>();
         if (pieza != null) {
             try {
-                List<Pieza> ls = piezaFacade.piezasReparacion(new Integer(pieza));
-                ls.forEach((item) -> {
-                    listaPieza.add(item);
-                });
-
-                if (listaPieza != null && !listaPieza.isEmpty()) {
-                    return listaPieza;
-                }
-            } catch (Exception ex) {
+                return listaPieza = piezaFacade.piezasReparacion(new Integer(pieza));
+              
+            } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
 
             }
@@ -253,7 +228,7 @@ public class FrmUtilidades implements Serializable {
                 if (listaPaso != null && !listaPaso.isEmpty()) {
                     return listaPaso;
                 }
-            } catch (Exception ex) {
+            } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
 
             }

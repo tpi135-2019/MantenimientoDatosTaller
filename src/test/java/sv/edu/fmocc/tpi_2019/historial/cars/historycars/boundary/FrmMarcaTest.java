@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.context.FacesContext;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -36,6 +37,7 @@ public class FrmMarcaTest extends BackingBeanTest<Marca> {
     List<Marca> registrosMarca = new ArrayList<>();
 
     @Before
+    @Override
     public void setup() {
         registrosMarca.add(new Marca(1, "Toyota"));
         registrosMarca.add(new Marca(2, "Honda"));
@@ -60,5 +62,10 @@ public class FrmMarcaTest extends BackingBeanTest<Marca> {
     protected List<Marca> getLista() {
         return registrosMarca;
     }
+      @Test
+   public void getRowDTest(){
+       String key="";
+       getRowDataTest(key);
+   }
 
 }

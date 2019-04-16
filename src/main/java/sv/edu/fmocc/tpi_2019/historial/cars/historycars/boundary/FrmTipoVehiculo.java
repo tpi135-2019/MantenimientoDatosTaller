@@ -69,19 +69,15 @@ public class FrmTipoVehiculo extends AbstractBean<TipoVehiculo> implements Seria
     protected TipoVehiculo getrowD(String rowkey) {
 
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-            try {
 
-                for (TipoVehiculo item : (List<TipoVehiculo>) this.getLazyModel().getWrappedData()) {
-                    Integer registry = new Integer(rowkey);
-                    if (item.getIdTipoVehiculo().compareTo(registry) == 0) {
-                        return item;
-                    }
-
+            for (TipoVehiculo item : (List<TipoVehiculo>) this.getLazyModel().getWrappedData()) {
+                Integer registry = new Integer(rowkey);
+                if (item.getIdTipoVehiculo().compareTo(registry) == 0) {
+                    return item;
                 }
 
-            } catch (NumberFormatException e) {
-                System.out.println("Excepcion" + e.getMessage());
             }
+
         }
 
         return null;
@@ -103,18 +99,9 @@ public class FrmTipoVehiculo extends AbstractBean<TipoVehiculo> implements Seria
         this.lista = lista;
     }
 
-    public LazyDataModel<TipoVehiculo> getLazyModel() {
-        return lazyModel;
-    }
-
     public void setLazyModel(LazyDataModel<TipoVehiculo> lazyModel) {
         this.lazyModel = lazyModel;
     }
-
-    public TipoVehiculo getRegistro() {
-        return registro;
-    }
-
 
     @Override
     protected Object getKey(TipoVehiculo entity) {

@@ -8,12 +8,10 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.VehiculoFacade;
@@ -85,19 +83,16 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
     protected Diagnostico getrowD(String rowkey) {
         
         if (rowkey != null) {
-            try {
+           
 
                 for (Diagnostico item : (List<Diagnostico>) this.getLazyModel().getWrappedData()) {
                     Integer registry = new Integer(rowkey);
                     if (item.getIdDiagnostico().compareTo(registry) == 0) {
                         return item;
                     }
-
                 }
 
-            } catch (NumberFormatException e) {
-                System.out.println("Excepcion" + e.getMessage());
-            }
+          
         }
 
         return null;
@@ -126,13 +121,7 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
         this.listaVehiculo = listaVehiculo;
     }
 
-    public LazyDataModel<Diagnostico> getLazyModel() {
-        return lazyModel;
-    }
 
-    public void setLazyModel(LazyDataModel<Diagnostico> lazyModel) {
-        this.lazyModel = lazyModel;
-    }
     
     
 

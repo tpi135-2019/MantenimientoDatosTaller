@@ -49,6 +49,7 @@ public class FrmDiagnosticoTest extends BackingBeanTest<Diagnostico> {
     }
 
     @Before
+    @Override
     public void setup() {
         registrosVehiculos.add(new Vehiculo("P323-12", "HSH3345", "GTTG324", "FST6632"));
         registrosVehiculos.add(new Vehiculo("P322-12", "E31145", "D2342F24", "VCBQ632"));
@@ -83,4 +84,10 @@ public class FrmDiagnosticoTest extends BackingBeanTest<Diagnostico> {
         return registrosDiagnostico;
     }
 
+   @Test
+   public void getRowDTest(){
+       String key="";
+       getRowDataTest(key);
+   }
+    
 }

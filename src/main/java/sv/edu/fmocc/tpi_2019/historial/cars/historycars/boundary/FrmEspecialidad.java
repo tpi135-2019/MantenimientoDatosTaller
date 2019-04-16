@@ -69,15 +69,14 @@ public class FrmEspecialidad extends AbstractBean<Especialidad> implements Seria
     @Override
     protected Especialidad getrowD(String rowkey) {
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel() != null) {
-            try {
+          
                 for (Especialidad item : (List<Especialidad>) this.getLazyModel().getWrappedData()) {
                     Integer registry = new Integer(rowkey);
                     if (item.getIdEspecialidad().compareTo(registry) == 0) {
                         return item;
                     }
                 }
-            } catch (Exception e) {
-            }
+         
         }
 
         return null;
@@ -96,10 +95,6 @@ public class FrmEspecialidad extends AbstractBean<Especialidad> implements Seria
     @Override
     protected Especialidad getEntity() {
         return this.registro;
-    }
-
-    public LazyDataModel<Especialidad> getLazyModel() {
-        return lazyModel;
     }
 
     public void setLazyModel(LazyDataModel<Especialidad> lazyModel) {

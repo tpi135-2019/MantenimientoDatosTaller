@@ -38,20 +38,19 @@ public class FrmPiezaTest extends BackingBeanTest<Pieza> {
     @InjectMocks
     FrmPieza cut = new FrmPieza();
     Pieza pieza = new Pieza(1);
-    List<SubParte> registrosSubParte= new ArrayList<>();
-    List<Pieza> piezaList= new ArrayList<>();
+    List<SubParte> registrosSubParte = new ArrayList<>();
+    List<Pieza> piezaList = new ArrayList<>();
 
     @Before
+    @Override
     public void setup() {
         registrosSubParte.add(new SubParte(1, "pistones"));
         registrosSubParte.add(new SubParte(2, "radiador"));
-        
+
         piezaList.add(new Pieza(1, "tuercas"));
         piezaList.add(new Pieza(2, "faja del tiempo"));
     }
 
-    
-    
     @Override
     protected AbstractBean<Pieza> getBean() {
         return cut;
@@ -72,15 +71,21 @@ public class FrmPiezaTest extends BackingBeanTest<Pieza> {
         System.out.println("listarPiezas");
         Mockito.when(subParteFacade.findAll()).thenReturn(registrosSubParte);
         List lista = cut.listarSubpartes();
-        Assert.assertEquals(registrosSubParte.size(),lista.size());
+        Assert.assertEquals(registrosSubParte.size(), lista.size());
         Mockito.when(subParteFacade.findAll()).thenThrow(Exception.class);
-        lista=cut.listarSubpartes();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(),lista.size());
+        lista = cut.listarSubpartes();
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
     @Override
     protected List<Pieza> getLista() {
         return piezaList;
+    }
+
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
     }
 
 }

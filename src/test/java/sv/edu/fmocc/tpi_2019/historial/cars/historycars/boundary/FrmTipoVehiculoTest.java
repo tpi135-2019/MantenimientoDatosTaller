@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -34,6 +35,7 @@ public class FrmTipoVehiculoTest extends BackingBeanTest<TipoVehiculo> {
     List<TipoVehiculo> registrosTipoVehiculo = new ArrayList<>();
 
     @Before
+    @Override
     public void setup() {
         registrosTipoVehiculo.add(new TipoVehiculo(1, "Sedan"));
         registrosTipoVehiculo.add(new TipoVehiculo(2, "Hatchback"));
@@ -60,4 +62,9 @@ public class FrmTipoVehiculoTest extends BackingBeanTest<TipoVehiculo> {
         return registrosTipoVehiculo;
     }
 
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
+    }
 }

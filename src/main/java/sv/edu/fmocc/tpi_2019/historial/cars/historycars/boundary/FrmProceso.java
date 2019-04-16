@@ -85,15 +85,14 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
     protected Proceso getrowD(String rowkey) {
 
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-            try {
+           
                 for (Proceso item : (List<Proceso>) this.getLazyModel().getWrappedData()) {
                     Integer registry = new Integer(rowkey);
                     if (item.getIdProceso().compareTo(registry) == 0) {
                         return item;
                     }
                 }
-            } catch (Exception e) {
-            }
+         
         }
 
         return null;
@@ -122,10 +121,6 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
 
     public void setListaEspecialidad(List<Especialidad> listaEspecialidad) {
         this.listaEspecialidad = listaEspecialidad;
-    }
-
-    public LazyDataModel<Proceso> getLazyModel() {
-        return lazyModel;
     }
 
     public void setLazyModel(LazyDataModel<Proceso> lazyModel) {

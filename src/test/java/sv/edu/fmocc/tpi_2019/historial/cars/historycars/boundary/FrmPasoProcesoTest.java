@@ -75,6 +75,10 @@ public class FrmPasoProcesoTest extends BackingBeanTest<PasoProceso> {
     protected PasoProceso getEntity() {
         return pasoProceso;
     }
+     @Override
+    protected List<PasoProceso> getLista() {
+        return registrosPasoProceso;
+    }
 
     @Test
     public void listarPasosTest() {
@@ -99,9 +103,11 @@ public class FrmPasoProcesoTest extends BackingBeanTest<PasoProceso> {
 
     }
 
-    @Override
-    protected List<PasoProceso> getLista() {
-        return registrosPasoProceso;
-    }
+   
 
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
+    }
 }

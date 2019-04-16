@@ -8,7 +8,6 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -87,15 +86,14 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable{
     @Override
     protected Personal getrowD(String rowkey) {
         if(rowkey!=null && !rowkey.isEmpty() &&  this.getLazyModel().getWrappedData()!=null){
-            try {
+           
                 for (Personal item : (List<Personal>)this.getLazyModel().getWrappedData()) {
                     Integer registry = new Integer(rowkey);
                     if(item.getIdMecanico().compareTo(registry)==0){
                         return item;
                     }
                 }
-            } catch (Exception e) {
-            }
+          
         }
         return null;
     }
@@ -117,26 +115,8 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable{
         return this.registro;
     }
 
-    public LazyDataModel<Personal> getLazyModel() {
-        return lazyModel;
-    }
-
     public void setLazyModel(LazyDataModel<Personal> lazyModel) {
         this.lazyModel = lazyModel;
-    }
-    
-    public Integer getIdSucursalSeleccionada(){
-        if(this.registro!=null && this.registro.getIdSucursal()!=null){
-            return this.registro.getIdSucursal().getIdSucursal();
-        }
-        return null;
-    }
-  
-    public void setIdSucursalSeleccionada(Integer idSucursal){
-        if(this.registro!=null && listaSucursal!=null){
-            this.registro.setIdSucursal(this.listaSucursal.stream()
-                    .filter(s->s.getIdSucursal().compareTo(idSucursal)==0).collect(Collectors.toList()).get(0));
-        }
     }
 
     public List<Sucursal> getListaSucursal() {
@@ -146,8 +126,6 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable{
     public void setListaSucursal(List<Sucursal> listaSucursal) {
         this.listaSucursal = listaSucursal;
     }
-    
-    
     
     
 }

@@ -8,7 +8,6 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -118,10 +117,6 @@ public class FrmPieza extends AbstractBean<Pieza> implements Serializable{
 
     public void setListaSubParte(List<SubParte> listaSubParte) {
         this.listaSubParte = listaSubParte;
-    }
-
-    public LazyDataModel<Pieza> getLazyModel() {
-        return lazyModel;
     }
 
     public void setLazyModel(LazyDataModel<Pieza> lazyModel) {

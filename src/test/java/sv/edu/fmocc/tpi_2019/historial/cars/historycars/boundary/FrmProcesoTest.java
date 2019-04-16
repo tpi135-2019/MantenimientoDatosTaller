@@ -42,6 +42,7 @@ public class FrmProcesoTest extends BackingBeanTest<Proceso>{
     List<Proceso> registrosProceso= new ArrayList<>();
     
     @Before
+    @Override
     public void setup(){
         registrosEspecialidad.add(new Especialidad(1, "Mecanica General"));
         registrosEspecialidad.add(new Especialidad(2, "Electronica"));
@@ -81,5 +82,10 @@ public class FrmProcesoTest extends BackingBeanTest<Proceso>{
     protected List<Proceso> getLista() {
         return registrosProceso;
     }
-    
+ 
+      @Test
+   public void getRowDTest(){
+       String key="";
+       getRowDataTest(key);
+   }
 }

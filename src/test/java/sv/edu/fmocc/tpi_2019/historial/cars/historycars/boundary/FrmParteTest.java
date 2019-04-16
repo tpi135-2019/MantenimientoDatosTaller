@@ -8,6 +8,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,23 +23,22 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Parte;
  * @author kevin
  */
 @RunWith(PowerMockRunner.class)
-public class FrmParteTest extends BackingBeanTest<Parte>{
+public class FrmParteTest extends BackingBeanTest<Parte> {
 
     @Mock
     ParteFacade parteFacade;
     @Spy
     @InjectMocks
     FrmParte cut = new FrmParte();
-    Parte parte= new Parte(1);
+    Parte parte = new Parte(1);
     List<Parte> registrosParte = new ArrayList<>();
-    
+
     @Before
-    public void setup(){
-        registrosParte.add(new Parte(1,"Motor"));
+    public void setup() {
+        registrosParte.add(new Parte(1, "Motor"));
         registrosParte.add(new Parte(2, "Interiores"));
     }
-            
-    
+
     @Override
     protected AbstractBean<Parte> getBean() {
         return cut;
@@ -58,6 +58,11 @@ public class FrmParteTest extends BackingBeanTest<Parte>{
     protected List<Parte> getLista() {
         return registrosParte;
     }
-    
-    
+
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
+    }
+
 }

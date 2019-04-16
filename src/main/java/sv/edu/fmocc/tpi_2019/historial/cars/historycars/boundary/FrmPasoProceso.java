@@ -8,7 +8,6 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -99,15 +98,14 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
     @Override
     protected PasoProceso getrowD(String rowkey) {
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-            try {
+           
                 for (PasoProceso pp : (List<PasoProceso>) this.getLazyModel().getWrappedData()) {
                     Integer registry = new Integer(rowkey);
                     if (pp.getIdPasoProceso().compareTo(registry) == 0) {
                         return pp;
                     }
                 }
-            } catch (Exception e) {
-            }
+           
         }
         return null;
     }
@@ -144,11 +142,7 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
     public void setListaPaso(List<Paso> listaPaso) {
         this.listaPaso = listaPaso;
     }
-
-    public LazyDataModel<PasoProceso> getLazyModel() {
-        return lazyModel;
-    }
-
+    
     public void setLazyModel(LazyDataModel<PasoProceso> lazyModel) {
         this.lazyModel = lazyModel;
     }
