@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+  <jdbc-resource enabled="true" jndi-name="jdbc_arquillian" object-type="user" pool-name="ArquillianPool">
+    <description/>
+  </jdbc-resource>
+  <jdbc-connection-pool name="ArquillianPool" 
+                        datasource-classname="org.h2.jdbcx.JdbcDataSource"
+                        res-type="javax.sql.DataSource">
+    <property name="url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;TRACE_LEVEL_SYSTEM_OUT=3"/>
+  </jdbc-connection-pool>
+</resources>

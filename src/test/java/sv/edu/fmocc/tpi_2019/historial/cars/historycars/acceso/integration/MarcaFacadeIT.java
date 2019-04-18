@@ -11,24 +11,24 @@ import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.MarcaFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Marca;
 
 /**
  *
  * @author kevin
  */
 @RunWith(Arquillian.class)
-public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
+public class MarcaFacadeIT extends SessionBeanIT<Marca> {
 
     @Inject
-    PropietarioFacade cut;
-    List<Propietario> datos = new ArrayList();
+    MarcaFacade cut;
+    List<Marca> datos = new ArrayList();
 
-    public PropietarioFacadeIT() {
-        datos.add(new Propietario(1, "juan", "perez"));
-        datos.add(new Propietario(2, "daft", "punk"));
-        datos.add(new Propietario(3, "ford", "henry"));
+    public MarcaFacadeIT() {
+        datos.add(new Marca(1, "toyota"));
+        datos.add(new Marca(2, "nissan"));
+        datos.add(new Marca(3, "ford"));
         
     }
 
@@ -38,24 +38,24 @@ public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
     }
 
     @Override
-    protected Propietario getEntity() {
-        return new Propietario((Integer) getId(), "ala", "berga");
+    protected Marca getEntity() {
+        return new Marca((Integer) getId(), "mazda");
     }
 
     @Override
-    protected List<Propietario> getResgistros() {
+    protected List<Marca> getResgistros() {
         return datos;
 
     }
 
     @Override
     protected Class<?> getEntityClass() {
-        return Propietario.class;
+        return Marca.class;
     }
 
     @Override
     protected Object getId() {
-        return datos.get(0).getIdPropietario();
+        return datos.get(0).getIdMarca();
     }
 
 }

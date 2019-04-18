@@ -10,25 +10,25 @@ import java.util.List;
 import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.runner.RunWith;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.EspecialidadFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Especialidad;
 
 /**
  *
  * @author kevin
  */
 @RunWith(Arquillian.class)
-public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
+public class EspecialidadFacadeIT extends SessionBeanIT<Especialidad> {
 
     @Inject
-    PropietarioFacade cut;
-    List<Propietario> datos = new ArrayList();
+    EspecialidadFacade cut;
+    List<Especialidad> datos = new ArrayList();
 
-    public PropietarioFacadeIT() {
-        datos.add(new Propietario(1, "juan", "perez"));
-        datos.add(new Propietario(2, "daft", "punk"));
-        datos.add(new Propietario(3, "ford", "henry"));
+    public EspecialidadFacadeIT() {
+        datos.add(new Especialidad(1, "mecanica general"));
+        datos.add(new Especialidad(2, "electricista"));
+        datos.add(new Especialidad(3, "pintor"));
         
     }
 
@@ -38,24 +38,24 @@ public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
     }
 
     @Override
-    protected Propietario getEntity() {
-        return new Propietario((Integer) getId(), "ala", "berga");
+    protected Especialidad getEntity() {
+        return new Especialidad((Integer) getId(), "aire acondicionado");
     }
 
     @Override
-    protected List<Propietario> getResgistros() {
+    protected List<Especialidad> getResgistros() {
         return datos;
 
     }
 
     @Override
     protected Class<?> getEntityClass() {
-        return Propietario.class;
+        return Especialidad.class;
     }
 
     @Override
     protected Object getId() {
-        return datos.get(0).getIdPropietario();
+        return datos.get(0).getIdEspecialidad();
     }
 
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
+package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.unittests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ProcesoFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
 
 /**

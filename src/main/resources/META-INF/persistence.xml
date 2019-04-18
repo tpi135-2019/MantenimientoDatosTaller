@@ -20,6 +20,5 @@
     <class>ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.TipoVehiculo</class>
     <class>ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Vehiculo</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <properties/>
   </persistence-unit>
 </persistence>

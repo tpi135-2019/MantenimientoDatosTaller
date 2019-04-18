@@ -11,24 +11,24 @@ import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SucursalFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 
 /**
  *
  * @author kevin
  */
 @RunWith(Arquillian.class)
-public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
+public class SucursalFacadeIT extends SessionBeanIT<Sucursal> {
 
     @Inject
-    PropietarioFacade cut;
-    List<Propietario> datos = new ArrayList();
+    SucursalFacade cut;
+    List<Sucursal> datos = new ArrayList();
 
-    public PropietarioFacadeIT() {
-        datos.add(new Propietario(1, "juan", "perez"));
-        datos.add(new Propietario(2, "daft", "punk"));
-        datos.add(new Propietario(3, "ford", "henry"));
+    public SucursalFacadeIT() {
+        datos.add(new Sucursal(1, "los chepes"));
+        datos.add(new Sucursal(2, "pedro y pablo"));
+        datos.add(new Sucursal(3, "el perro negro"));
         
     }
 
@@ -38,24 +38,24 @@ public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
     }
 
     @Override
-    protected Propietario getEntity() {
-        return new Propietario((Integer) getId(), "ala", "berga");
+    protected Sucursal getEntity() {
+        return new Sucursal((Integer) getId(), "mi chuchito");
     }
 
     @Override
-    protected List<Propietario> getResgistros() {
+    protected List<Sucursal> getResgistros() {
         return datos;
 
     }
 
     @Override
     protected Class<?> getEntityClass() {
-        return Propietario.class;
+        return Sucursal.class;
     }
 
     @Override
     protected Object getId() {
-        return datos.get(0).getIdPropietario();
+        return datos.get(0).getIdSucursal();
     }
 
 }
