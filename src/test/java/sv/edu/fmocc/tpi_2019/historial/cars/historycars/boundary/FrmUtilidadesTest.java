@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -25,13 +24,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.powermock.modules.junit4.PowerMockRunner;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacadeTest;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SucursalFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Paso;
@@ -128,7 +125,6 @@ public class FrmUtilidadesTest {
     }
 
     @Test
-    //@Ignore
     public void buscarReparacionesPorDiagnosticoTest() {
 
         String diagnostico = "1";
@@ -141,6 +137,7 @@ public class FrmUtilidadesTest {
         Mockito.when(reparacionFacade.reparacionPorDiagnostico(new Integer(diagnostico))).thenThrow(NumberFormatException.class);
         cut.buscarReparacionesPorDiagnostico();
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+
         // parametro nulo o vacio
         cut.select = "";
         ls = cut.buscarReparacionesPorDiagnostico();

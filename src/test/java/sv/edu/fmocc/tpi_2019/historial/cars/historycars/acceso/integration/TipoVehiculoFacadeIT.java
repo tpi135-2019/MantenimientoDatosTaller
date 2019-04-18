@@ -11,25 +11,24 @@ import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.TipoVehiculoFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.TipoVehiculo;
 
 /**
  *
  * @author kevin
  */
 @RunWith(Arquillian.class)
-public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
+public class TipoVehiculoFacadeIT extends SessionBeanIT<TipoVehiculo> {
 
     @Inject
-    PropietarioFacade cut;
-    List<Propietario> datos = new ArrayList();
+    TipoVehiculoFacade cut;
+    List<TipoVehiculo> datos = new ArrayList();
 
-    public PropietarioFacadeIT() {
-        datos.add(new Propietario(1, "juan", "perez"));
-        datos.add(new Propietario(2, "daft", "punk"));
-        datos.add(new Propietario(3, "ford", "henry"));
-        
+    public TipoVehiculoFacadeIT() {
+        datos.add(new TipoVehiculo(1, "sedan"));
+        datos.add(new TipoVehiculo(2, "pickup"));
+        datos.add(new TipoVehiculo(3, "trailer"));
     }
 
     @Override
@@ -38,24 +37,23 @@ public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
     }
 
     @Override
-    protected Propietario getEntity() {
-        return new Propietario((Integer) getId(), "ala", "berga");
+    protected TipoVehiculo getEntity() {
+        return new TipoVehiculo((Integer) getId(), "bus");
     }
 
     @Override
-    protected List<Propietario> getResgistros() {
+    protected List<TipoVehiculo> getResgistros() {
         return datos;
-
     }
 
     @Override
     protected Class<?> getEntityClass() {
-        return Propietario.class;
+        return TipoVehiculo.class;
     }
 
     @Override
     protected Object getId() {
-        return datos.get(0).getIdPropietario();
+        return datos.get(0).getIdTipoVehiculo();
     }
 
 }

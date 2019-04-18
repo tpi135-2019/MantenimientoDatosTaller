@@ -83,7 +83,7 @@ public class FrmUtilidades implements Serializable {
         if (placa != null) {
             try {
                 return listaReparacion = reparacionFacade.reparacionesPorPlaca(placa.toLowerCase());
-               
+
             } catch (Exception ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
             }
@@ -137,13 +137,13 @@ public class FrmUtilidades implements Serializable {
     public List buscarReparacionesEntreFechas() {
         tbl = estadosTbl.REPARACION;
         listaReparacion = new ArrayList<>();
-       
-            try {
-               return listaReparacion = reparacionFacade.reparacionEntreFechas(desde, hasta);
-                
-            } catch (Exception ex) {
-                logger.log(Level.SEVERE, ex.getMessage());
-  
+
+        try {
+            return listaReparacion = reparacionFacade.reparacionEntreFechas(desde, hasta);
+
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, ex.getMessage());
+
         }
         return this.listaReparacion = Collections.EMPTY_LIST;
     }
@@ -388,7 +388,8 @@ public class FrmUtilidades implements Serializable {
     public void setPropietario(String propietario) {
         this.propietario = propietario;
     }
-     public void setLogger(Logger logger) {
+
+    public void setLogger(Logger logger) {
         this.logger = logger;
     }
 

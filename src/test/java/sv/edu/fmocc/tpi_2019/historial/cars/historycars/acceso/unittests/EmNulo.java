@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
+package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.unittests;
 
 import javax.persistence.EntityManager;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 import org.powermock.reflect.Whitebox;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 
 /**
  *
