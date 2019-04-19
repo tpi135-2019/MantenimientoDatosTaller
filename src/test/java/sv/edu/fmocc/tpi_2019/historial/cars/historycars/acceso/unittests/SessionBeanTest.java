@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
+package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.unittests;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +26,7 @@ import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.reflect.Whitebox;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 
 /**
  *

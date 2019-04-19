@@ -134,6 +134,7 @@ public class FrmUtilidadesTest {
         Mockito.when(reparacionFacade.reparacionPorDiagnostico(new Integer(diagnostico))).thenThrow(NumberFormatException.class);
         cut.buscarReparacionesPorDiagnostico();
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+
         // parametro nulo o vacio
         cut.reparacionDiagnostico = "";
         ls = cut.buscarReparacionesPorDiagnostico();

@@ -3,40 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
+package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.unittests;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.runners.MockitoJUnitRunner;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.MarcaFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Marca;
 
 /**
  *
  * @author kevin
  */
 @RunWith(MockitoJUnitRunner.class)
-public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
+public class MarcaFacadeTest extends SessionBeanTest<Marca> {
 
-    public PasoProcesoFacadeTest() {
-        super(PasoProceso.class);
-        registrosEsperados.add(new PasoProceso(1, 1));
-        registrosEsperados.add(new PasoProceso(2, 1));
-
-    }
-    
     @Mock
     EntityManager ema;
     @InjectMocks
-    private PasoProcesoFacade cut;
-    private PasoProceso pasoProceso = new PasoProceso(1, 1);
-    private List<PasoProceso> registrosEsperados = new ArrayList<>();
+    private MarcaFacade cut;
+    private Marca marca = new Marca(1);
+    private List<Marca> registrosEsperados = new ArrayList<>();
+
+    public MarcaFacadeTest() {
+        super(Marca.class);
+        registrosEsperados.add(new Marca(1, "nissan"));
+        registrosEsperados.add(new Marca(2, "toyota"));
+    }
 
     @Override
     protected FacadeGenerico getSessionBean() {
@@ -44,8 +45,8 @@ public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
     }
 
     @Override
-    protected PasoProceso getEntity() {
-        return pasoProceso;
+    protected Marca getEntity() {
+        return marca;
     }
 
     @Override
@@ -54,8 +55,7 @@ public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
     }
 
     @Override
-    protected List<PasoProceso> getLista() {
+    protected List<Marca> getLista() {
         return registrosEsperados;
     }
-
 }

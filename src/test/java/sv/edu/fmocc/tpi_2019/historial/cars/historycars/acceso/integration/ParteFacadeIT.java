@@ -11,24 +11,24 @@ import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ParteFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Parte;
 
 /**
  *
  * @author kevin
  */
 @RunWith(Arquillian.class)
-public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
+public class ParteFacadeIT extends SessionBeanIT<Parte> {
 
     @Inject
-    PropietarioFacade cut;
-    List<Propietario> datos = new ArrayList();
+    ParteFacade cut;
+    List<Parte> datos = new ArrayList();
 
-    public PropietarioFacadeIT() {
-        datos.add(new Propietario(1, "juan", "perez"));
-        datos.add(new Propietario(2, "daft", "punk"));
-        datos.add(new Propietario(3, "ford", "henry"));
+    public ParteFacadeIT() {
+        datos.add(new Parte(1, "motor"));
+        datos.add(new Parte(2, "radiador"));
+        datos.add(new Parte(3, "transmision"));
         
     }
 
@@ -38,24 +38,24 @@ public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
     }
 
     @Override
-    protected Propietario getEntity() {
-        return new Propietario((Integer) getId(), "ala", "berga");
+    protected Parte getEntity() {
+        return new Parte((Integer) getId(), "calefaccion");
     }
 
     @Override
-    protected List<Propietario> getResgistros() {
+    protected List<Parte> getResgistros() {
         return datos;
 
     }
 
     @Override
     protected Class<?> getEntityClass() {
-        return Propietario.class;
+        return Parte.class;
     }
 
     @Override
     protected Object getId() {
-        return datos.get(0).getIdPropietario();
+        return datos.get(0).getIdParte();
     }
 
 }

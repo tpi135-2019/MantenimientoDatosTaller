@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
+package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.unittests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,28 +15,30 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.runners.MockitoJUnitRunner;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Especialidad;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoProcesoFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
 
 /**
  *
  * @author kevin
  */
 @RunWith(MockitoJUnitRunner.class)
-public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
+public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
 
+    public PasoProcesoFacadeTest() {
+        super(PasoProceso.class);
+        registrosEsperados.add(new PasoProceso(1, 1));
+        registrosEsperados.add(new PasoProceso(2, 1));
+
+    }
+    
     @Mock
     EntityManager ema;
     @InjectMocks
-    private EspecialidadFacade cut;
-    private Especialidad especialidad = new Especialidad(1);
-    private List<Especialidad> registrosEsperados = new ArrayList<>();
-
-    public EspecialidadFacadeTest() {
-        super(Especialidad.class);
-        registrosEsperados.add(new Especialidad(1, "Mecanica general"));
-        registrosEsperados.add(new Especialidad(2, "Electricista"));
-
-    }
+    private PasoProcesoFacade cut;
+    private PasoProceso pasoProceso = new PasoProceso(1, 1);
+    private List<PasoProceso> registrosEsperados = new ArrayList<>();
 
     @Override
     protected FacadeGenerico getSessionBean() {
@@ -44,8 +46,8 @@ public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
     }
 
     @Override
-    protected Especialidad getEntity() {
-        return especialidad;
+    protected PasoProceso getEntity() {
+        return pasoProceso;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class EspecialidadFacadeTest extends SessionBeanTest<Especialidad> {
     }
 
     @Override
-    protected List<Especialidad> getLista() {
+    protected List<PasoProceso> getLista() {
         return registrosEsperados;
     }
 
