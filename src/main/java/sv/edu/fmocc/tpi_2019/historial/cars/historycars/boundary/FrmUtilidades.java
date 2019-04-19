@@ -59,18 +59,19 @@ public class FrmUtilidades implements Serializable {
     List<Sucursal> listaSucursal;
     List<Propietario> listaPropietario;
 
-    String select = "", placa = "", person = "", rep = "", diagnos = "", pieza = "", paso = "", propietario = "";
+    String reparacionDiagnostico = "", placaReparacion = "", reparacionPersonal = "", reparacionSucursal = "", diagnosticoPlaca = "", pieza = "", pasoReparacion = "", propietario = "";
     estadosTbl tbl;
-    Date desde, hasta;
+    
+    Date desde;
+    Date hasta;
 
-    private enum estadosTbl {
+    protected enum estadosTbl {
         REPARACION, SUCURSAL, NONE, DIAGNOSTICO, PIEZA, PASO, PROPIETARIO;
     }
 
     @PostConstruct
     public void init() {
         tbl = estadosTbl.NONE;
-
     }
 
     /**
@@ -80,10 +81,10 @@ public class FrmUtilidades implements Serializable {
     public List buscarPorPlaca() {
         tbl = estadosTbl.REPARACION;
         listaReparacion = new ArrayList<>();
-        if (placa != null) {
+        if (placaReparacion != null) {
             try {
-                return listaReparacion = reparacionFacade.reparacionesPorPlaca(placa.toLowerCase());
-
+                return listaReparacion = reparacionFacade.reparacionesPorPlaca(placaReparacion.toLowerCase());
+               
             } catch (Exception ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
             }
@@ -98,10 +99,10 @@ public class FrmUtilidades implements Serializable {
     public List buscarReparacionesPorDiagnostico() {
         tbl = estadosTbl.REPARACION;
         listaReparacion = new ArrayList<>();
-        if(select!=null){
+        if(reparacionDiagnostico!=null){
           
             try {
-              return listaReparacion = reparacionFacade.reparacionPorDiagnostico(new Integer(select));
+              return listaReparacion = reparacionFacade.reparacionPorDiagnostico(new Integer(reparacionDiagnostico));
                 
             } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
@@ -112,14 +113,14 @@ public class FrmUtilidades implements Serializable {
 
     /**
      *
-     * @return lista de reparaciones en las que ha intervenido el personal
+     * @return lista de reparaciones en las que ha intervenido el Personal
      */
     public List buscarReparacionesPorPersonal() {
         tbl = estadosTbl.REPARACION;
         listaReparacion = new ArrayList<>();
-        if (person != null) {
+        if (reparacionPersonal != null) {
             try {
-               return listaReparacion = reparacionFacade.reparacionPorPersonal(new Integer(person));
+               return listaReparacion = reparacionFacade.reparacionPorPersonal(new Integer(reparacionPersonal));
                
             } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
@@ -155,9 +156,9 @@ public class FrmUtilidades implements Serializable {
     public List buscarSucursalPorReparacion() {
         tbl = estadosTbl.SUCURSAL;
         listaSucursal = new ArrayList<>();
-        if (rep != null) {
+        if (reparacionSucursal != null) {
             try {
-              return listaSucursal= sucursalFacade.lugarReparacion(new Integer(rep));
+              return listaSucursal= sucursalFacade.lugarReparacion(new Integer(reparacionSucursal));
              
             } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
@@ -169,15 +170,15 @@ public class FrmUtilidades implements Serializable {
 
     /**
      *
-     * @return listado de diagnosticos referentes a una placa
+     * @return listado de diagnosticos referentes a una placaReparacion
      */
     public List buscarDiagnosticoPorPlaca() {
 
         tbl = estadosTbl.DIAGNOSTICO;
         listaDiagnostico = new ArrayList<>();
-        if (diagnos != null) {
-            try {
-                List<Diagnostico> ls = diagnosticoFacade.diagnosticoPorPlaca(diagnos);
+        if(diagnosticoPlaca!=null){
+
+                List<Diagnostico> ls = diagnosticoFacade.diagnosticoPorPlaca(diagnosticoPlaca);
                 ls.forEach((item) -> {
                     listaDiagnostico.add(item);
                 });
@@ -185,10 +186,6 @@ public class FrmUtilidades implements Serializable {
                 if (listaDiagnostico != null && !listaDiagnostico.isEmpty()) {
                     return listaDiagnostico;
                 }
-            } catch (Exception ex) {
-                logger.log(Level.SEVERE, ex.getMessage());
-
-            }
         }
         return this.listaDiagnostico = Collections.EMPTY_LIST;
     }
@@ -221,17 +218,13 @@ public class FrmUtilidades implements Serializable {
 
         tbl = estadosTbl.PASO;
         listaPaso = new ArrayList<>();
-        if (paso != null) {
-            try {
-                listaPaso = pasoFacade.pasoReparacion(new Integer(paso));
+        if (pasoReparacion != null) {
+
+                listaPaso = pasoFacade.pasoReparacion(new Integer(pasoReparacion));
 
                 if (listaPaso != null && !listaPaso.isEmpty()) {
                     return listaPaso;
                 }
-            } catch (NumberFormatException ex) {
-                logger.log(Level.SEVERE, ex.getMessage());
-
-            }
         }
         return this.listaPaso = Collections.EMPTY_LIST;
     }
@@ -257,20 +250,20 @@ public class FrmUtilidades implements Serializable {
     }
 
     /////******getters y setters
-    public String getRep() {
-        return rep;
+    public String getReparacionSucursal() {
+        return reparacionSucursal;
     }
 
-    public void setRep(String rep) {
-        this.rep = rep;
+    public void setReparacionSucursal(String rep) {
+        this.reparacionSucursal = rep;
     }
 
-    public String getSelect() {
-        return select;
+    public String getReparacionDiagnostico() {
+        return reparacionDiagnostico;
     }
 
-    public void setSelect(String salect) {
-        this.select = salect;
+    public void setReparacionDiagnostico(String salect) {
+        this.reparacionDiagnostico = salect;
     }
 
     public List<Reparacion> getListaReparacion() {
@@ -281,24 +274,24 @@ public class FrmUtilidades implements Serializable {
         this.listaReparacion = listaReparacion;
     }
 
+    public String getPlacaReparacion() {
+        return placaReparacion;
+    }
+
     public estadosTbl getTbl() {
         return tbl;
     }
-
-    public String getPlaca() {
-        return placa;
+    
+    public void setPlacaReparacion(String placaReparacion) {
+        this.placaReparacion = placaReparacion;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
+    public String getReparacionPersonal() {
+        return reparacionPersonal;
     }
 
-    public String getPerson() {
-        return person;
-    }
-
-    public void setPerson(String person) {
-        this.person = person;
+    public void setReparacionPersonal(String reparacionPersonal) {
+        this.reparacionPersonal = reparacionPersonal;
     }
 
     public Date getDesde() {
@@ -317,12 +310,12 @@ public class FrmUtilidades implements Serializable {
         this.hasta = hasta;
     }
 
-    public String getDiagnos() {
-        return diagnos;
+    public String getDiagnosticoPlaca() {
+        return diagnosticoPlaca;
     }
 
-    public void setDiagnos(String diagnos) {
-        this.diagnos = diagnos;
+    public void setDiagnosticoPlaca(String diagnos) {
+        this.diagnosticoPlaca = diagnos;
     }
 
     public List<Diagnostico> getListaDiagnostico() {
@@ -365,12 +358,12 @@ public class FrmUtilidades implements Serializable {
         this.pieza = pieza;
     }
 
-    public String getPaso() {
-        return paso;
+    public String getPasoReparacion() {
+        return pasoReparacion;
     }
 
-    public void setPaso(String paso) {
-        this.paso = paso;
+    public void setPasoReparacion(String paso) {
+        this.pasoReparacion = paso;
     }
 
     public List<Propietario> getListaPropietario() {
@@ -389,7 +382,8 @@ public class FrmUtilidades implements Serializable {
         this.propietario = propietario;
     }
 
-    public void setLogger(Logger logger) {
+    
+     public void setLogger(Logger logger) {
         this.logger = logger;
     }
 

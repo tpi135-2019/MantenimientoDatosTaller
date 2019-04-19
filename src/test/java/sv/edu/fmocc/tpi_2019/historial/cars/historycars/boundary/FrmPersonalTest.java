@@ -46,7 +46,7 @@ public class FrmPersonalTest extends BackingBeanTest<Personal> {
     public void setup() {
         registrosSucursal.add(new Sucursal(1, "Taller los 3 chepes"));
         registrosSucursal.add(new Sucursal(1, "Taller los 3 chepes"));
-    
+
         registrosPersonal.add(new Personal(1, "Jose", "Ramirez"));
         registrosPersonal.add(new Personal(2, "Cindy", "Nero"));
     }
@@ -81,11 +81,17 @@ public class FrmPersonalTest extends BackingBeanTest<Personal> {
     protected List<Personal> getLista() {
         return registrosPersonal;
     }
-    
-      @Test
-   public void getRowDTest(){
-       String key="";
-       getRowDataTest(key);
-   }
 
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
+    }
+
+    @Test
+    public void getListaSucursalTest(){
+        cut.setListaSucursal(registrosSucursal);
+        List ls = cut.getListaSucursal();
+        Assert.assertEquals(registrosSucursal,ls);
+    }
 }

@@ -8,6 +8,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -57,11 +58,13 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
@@ -81,18 +84,10 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
 
     @Override
     protected Diagnostico getrowD(String rowkey) {
-        
+
         if (rowkey != null) {
-           
-
-                for (Diagnostico item : (List<Diagnostico>) this.getLazyModel().getWrappedData()) {
-                    Integer registry = new Integer(rowkey);
-                    if (item.getIdDiagnostico().compareTo(registry) == 0) {
-                        return item;
-                    }
-                }
-
-          
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(d -> d.getIdDiagnostico().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
         }
 
         return null;
@@ -100,7 +95,11 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
 
     @Override
     protected Object getKey(Diagnostico entity) {
+        if (entity != null) {
             return entity.getIdDiagnostico();
+
+        }
+        return null;
     }
 
     @Override
@@ -120,9 +119,5 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
     public void setListaVehiculo(List<Vehiculo> listaVehiculo) {
         this.listaVehiculo = listaVehiculo;
     }
-
-
-    
-    
 
 }

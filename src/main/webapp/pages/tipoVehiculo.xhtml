@@ -54,12 +54,14 @@
 
 
             <p:panelGrid columns="2" rendered="#{frmTipoVehiculo.estado!='NONE'}">
-                ID<p:inputText id="txtID" immediate="true" value="#{frmTipoVehiculo.registro.idTipoVehiculo}" required="true" requiredMessage="Agrege un IDENTIFICADOR " />
-                Nombre <p:inputText id="txtnombre" immediate="true" value="#{frmTipoVehiculo.registro.nombre}" required="true" requiredMessage="Agrege un nombre " />
+                ID<p:inputText id="txtID" immediate="true" value="#{frmTipoVehiculo.registro.idTipoVehiculo}"  />
+                Nombre <p:inputText id="txtnombre" immediate="true" value="#{frmTipoVehiculo.registro.nombre}" />
                 Activo <p:selectBooleanCheckbox id="ckbActivo" value="#{frmTipoVehiculo.registro.activo}"/>
                 Cantidad de Ejes <p:inputText id="txtejes" immediate="true" value="#{frmTipoVehiculo.registro.cantidadEjes}" />
                 Descripcion <p:inputTextarea id="txtArea" value="#{frmTipoVehiculo.registro.descripcion}"/>
             </p:panelGrid>
+
+                                                <p:growl life="2500" showSummary="true" />
 
             <gg:botones id="btnes" backingBean="#{frmTipoVehiculo}" formularioTabla="frm" formularioRegistro="@form"/>
 

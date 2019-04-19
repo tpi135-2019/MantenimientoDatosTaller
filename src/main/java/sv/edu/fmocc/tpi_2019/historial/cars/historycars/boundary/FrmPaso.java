@@ -7,11 +7,11 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Paso;
@@ -52,11 +52,13 @@ public class FrmPaso extends AbstractBean<Paso> implements Serializable {
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
@@ -69,14 +71,10 @@ public class FrmPaso extends AbstractBean<Paso> implements Serializable {
     @Override
     protected Paso getrowD(String rowkey) {
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-         
-                for (Paso item : (List<Paso>) this.getLazyModel().getWrappedData()) {
-                    Integer registry = new Integer(rowkey);
-                    if (item.getIdPaso().compareTo(registry) == 0) {
-                        return item;
-                    }
-                }
-           
+
+          return this.getLazyModel().getWrappedData().stream().
+                    filter(p -> p.getIdPaso().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
+
         }
 
         return null;
@@ -84,9 +82,10 @@ public class FrmPaso extends AbstractBean<Paso> implements Serializable {
 
     @Override
     protected Object getKey(Paso entity) {
-        
+        if (entity != null) {
             return entity.getIdPaso();
-        
+        }
+        return null;
     }
 
     @Override
@@ -97,10 +96,6 @@ public class FrmPaso extends AbstractBean<Paso> implements Serializable {
     @Override
     protected Paso getEntity() {
         return this.registro;
-    }
-
-    public void setLazyModel(LazyDataModel<Paso> lazyModel) {
-        this.lazyModel = lazyModel;
     }
 
 }

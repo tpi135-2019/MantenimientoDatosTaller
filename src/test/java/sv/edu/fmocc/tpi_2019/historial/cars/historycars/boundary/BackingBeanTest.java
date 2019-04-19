@@ -22,6 +22,7 @@ import org.mockito.Spy;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 
@@ -44,6 +45,10 @@ public abstract class BackingBeanTest<T> extends IniciarTest {
 
     @Spy
     Logger logger = Logger.getGlobal();
+
+    @Spy
+    LazyDataModel lazyDataModel = new LazyDataModel() {
+    };
 
     @Mock
     protected FacesContext facesContext;
@@ -69,20 +74,18 @@ public abstract class BackingBeanTest<T> extends IniciarTest {
 
     @Test
     public void getKeyTest() {
-        System.out.println("getRowData");
+        System.out.println("getKey");
         Assert.assertNotNull(getEntity());
-        Object b = getBean().getKey(getEntity());
-        Assert.assertNotNull(b);
+        Object entidad = getBean().getKey(getEntity());
+        Assert.assertNotNull(entidad);
+        entidad = getBean().getKey(null);
+        Assert.assertNull(entidad);
+
     }
 
-    @Spy
-    LazyDataModel lazyDataModel= new LazyDataModel() {
-};
-    
-    
     public void getRowDataTest(String rowkey) {
-        if(rowkey==null || rowkey.isEmpty()){
-            rowkey="1";
+        if (rowkey == null || rowkey.isEmpty()) {
+            rowkey = "1";
         }
         Object entidad = getBean().getrowD(null);
         Assert.assertNull(entidad);
@@ -90,6 +93,102 @@ public abstract class BackingBeanTest<T> extends IniciarTest {
         Mockito.when(lazyDataModel.getWrappedData()).thenReturn(getLista());
         entidad = getBean().getrowD(rowkey);
         Assert.assertNotNull(entidad);
+
+    }
+
+//    public void lazyModel() {
+//        System.out.println("Load");
+//        int inicio = 1, cantidad = 2;
+//        Map<String, Object> filters = new HashMap<>();
+//        String sortField = null;
+//        Mockito.when(getBean().getLazyModel()).thenReturn(lazyDataModel);
+//        Mockito.when(getFacade().count()).thenReturn(cantidad);
+//        getBean().modelo();
+//        Mockito.verify(getBean().getLazyModel()).getRowData();
+//        Mockito.verify(getBean().getLazyModel()).getRowKey(getEntity());
+//        Mockito.verify(getBean().getLazyModel()).load(inicio, cantidad, sortField, SortOrder.UNSORTED, filters);
+//
+//    }
+    @Test
+    public void onRowSelectTest() {
+        System.out.println("onRowSelect");
+        SelectEvent select = Mockito.mock(SelectEvent.class);
+        getBean().onRowSelect(select);
+        Mockito.verify(select).getObject();
+    }
+
+    @Test
+    public void getRegistroTest() {
+        System.out.println("getRegistro");
+        T expect = getEntity();
+        getBean().setRegistro(expect);
+        T result = getBean().getRegistro();
+        Assert.assertEquals(expect, result);
+    }
+
+    @Test
+    public void getEstado() {
+        System.out.println("getEstado");
+        AbstractBean.EstadosCRUD expect;
+        getBean().getEstado();
+    }
+
+    @Test
+    public void crearNuevoTest() {
+        System.out.println("crearNuevo");
+        T entity = null;
+        getBean().registro = entity;
+        Assert.assertNull(getBean().registro);
+        getBean().crearNuevo();
+        Assert.assertNotNull(getBean().registro);
+    }
+
+    @Test
+    public void getEstadoTest() {
+        System.out.println("getEStado");
+        AbstractBean.EstadosCRUD estado = AbstractBean.EstadosCRUD.NONE;
+        getBean().estado = estado;
+        estado = getBean().getEstado();
+        Assert.assertNotNull(estado);
+    }
+
+    @Test
+    public void btnNuevoHandlerTest() {
+        System.out.println("btnNuevoHandler");
+        AbstractBean.EstadosCRUD expect = AbstractBean.EstadosCRUD.NUEVO;
+        getBean().btnNuevoHandler();
+        AbstractBean.EstadosCRUD result = getBean().estado;
+        Assert.assertEquals(expect, result);
+    }
+
+    @Test
+    public void btnCancelarHandlerTest() {
+        System.out.println("btnCancelarHandler");
+        AbstractBean.EstadosCRUD expect = AbstractBean.EstadosCRUD.NONE;
+        getBean().btncancelarHandler();
+        AbstractBean.EstadosCRUD result = getBean().estado;
+        Assert.assertEquals(expect, result);
+
+    }
+
+    @Test
+    public void initTest() {
+        System.out.println("init");
+        AbstractBean.EstadosCRUD expect = AbstractBean.EstadosCRUD.NONE;
+        getBean().init();
+        AbstractBean.EstadosCRUD result = getBean().estado;
+        Assert.assertEquals(expect, result);
+    }
+
+    @Test
+    public void myLoadTest() {
+        System.out.println("myLoad");
+        Mockito.when(getFacade().findRange(Matchers.anyInt(), Matchers.anyInt())).thenReturn(getLista());
+        List ls = getBean().myLoad(1, 2);
+        Assert.assertEquals(getLista().size(), ls.size());
+        Mockito.when(getFacade().findRange(Matchers.anyInt(), Matchers.anyInt())).thenThrow(Exception.class);
+        getBean().myLoad(1, 2);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
 
     }
 

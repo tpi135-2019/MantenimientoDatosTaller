@@ -58,13 +58,15 @@
 
 
             <p:panelGrid columns="2" rendered="#{frmSucursal.estado!='NONE'}">
-                ID<p:inputText id="txtID" immediate="true" value="#{frmSucursal.registro.idSucursal}" required="true" requiredMessage="Agrege un IDENTIFICADOR " />
+                ID<p:inputText id="txtID" immediate="true" value="#{frmSucursal.registro.idSucursal}" />
 
-                Nombre <p:inputText id="txtnombre" immediate="true" value="#{frmSucursal.registro.nombre}" required="true" requiredMessage="Agrege un nombre " />
+                Nombre <p:inputText id="txtnombre" immediate="true" value="#{frmSucursal.registro.nombre}" />
                 Activo <p:selectBooleanCheckbox id="ckbActivo" value="#{frmSucursal.registro.activo}"/>
                 Telefono <p:inputText id="txttelefono" immediate="true" value="#{frmSucursal.registro.telefono}" />
                 Direccion <p:inputTextarea id="txtArea" value="#{frmSucursal.registro.direccion}"/>
             </p:panelGrid>
+                                                <p:growl life="2500" showSummary="true" />
+
         
             <gg:botones id="btnes" backingBean="#{frmSucursal}" formularioTabla="frm" formularioRegistro="@form"/>
 

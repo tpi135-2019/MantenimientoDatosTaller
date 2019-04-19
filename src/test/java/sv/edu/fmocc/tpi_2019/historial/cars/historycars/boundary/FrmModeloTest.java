@@ -74,7 +74,8 @@ public class FrmModeloTest extends BackingBeanTest<Modelo> {
     protected Modelo getEntity() {
         return modelo;
     }
-      @Override
+
+    @Override
     protected List<Modelo> getLista() {
         return registrosModelo;
     }
@@ -101,11 +102,24 @@ public class FrmModeloTest extends BackingBeanTest<Modelo> {
         org.junit.Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
-  
     @Test
     public void getRowDTest() {
         String key = "";
         getRowDataTest(key);
     }
-    
+
+    @Test
+    public void getListaMarcaTest() {
+        cut.setListaMarcas(registrosMarca);
+        List ls = cut.getListaMarcas();
+        org.junit.Assert.assertEquals(registrosMarca,ls);
+    }
+
+    @Test
+    public void getListaTipoVehiculoTest() {
+        cut.setListaTipoVehiculo(registrosTipoVehiculo);
+        List ls = cut.getListaTipoVehiculo();
+        org.junit.Assert.assertEquals(registrosTipoVehiculo,ls);
+    }
+
 }

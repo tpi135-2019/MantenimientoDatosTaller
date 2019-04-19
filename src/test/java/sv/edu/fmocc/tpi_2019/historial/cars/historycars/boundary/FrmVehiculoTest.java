@@ -106,4 +106,19 @@ public class FrmVehiculoTest extends BackingBeanTest<Vehiculo> {
        String key="P232-22";
        getRowDataTest(key);
    }  
+   
+   @Test
+   public void getListaModeloTest(){
+       cut.setListaModelo(registrosModelo);
+       List ls = cut.getListaModelo();
+       Assert.assertEquals(registrosModelo,ls);
+   }
+   
+   @Test
+   public void getListaPropietarioTest(){
+       cut.setListaPropietario(registrosPropietario);
+       List ls = cut.getListaPropietario();
+       Assert.assertEquals(registrosPropietario,ls);
+   }
+   
 }

@@ -8,11 +8,11 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ModeloFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
@@ -80,11 +80,13 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
@@ -93,15 +95,8 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
     protected Vehiculo getrowD(String rowkey) {
 
         if (rowkey != null) {
-
-            for (Vehiculo item : (List<Vehiculo>) this.getLazyModel().getWrappedData()) {
-                String registry = (rowkey);
-                if (item.getIdVehiculo().compareTo(registry) == 0) {
-                    return item;
-                }
-
-            }
-
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(v -> v.getIdVehiculo().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
         }
 
         return null;
@@ -109,9 +104,10 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
 
     @Override
     protected Object getKey(Vehiculo entity) {
-
-        return entity.getIdVehiculo();
-
+        if (entity != null) {
+            return entity.getIdVehiculo();
+        }
+        return null;
     }
 
     @Override
@@ -122,10 +118,6 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
     @Override
     protected Vehiculo getEntity() {
         return this.registro;
-    }
-
-    public void setLazyModel(LazyDataModel<Vehiculo> lazyModel) {
-        this.lazyModel = lazyModel;
     }
 
     public List<Modelo> getListaModelo() {

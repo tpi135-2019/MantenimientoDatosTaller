@@ -8,6 +8,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -86,16 +87,17 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
 
-    
     @Override
     protected void crearNuevo() {
         registro = new Modelo();
@@ -105,36 +107,25 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
     protected Modelo getrowD(String rowkey) {
 
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-           
-
-                for (Modelo item : (List<Modelo>) this.getLazyModel().getWrappedData()) {
-                    Integer registry = new Integer(rowkey);
-                    if (item.getIdModelo().compareTo(registry) == 0) {
-                        return item;
-                    }
-
-                }
-
-         
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(m -> m.getIdModelo().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
         }
-
         return null;
     }
 
     @Override
     protected Object getKey(Modelo entity) {
-        return entity.getIdModelo();
+        if (entity != null) {
+            return entity.getIdModelo();
+
+        }
+        return null;
     }
 
     @Override
     protected FacadeGenerico getFacadeLocal() {
         return modeloFacade;
     }
-
-    public List<Modelo> getLista() {
-        return lista;
-    }
-
 
     public List<Marca> getListaMarcas() {
         return listaMarcas;

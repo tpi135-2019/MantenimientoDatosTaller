@@ -88,4 +88,10 @@ public class FrmPiezaTest extends BackingBeanTest<Pieza> {
         getRowDataTest(key);
     }
 
+    @Test
+    public void getListaSubparteTest() {
+        cut.setListaSubParte(registrosSubParte);
+        List ls = cut.getListaSubParte();
+        Assert.assertEquals(registrosSubParte, ls);
+    }
 }

@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.model.MultipleFailureException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -84,10 +85,16 @@ public class FrmDiagnosticoTest extends BackingBeanTest<Diagnostico> {
         return registrosDiagnostico;
     }
 
-   @Test
-   public void getRowDTest(){
-       String key="";
-       getRowDataTest(key);
-   }
-    
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
+    }
+
+    @Test
+    public void getListaVehiculoTest() {
+        cut.setListaVehiculo(registrosVehiculos);
+        List ls = cut.getListaVehiculo();
+        Assert.assertEquals(registrosVehiculos, ls);
+    }
 }

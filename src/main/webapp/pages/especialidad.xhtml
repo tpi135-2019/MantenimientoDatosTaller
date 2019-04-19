@@ -52,13 +52,14 @@
 
 
             <p:panelGrid columns="2" rendered="#{frmEspecialidad.estado!='NONE'}">
-                ID<p:inputText id="txtID" immediate="true" value="#{frmEspecialidad.registro.idEspecialidad}" required="true" requiredMessage="Agrege un IDENTIFICADOR " />
+                ID<p:inputText id="txtID" immediate="true" value="#{frmEspecialidad.registro.idEspecialidad}" />
 
-                Especialidad <p:inputText id="txtnombre" immediate="true" value="#{frmEspecialidad.registro.nombre}" required="true" requiredMessage="Agrege un nombre " />
+                Especialidad <p:inputText id="txtnombre" immediate="true" value="#{frmEspecialidad.registro.nombre}" />
                 Activo <p:selectBooleanCheckbox id="ckbActivo" value="#{frmEspecialidad.registro.activo}"/>
                 Descripcion <p:inputTextarea id="txtArea" value="#{frmEspecialidad.registro.descripcion}"/>
             </p:panelGrid>
-        
+                                            <p:growl life="2500" showSummary="true" />
+
             <gg:botones id="btnes" backingBean="#{frmEspecialidad}" formularioTabla="frm" formularioRegistro="@form"/>
 
 

@@ -28,7 +28,7 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
  * @author kevin
  */
 @RunWith(PowerMockRunner.class)
-public class FrmProcesoTest extends BackingBeanTest<Proceso>{
+public class FrmProcesoTest extends BackingBeanTest<Proceso> {
 
     @Mock
     ProcesoFacade procesoFacade;
@@ -37,20 +37,20 @@ public class FrmProcesoTest extends BackingBeanTest<Proceso>{
     @Spy
     @InjectMocks
     FrmProceso cut = new FrmProceso();
-    Proceso proceso= new Proceso(1);
-    List<Especialidad> registrosEspecialidad= new ArrayList<>();
-    List<Proceso> registrosProceso= new ArrayList<>();
-    
+    Proceso proceso = new Proceso(1);
+    List<Especialidad> registrosEspecialidad = new ArrayList<>();
+    List<Proceso> registrosProceso = new ArrayList<>();
+
     @Before
     @Override
-    public void setup(){
+    public void setup() {
         registrosEspecialidad.add(new Especialidad(1, "Mecanica General"));
         registrosEspecialidad.add(new Especialidad(2, "Electronica"));
-    
-        registrosProceso.add(new Proceso(1,"Cambio de aceite"));
+
+        registrosProceso.add(new Proceso(1, "Cambio de aceite"));
         registrosProceso.add(new Proceso(2, "cambio de llantas"));
     }
-    
+
     @Override
     protected AbstractBean<Proceso> getBean() {
         return cut;
@@ -65,27 +65,34 @@ public class FrmProcesoTest extends BackingBeanTest<Proceso>{
     protected Proceso getEntity() {
         return proceso;
     }
-    
+
     @Test
-    public void listarEspecialidadesTest(){
+    public void listarEspecialidadesTest() {
         System.out.println("listarEspecialidad");
         Mockito.when(especialidadFacade.findAll()).thenReturn(registrosEspecialidad);
         List lista = cut.listarEspecialidades();
-        Assert.assertEquals(registrosEspecialidad.size(),lista.size());
+        Assert.assertEquals(registrosEspecialidad.size(), lista.size());
         Mockito.when(especialidadFacade.findAll()).thenThrow(Exception.class);
-        lista=cut.listarEspecialidades();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(),lista.size());
-        
+        lista = cut.listarEspecialidades();
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
+
     }
 
     @Override
     protected List<Proceso> getLista() {
         return registrosProceso;
     }
- 
-      @Test
-   public void getRowDTest(){
-       String key="";
-       getRowDataTest(key);
-   }
+
+    @Test
+    public void getRowDTest() {
+        String key = "";
+        getRowDataTest(key);
+    }
+
+    @Test
+    public void getListaEspecialidadTest() {
+        cut.setListaEspecialidad(registrosEspecialidad);
+        List ls = cut.getListaEspecialidad();
+        Assert.assertEquals(registrosEspecialidad, ls);
+    }
 }

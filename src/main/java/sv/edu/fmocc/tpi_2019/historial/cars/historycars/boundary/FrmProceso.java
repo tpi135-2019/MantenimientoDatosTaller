@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.EspecialidadFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ProcesoFacade;
@@ -59,11 +58,13 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
@@ -72,7 +73,7 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
         try {
             return listaEspecialidad = especialidadFacade.findAll();
         } catch (Exception e) {
-          return  listaEspecialidad = Collections.EMPTY_LIST;
+            return listaEspecialidad = Collections.EMPTY_LIST;
         }
     }
 
@@ -85,14 +86,10 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
     protected Proceso getrowD(String rowkey) {
 
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-           
-                for (Proceso item : (List<Proceso>) this.getLazyModel().getWrappedData()) {
-                    Integer registry = new Integer(rowkey);
-                    if (item.getIdProceso().compareTo(registry) == 0) {
-                        return item;
-                    }
-                }
-         
+
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(p -> p.getIdProceso().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
+
         }
 
         return null;
@@ -100,9 +97,10 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
 
     @Override
     protected Object getKey(Proceso entity) {
-     
+        if (entity != null) {
             return entity.getIdProceso();
-     
+        }
+        return null;
     }
 
     @Override
@@ -122,10 +120,5 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
     public void setListaEspecialidad(List<Especialidad> listaEspecialidad) {
         this.listaEspecialidad = listaEspecialidad;
     }
-
-    public void setLazyModel(LazyDataModel<Proceso> lazyModel) {
-        this.lazyModel = lazyModel;
-    }
-
 
 }

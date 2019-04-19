@@ -65,10 +65,10 @@
             <p:panelGrid columns="2" rendered="#{frmVehiculo.estado!='NONE'}">
                 Placa<p:inputText id="txtID" immediate="true" value="#{frmVehiculo.registro.idVehiculo}" />
 
-                Numero de Chasis <p:inputText id="txtnombre" immediate="true" value="#{frmVehiculo.registro.numeroChasis}" required="true" />
-                Motor <p:inputText id="txtMotor" immediate="true" value="#{frmVehiculo.registro.numeroMotor}" required="true" />
-                Vin <p:inputText id="txtVin" immediate="true" value="#{frmVehiculo.registro.vin}" required="true" />
-                color <p:inputText id="txtColor" immediate="true" value="#{frmVehiculo.registro.color}" required="true" />
+                Numero de Chasis <p:inputText id="txtnombre" immediate="true" value="#{frmVehiculo.registro.numeroChasis}"  />
+                Motor <p:inputText id="txtMotor" immediate="true" value="#{frmVehiculo.registro.numeroMotor}"  />
+                Vin <p:inputText id="txtVin" immediate="true" value="#{frmVehiculo.registro.vin}"  />
+                color <p:inputText id="txtColor" immediate="true" value="#{frmVehiculo.registro.color}"  />
 
                 Modelo <h:selectOneMenu id="idModelo" value="#{frmVehiculo.registro.idModelo}" converter="omnifaces.SelectItemsConverter" >
                     <f:selectItems value="#{frmVehiculo.listaModelo}"
@@ -89,6 +89,8 @@
                 </h:selectOneMenu>
 
             </p:panelGrid>
+                                                <p:growl life="2500" showSummary="true" />
+
 
             <gg:botones id="btnes" backingBean="#{frmVehiculo}" formularioTabla="frm" formularioRegistro="@form"/>
 

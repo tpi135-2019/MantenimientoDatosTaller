@@ -8,11 +8,11 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SubParteFacade;
@@ -25,19 +25,19 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.SubParte;
  */
 @Named
 @ViewScoped
-public class FrmPieza extends AbstractBean<Pieza> implements Serializable{
+public class FrmPieza extends AbstractBean<Pieza> implements Serializable {
 
     @Inject
     PiezaFacade piezaFacade;
     @Inject
     SubParteFacade subparteFacade;
     List<SubParte> listaSubParte;
-    
+
     @PostConstruct
     @Override
     protected void init() {
         super.init();
-       listarSubpartes();
+        listarSubpartes();
     }
 
     @Override
@@ -58,47 +58,45 @@ public class FrmPieza extends AbstractBean<Pieza> implements Serializable{
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
-    
-    
-    public List listarSubpartes(){
+
+    public List listarSubpartes() {
         try {
-            return listaSubParte=subparteFacade.findAll();
+            return listaSubParte = subparteFacade.findAll();
         } catch (Exception e) {
-        return listaSubParte=Collections.EMPTY_LIST;
+            return listaSubParte = Collections.EMPTY_LIST;
         }
     }
-    
+
     @Override
     protected void crearNuevo() {
-        this.registro= new Pieza();
+        this.registro = new Pieza();
     }
 
     @Override
     protected Pieza getrowD(String rowkey) {
-        if(rowkey!=null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData()!=null){
-            for (Pieza item : (List<Pieza>)this.getLazyModel().getWrappedData()) {
-                Integer registry = new Integer(rowkey);
-                if(item.getIdPieza().compareTo(registry)==0){
-                    return item;
-                }
-            }
+        if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(p -> p.getIdPieza().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
         }
         return null;
     }
 
     @Override
     protected Object getKey(Pieza entity) {
-     
+        if (entity != null) {
             return entity.getIdPieza();
-    
+        }
+        return null;
     }
 
     @Override
@@ -119,9 +117,4 @@ public class FrmPieza extends AbstractBean<Pieza> implements Serializable{
         this.listaSubParte = listaSubParte;
     }
 
-    public void setLazyModel(LazyDataModel<Pieza> lazyModel) {
-        this.lazyModel = lazyModel;
-    }
-    
-    
 }

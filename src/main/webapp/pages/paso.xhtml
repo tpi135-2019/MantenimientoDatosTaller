@@ -53,12 +53,14 @@
 
 
             <p:panelGrid columns="2" rendered="#{frmPaso.estado!='NONE'}">
-                ID<p:inputText id="txtID" immediate="true" value="#{frmPaso.registro.idPaso}" required="true" requiredMessage="Agrege un IDENTIFICADOR " />
+                ID<p:inputText id="txtID" immediate="true" value="#{frmPaso.registro.idPaso}" />
 
-                Paso <p:inputText id="txtnombre" immediate="true" value="#{frmPaso.registro.nombre}" required="true" requiredMessage="Agrege un nombre " />
+                Paso <p:inputText id="txtnombre" immediate="true" value="#{frmPaso.registro.nombre}"  />
                 Estado <p:selectBooleanCheckbox id="ckbActivo" value="#{frmPaso.registro.activo}"/>
                 Descripcion <p:inputTextarea id="txtArea" value="#{frmPaso.registro.descripcion}"/>
             </p:panelGrid>
+                                                <p:growl life="2500" showSummary="true" />
+
         
             <gg:botones id="btnes" backingBean="#{frmPaso}" formularioTabla="frm" formularioRegistro="@form"/>
 

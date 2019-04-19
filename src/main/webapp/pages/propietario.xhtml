@@ -4,17 +4,17 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
       xmlns:p="http://primefaces.org/ui"
-    >
+      >
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-       
+
         <gg:menuBar></gg:menuBar>
-        
-        
+
+
         <h:form id="frm">
-        
+
 
             <h:outputText value="Propietario"/>
 
@@ -28,7 +28,6 @@
                          sortBy="#{t.idPropietario}"
                          >
                 <p:ajax event="rowSelect" listener="#{frmPropietario.onRowSelect}" update=":frm2" />
-
 
 
                 <p:column headerText="Id">
@@ -59,21 +58,24 @@
 
 
             <p:panelGrid columns="2" rendered="#{frmPropietario.estado!='NONE'}">
-                ID<p:inputText id="txtID" immediate="true" value="#{frmPropietario.registro.idPropietario}" required="true" requiredMessage="Agrege un IDENTIFICADOR " />
-                Nombre <p:inputText id="txtnombre" immediate="true" value="#{frmPropietario.registro.nombre}" required="true" requiredMessage="Agrege un nombre " />
-                Apellido <p:inputText id="txtapellido" immediate="true" value="#{frmPropietario.registro.apellido}" required="true" requiredMessage="Agrege un apellido " />
-                Telefono <p:inputText id="txtTelefono" immediate="true" value="#{frmPropietario.registro.telefono}" required="true" requiredMessage="Agrege un numero de telefono" />
-                direccion <p:inputText id="txtDireccion" immediate="true" value="#{frmPropietario.registro.direccion}" required="true" requiredMessage="Agrege una direccion" />
+                ID<p:inputText id="txtID" immediate="true" value="#{frmPropietario.registro.idPropietario}" />
+                Nombre <p:inputText id="txtnombre" immediate="true" value="#{frmPropietario.registro.nombre}"  />
+                Apellido <p:inputText id="txtapellido" immediate="true" value="#{frmPropietario.registro.apellido}" />
+                Telefono <p:inputText id="txtTelefono" immediate="true" value="#{frmPropietario.registro.telefono}"  />
+                direccion <p:inputText id="txtDireccion" immediate="true" value="#{frmPropietario.registro.direccion}"  />
 
             </p:panelGrid>
 
-           
+            <p:growl life="2500" showSummary="true" />
+
             <gg:botones id="btnes" backingBean="#{frmPropietario}" formularioTabla="frm" formularioRegistro="@form"/>
-            
+
         </h:form>
 
-        
-        
+
+
+
+
     </h:body>
 </html>
 
