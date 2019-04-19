@@ -7,11 +7,11 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SucursalFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
@@ -51,11 +51,13 @@ public class FrmSucursal extends AbstractBean<Sucursal> implements Serializable 
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
@@ -68,13 +70,8 @@ public class FrmSucursal extends AbstractBean<Sucursal> implements Serializable 
     @Override
     protected Sucursal getrowD(String rowkey) {
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-
-            for (Sucursal item : (List<Sucursal>) this.getLazyModel().getWrappedData()) {
-                Integer resgistry = new Integer(rowkey);
-                if (item.getIdSucursal().compareTo(resgistry) == 0) {
-                    return item;
-                }
-            }
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(s -> s.getIdSucursal().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
 
         }
         return null;
@@ -82,9 +79,10 @@ public class FrmSucursal extends AbstractBean<Sucursal> implements Serializable 
 
     @Override
     protected Object getKey(Sucursal entity) {
-
-        return entity.getIdSucursal();
-
+        if (entity != null) {
+            return entity.getIdSucursal();
+        }
+        return null;
     }
 
     @Override
@@ -95,10 +93,6 @@ public class FrmSucursal extends AbstractBean<Sucursal> implements Serializable 
     @Override
     protected Sucursal getEntity() {
         return this.registro;
-    }
-
-    public void setLazyModel(LazyDataModel<Sucursal> lazyModel) {
-        this.lazyModel = lazyModel;
     }
 
 }

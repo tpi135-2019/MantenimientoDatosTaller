@@ -7,11 +7,11 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.EspecialidadFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Especialidad;
@@ -52,11 +52,13 @@ public class FrmEspecialidad extends AbstractBean<Especialidad> implements Seria
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
@@ -69,14 +71,9 @@ public class FrmEspecialidad extends AbstractBean<Especialidad> implements Seria
     @Override
     protected Especialidad getrowD(String rowkey) {
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel() != null) {
-          
-                for (Especialidad item : (List<Especialidad>) this.getLazyModel().getWrappedData()) {
-                    Integer registry = new Integer(rowkey);
-                    if (item.getIdEspecialidad().compareTo(registry) == 0) {
-                        return item;
-                    }
-                }
-         
+
+          return this.getLazyModel().getWrappedData().stream().
+                    filter(e -> e.getIdEspecialidad().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
         }
 
         return null;
@@ -84,7 +81,11 @@ public class FrmEspecialidad extends AbstractBean<Especialidad> implements Seria
 
     @Override
     protected Object getKey(Especialidad entity) {
-        return entity.getIdEspecialidad();
+        if (entity != null) {
+            return entity.getIdEspecialidad();
+
+        }
+        return null;
     }
 
     @Override
@@ -95,10 +96,6 @@ public class FrmEspecialidad extends AbstractBean<Especialidad> implements Seria
     @Override
     protected Especialidad getEntity() {
         return this.registro;
-    }
-
-    public void setLazyModel(LazyDataModel<Especialidad> lazyModel) {
-        this.lazyModel = lazyModel;
     }
 
 }

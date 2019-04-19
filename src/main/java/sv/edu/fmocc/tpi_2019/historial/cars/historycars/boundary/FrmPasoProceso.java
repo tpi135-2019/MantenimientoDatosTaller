@@ -8,11 +8,11 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoProcesoFacade;
@@ -38,8 +38,7 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
     PasoFacade pasofacade;
     List<Paso> listaPaso;
 
-    
-      @PostConstruct
+    @PostConstruct
     @Override
     protected void init() {
         super.init();
@@ -66,30 +65,33 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
-    
-    public List listarPasos(){
+
+    public List listarPasos() {
         try {
-            return listaPaso=pasofacade.findAll();
+            return listaPaso = pasofacade.findAll();
         } catch (Exception e) {
-            return listaPaso=Collections.EMPTY_LIST;
+            return listaPaso = Collections.EMPTY_LIST;
         }
     }
-    public List listarProcesos(){
+
+    public List listarProcesos() {
         try {
-           return listaProceso=procesoFacade.findAll();
+            return listaProceso = procesoFacade.findAll();
         } catch (Exception e) {
-           return  listaProceso=Collections.EMPTY_LIST;
+            return listaProceso = Collections.EMPTY_LIST;
         }
     }
-    
+
     @Override
     protected void crearNuevo() {
         this.registro = new PasoProceso();
@@ -98,23 +100,22 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
     @Override
     protected PasoProceso getrowD(String rowkey) {
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-           
-                for (PasoProceso pp : (List<PasoProceso>) this.getLazyModel().getWrappedData()) {
-                    Integer registry = new Integer(rowkey);
-                    if (pp.getIdPasoProceso().compareTo(registry) == 0) {
-                        return pp;
-                    }
-                }
-           
+
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(pP -> pP.getIdPasoProceso().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
+
         }
         return null;
     }
 
     @Override
     protected Object getKey(PasoProceso entity) {
-       
+        if (entity != null) {
             return entity.getIdPasoProceso();
-     
+
+        }
+        return null;
+
     }
 
     @Override
@@ -141,10 +142,6 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
 
     public void setListaPaso(List<Paso> listaPaso) {
         this.listaPaso = listaPaso;
-    }
-    
-    public void setLazyModel(LazyDataModel<PasoProceso> lazyModel) {
-        this.lazyModel = lazyModel;
     }
 
 }

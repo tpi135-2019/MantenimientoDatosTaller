@@ -89,4 +89,11 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
         String key = "";
         getRowDataTest(key);
     }
+
+    @Test
+    public void getListaDiagnosticoTest() {
+        cut.setListaDiagnostico(registrosDiagnostico);
+        List ls = cut.getListaDiagnostico();
+        Assert.assertEquals(registrosDiagnostico, ls);
+    }
 }

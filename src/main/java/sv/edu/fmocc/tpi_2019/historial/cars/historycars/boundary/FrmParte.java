@@ -7,11 +7,11 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ParteFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Parte;
@@ -51,11 +51,13 @@ public class FrmParte extends AbstractBean<Parte> implements Serializable {
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
@@ -68,24 +70,18 @@ public class FrmParte extends AbstractBean<Parte> implements Serializable {
     @Override
     protected Parte getrowD(String rowkey) {
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-           
-
-                for (Parte item : (List<Parte>) this.getLazyModel().getWrappedData()) {
-                    Integer registry = new Integer(rowkey);
-                    if (item.getIdParte().compareTo(registry) == 0) {
-                        return item;
-                    }
-
-                }
-
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(p -> p.getIdParte().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
         }
         return null;
     }
 
     @Override
     protected Object getKey(Parte entity) {
-        return entity.getIdParte();
-
+        if (entity != null) {
+            return entity.getIdParte();
+        }
+        return null;
     }
 
     @Override
@@ -96,10 +92,6 @@ public class FrmParte extends AbstractBean<Parte> implements Serializable {
     @Override
     protected Parte getEntity() {
         return this.registro;
-    }
-
-    public void setLazyModel(LazyDataModel<Parte> lazyModel) {
-        this.lazyModel = lazyModel;
     }
 
 }

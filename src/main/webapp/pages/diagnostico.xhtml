@@ -57,7 +57,7 @@
             <p:panelGrid columns="2" rendered="#{frmDiagnostico.estado!='NONE'}">
                 Id<p:inputText id="txtID" immediate="true" value="#{frmDiagnostico.registro.idDiagnostico}" />
 
-               diagnostico <p:inputText id="txtnombre" immediate="true" value="#{frmDiagnostico.registro.diagnostico}" required="true" />
+               diagnostico <p:inputText id="txtnombre" immediate="true" value="#{frmDiagnostico.registro.diagnostico}" />
                 
 
                Vehiculo <h:selectOneMenu id="idModelo" value="#{frmDiagnostico.registro.idVehiculo}" converter="omnifaces.SelectItemsConverter" >
@@ -72,6 +72,8 @@
                fecha <p:calendar id="fecha" value="#{frmDiagnostico.registro.fecha}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
 
             </p:panelGrid>
+                                    <p:growl life="2500" showSummary="true" />
+
 
             <gg:botones id="btnes" backingBean="#{frmDiagnostico}" formularioTabla="frm" formularioRegistro="@form"/>
 

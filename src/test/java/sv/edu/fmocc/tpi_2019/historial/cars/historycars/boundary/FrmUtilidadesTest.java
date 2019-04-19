@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -25,13 +24,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.powermock.modules.junit4.PowerMockRunner;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacadeTest;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SucursalFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Paso;
@@ -84,7 +81,7 @@ public class FrmUtilidadesTest {
     }
 
     @Test
-    public void buscraPorPlacaTest() {
+    public void buscarPorPlacaTest() {
         String placa = Matchers.anyString();
         Mockito.when(reparacionFacade.reparacionesPorPlaca(placa)).thenReturn(listaReparacion);
         List ls = cut.buscarPorPlaca();
@@ -92,7 +89,7 @@ public class FrmUtilidadesTest {
         Mockito.when(reparacionFacade.reparacionesPorPlaca(placa)).thenThrow(Exception.class);
         cut.buscarPorPlaca();
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
-        cut.placa = null;
+        cut.placaReparacion = null;
         ls = cut.buscarPorPlaca();
         Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
 
@@ -104,10 +101,7 @@ public class FrmUtilidadesTest {
         Mockito.when(diagnosticoFacade.diagnosticoPorPlaca(placa)).thenReturn(listaDiagnostico);
         List lista = cut.buscarDiagnosticoPorPlaca();
         Assert.assertEquals(listaDiagnostico.size(), lista.size());
-        Mockito.when(diagnosticoFacade.diagnosticoPorPlaca(placa)).thenThrow(Exception.class);
-        cut.buscarDiagnosticoPorPlaca();
-        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
-        cut.placa = null;
+        cut.diagnosticoPlaca = null;
         lista = cut.buscarDiagnosticoPorPlaca();
         Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
 
@@ -122,17 +116,16 @@ public class FrmUtilidadesTest {
         Mockito.when(propietarioFacade.historialPropietarios(placa)).thenThrow(Exception.class);
         cut.buscarHistorialDePropietarios();
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
-        cut.placa = null;
+        cut.propietario = null;
         lista = cut.buscarHistorialDePropietarios();
         Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
     @Test
-    //@Ignore
     public void buscarReparacionesPorDiagnosticoTest() {
 
         String diagnostico = "1";
-        cut.select = diagnostico;
+        cut.reparacionDiagnostico = diagnostico;
         // todo nice
         Mockito.when(reparacionFacade.reparacionPorDiagnostico(new Integer(diagnostico))).thenReturn(listaReparacion);
         List ls = cut.buscarReparacionesPorDiagnostico();
@@ -142,7 +135,7 @@ public class FrmUtilidadesTest {
         cut.buscarReparacionesPorDiagnostico();
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
         // parametro nulo o vacio
-        cut.select = "";
+        cut.reparacionDiagnostico = "";
         ls = cut.buscarReparacionesPorDiagnostico();
         Assert.assertEquals(Collections.EMPTY_LIST, ls);
 
@@ -151,7 +144,7 @@ public class FrmUtilidadesTest {
     @Test
     public void buscarReparacionesPorPersonalTest() {
         String personal = "1";
-        cut.person = personal;
+        cut.reparacionPersonal = personal;
         Mockito.when(reparacionFacade.reparacionPorPersonal(new Integer(personal))).thenReturn(listaReparacion);
         List ls = cut.buscarReparacionesPorPersonal();
         Assert.assertEquals(listaReparacion.size(), ls.size());
@@ -160,7 +153,7 @@ public class FrmUtilidadesTest {
         cut.buscarReparacionesPorPersonal();
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
         // parametro nulo o vacio
-        cut.person = "";
+        cut.reparacionPersonal = "";
         ls = cut.buscarReparacionesPorPersonal();
         Assert.assertEquals(Collections.EMPTY_LIST, ls);
     }
@@ -193,14 +186,14 @@ public class FrmUtilidadesTest {
     @Test
     public void buscarSucursalPorReparacionTest() {
         String idReparacion = "1";
-        cut.rep = idReparacion;
+        cut.reparacionSucursal = idReparacion;
         Mockito.when(sucursalFacade.lugarReparacion(new Integer(idReparacion))).thenReturn(listaSucursal);
         List lista = cut.buscarSucursalPorReparacion();
         Assert.assertEquals(listaSucursal, lista);
         Mockito.when(sucursalFacade.lugarReparacion(new Integer(idReparacion))).thenThrow(NumberFormatException.class);
         cut.buscarSucursalPorReparacion();
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
-        cut.rep = null;
+        cut.reparacionSucursal = null;
         lista = cut.buscarSucursalPorReparacion();
         Assert.assertEquals(Collections.EMPTY_LIST, lista);
     }
@@ -226,17 +219,179 @@ public class FrmUtilidadesTest {
     @Test
     public void buscarPasoPorReparacionTest() {
         String idReparacion = "1";
-        cut.paso = idReparacion;
+        cut.pasoReparacion = idReparacion;
         Mockito.when(pasoFacade.pasoReparacion(new Integer(idReparacion))).thenReturn(listaPaso);
         List myList = cut.buscarPasoPorReparacion();
         Assert.assertEquals(listaPaso, myList);
-        Mockito.when(pasoFacade.pasoReparacion(new Integer(idReparacion))).thenThrow(NumberFormatException.class);
-        cut.buscarPasoPorReparacion();
-        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
-        cut.paso = null;
+        cut.pasoReparacion = null;
         myList = cut.buscarPasoPorReparacion();
         Assert.assertEquals(Collections.EMPTY_LIST, myList);
 
     }
 
+    /*
+        TEST A GETTERS Y SETTERS
+     */
+    @Test
+    public void getReparacionSucursal() {
+        String expect = "";
+        String result = cut.getReparacionSucursal();
+        Assert.assertEquals(expect, result);
+        expect = "1";
+        cut.setReparacionSucursal(expect);
+        result = cut.getReparacionSucursal();
+        Assert.assertEquals(expect, result);
+    }
+
+    @Test
+    public void getReparacionDiagnosticoTest() {
+        String expect = "";
+        String result = cut.getReparacionDiagnostico();
+        Assert.assertEquals(expect, result);
+        expect = "1";
+        cut.setReparacionDiagnostico(expect);
+        result = cut.getReparacionDiagnostico();
+        Assert.assertEquals(expect, result);
+    }
+
+    @Test
+    public void getListaReparacionTest() {
+        cut.setListaReparacion(listaReparacion);
+        List ls = cut.getListaReparacion();
+        Assert.assertEquals(listaReparacion, ls);
+    }
+
+    @Test
+    public void getPlacaReparacionTest() {
+        String expect = "";
+        String result = cut.getPlacaReparacion();
+        Assert.assertEquals(expect, result);
+        expect = "P323-12";
+        cut.setPlacaReparacion(expect);
+        result = cut.getPlacaReparacion();
+        Assert.assertEquals(expect, result);
+    }
+
+    @Test
+    public void getTblTest() {
+        FrmUtilidades.estadosTbl estado = FrmUtilidades.estadosTbl.NONE;
+        cut.tbl = estado;
+        estado = cut.getTbl();
+        Assert.assertNotNull(estado);
+    }
+
+    @Test
+    public void getReparacionPersonalTest() {
+        String expect = "";
+        String result = cut.getReparacionPersonal();
+        Assert.assertEquals(expect, result);
+        expect = "1";
+        cut.setReparacionPersonal(expect);
+        result = cut.getReparacionPersonal();
+        Assert.assertEquals(expect, result);
+    }
+
+    @Test
+    public void getDesdeTest() {
+        Date expect = new Date();
+        cut.setDesde(expect);
+        Date result = cut.getDesde();
+        Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void getHastaTest() {
+        Date expect = new Date();
+        cut.setHasta(expect);
+        Date result = cut.getHasta();
+        Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void initTest() {
+        System.out.println("init");
+        FrmUtilidades.estadosTbl expect = FrmUtilidades.estadosTbl.NONE;
+        cut.init();
+        FrmUtilidades.estadosTbl result = cut.tbl;
+        Assert.assertEquals(expect, result);
+    }
+    
+    @Test
+    public void getDiagnosticoPlacaTest(){
+         String expect = "";
+        String result = cut.getDiagnosticoPlaca();
+        Assert.assertEquals(expect, result);
+        expect = "1";
+        cut.setDiagnosticoPlaca(expect);
+        result = cut.getDiagnosticoPlaca();
+        Assert.assertEquals(expect, result);
+    }
+    
+    @Test
+    public void getListaDiagnosticoTest(){
+          cut.setListaDiagnostico(listaDiagnostico);
+        List ls = cut.getListaDiagnostico();
+        Assert.assertEquals(listaDiagnostico, ls);
+    }
+    
+    @Test
+    public void getListaSucursalTest(){
+        cut.setListaSucursal(listaSucursal);
+        List ls = cut.getListaSucursal();
+        Assert.assertEquals(listaSucursal,ls);
+    }
+    
+    @Test
+    public void getListaPasoTest(){
+        cut.setListaPaso(listaPaso);
+        List ls = cut.getListaPaso();
+        Assert.assertEquals(listaPaso,ls);
+    }
+    
+    @Test
+    public void getListaPiezaTest(){
+        cut.setListaPieza(listaPieza);
+        List ls= cut.getListaPieza();
+        Assert.assertEquals(listaPieza,ls);
+    }
+    
+    @Test
+    public void getPiezaTest(){
+          String expect = "";
+        String result = cut.getPieza();
+        Assert.assertEquals(expect, result);
+        expect = "1";
+        cut.setPieza(expect);
+        result = cut.getPieza();
+        Assert.assertEquals(expect, result);
+    }
+    
+    @Test
+    public void getPasoReparacionTest(){
+          String expect = "";
+        String result = cut.getPasoReparacion();
+        Assert.assertEquals(expect, result);
+        expect = "1";
+        cut.setPasoReparacion(expect);
+        result = cut.getPasoReparacion();
+        Assert.assertEquals(expect, result);
+    }
+    
+    @Test
+    public void getListaPropietarioTest(){
+        cut.setListaPropietario(listaPropietario);
+        List ls = cut.getListaPropietario();
+        Assert.assertEquals(listaPropietario,ls);
+    }
+    
+    @Test
+    public void getPropietarioTest(){
+          String expect = "";
+        String result = cut.getPropietario();
+        Assert.assertEquals(expect, result);
+        expect = "1";
+        cut.setPropietario(expect);
+        result = cut.getPropietario();
+        Assert.assertEquals(expect, result);
+    }
 }

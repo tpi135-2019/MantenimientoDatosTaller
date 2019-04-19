@@ -17,7 +17,7 @@
 
                 <p:tab title="Buscar Por Placa">
                     <h:panelGrid columns="2" cellpadding="10">
-                       Ingrese el numero de Placa <h:inputText id="plca" value="#{frmUtilidades.placa}" /> 
+                        Ingrese el numero de Placa <h:inputText id="plca" value="#{frmUtilidades.placaReparacion}" /> 
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarPorPlaca()}"
                                           update=":frmTabla frmTexto" 
                                           />
@@ -30,7 +30,7 @@
                 <p:tab title="Buscar Por Diagnostico">
                     <h:panelGrid columns="2" cellpadding="10">
                               
-                       Ingrese el identificador del diagnostico <h:inputText id="diagnostico" value="#{frmUtilidades.select}" > 
+                        Ingrese el identificador del diagnostico <h:inputText id="diagnostico" value="#{frmUtilidades.reparacionDiagnostico}" > 
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarReparacionesPorDiagnostico()}"
                                           update=":frmTabla frmTexto" 
@@ -44,7 +44,7 @@
                 <p:tab title="Reparaciones por Personal">
                     <h:panelGrid columns="2" cellpadding="10">
 
-                        Ingrese el identificador del mecanico <h:inputText id="perso" value="#{frmUtilidades.person}" > 
+                        Ingrese el identificador del mecanico <h:inputText id="perso" value="#{frmUtilidades.reparacionPersonal}" > 
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarReparacionesPorPersonal()}"
                                           update=":frmTabla frmTexto" 
@@ -82,7 +82,7 @@
                 <p:tab title="Taller por Reparación">
                     <h:panelGrid columns="2" cellpadding="10">
 
-                     Ingrese el identificador de la Reparación <h:inputText  value="#{frmUtilidades.rep}" > 
+                        Ingrese el identificador de la Reparación <h:inputText  value="#{frmUtilidades.reparacionSucursal}" > 
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarSucursalPorReparacion()}"
                                           update=":frmTabla frmTexto" 
@@ -97,7 +97,7 @@
                 <p:tab title="Diagnosticos por Placa">
                     <h:panelGrid columns="2" cellpadding="10">
 
-                        Ingrese el numerod de placa <h:inputText  value="#{frmUtilidades.diagnos}" > 
+                        Ingrese el numerod de placa <h:inputText  value="#{frmUtilidades.diagnosticoPlaca}" > 
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarDiagnosticoPorPlaca()}"
                                           update=":frmTabla frmTexto" 
@@ -123,7 +123,7 @@
                 <p:tab title="Paso de la Reparacion">
                     <h:panelGrid columns="2" cellpadding="10">
 
-                       Ingrese el id de la reparacion <h:inputText  value="#{frmUtilidades.paso}" > 
+                        Ingrese el id de la reparacion <h:inputText  value="#{frmUtilidades.pasoReparacion}" > 
                         </h:inputText>
                         <p:commandButton  value="Buscar" actionListener="#{frmUtilidades.buscarPasoPorReparacion()}"
                                           update=":frmTabla frmTexto" 

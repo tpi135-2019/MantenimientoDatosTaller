@@ -6,12 +6,11 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
@@ -60,11 +59,13 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
@@ -73,14 +74,8 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
     protected Propietario getrowD(String rowkey) {
 
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-
-            for (Propietario item : (List<Propietario>) this.getLazyModel().getWrappedData()) {
-                Integer registry = new Integer(rowkey);
-                if (item.getIdPropietario().compareTo(registry) == 0) {
-                    return item;
-                }
-            }
-
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(p -> p.getIdPropietario().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
         }
 
         return null;
@@ -89,7 +84,10 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
 
     @Override
     protected Object getKey(Propietario entity) {
-        return entity.getIdPropietario();
+        if (entity != null) {
+            return entity.getIdPropietario();
+        }
+        return null;
     }
 
     @Override
@@ -101,25 +99,5 @@ public class FrmPropietario extends AbstractBean<Propietario> implements Seriali
     protected Propietario getEntity() {
         return this.registro;
     }
-
-    public PropietarioFacade getPropietarioFacade() {
-        return propietarioFacade;
-    }
-
-    public void setPropietarioFacade(PropietarioFacade propietarioFacade) {
-        this.propietarioFacade = propietarioFacade;
-    }
-
-    public List<Propietario> getLista() {
-        return lista;
-    }
-
-    public void setLista(List<Propietario> lista) {
-        this.lista = lista;
-    }
-
-    public void setLazyModel(LazyDataModel<Propietario> lazyModel) {
-        this.lazyModel = lazyModel;
-    }
-
+    
 }

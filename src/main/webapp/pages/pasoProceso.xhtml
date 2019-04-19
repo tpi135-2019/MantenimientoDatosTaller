@@ -53,8 +53,8 @@
 
 
             <p:panelGrid columns="2" rendered="#{frmPasoProceso.estado!='NONE'}">
-                ID<p:inputText id="txtID" immediate="true" value="#{frmPasoProceso.registro.idPasoProceso}" required="true" requiredMessage="Agrege un IDENTIFICADOR " />
-                Numero de Paso <p:inputText id="txtnombre" immediate="true" value="#{frmPasoProceso.registro.numeroPaso}" required="true" requiredMessage="Agrege un nombre " />
+                ID<p:inputText id="txtID" immediate="true" value="#{frmPasoProceso.registro.idPasoProceso}" />
+                Numero de Paso <p:inputText id="txtnombre" immediate="true" value="#{frmPasoProceso.registro.numeroPaso}" />
 
                 Paso <h:selectOneMenu id="idMarca" value="#{frmPasoProceso.registro.idPaso}" converter="omnifaces.SelectItemsConverter" >
                    <f:selectItems value="#{frmPasoProceso.listaPaso}"
@@ -75,6 +75,8 @@
 
 
             </p:panelGrid>
+                                                <p:growl life="2500" showSummary="true" />
+
 
             <gg:botones id="btnes" backingBean="#{frmPasoProceso}" formularioTabla="frm" formularioRegistro="@form"/>
 

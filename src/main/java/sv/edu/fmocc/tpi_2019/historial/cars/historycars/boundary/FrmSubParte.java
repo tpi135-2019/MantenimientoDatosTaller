@@ -8,11 +8,11 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.LazyDataModel;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ParteFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SubParteFacade;
@@ -58,11 +58,13 @@ public class FrmSubParte extends AbstractBean<SubParte> implements Serializable 
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
@@ -83,21 +85,18 @@ public class FrmSubParte extends AbstractBean<SubParte> implements Serializable 
     @Override
     protected SubParte getrowD(String rowkey) {
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-            for (SubParte item : (List<SubParte>) this.getLazyModel().getWrappedData()) {
-                Integer registry = new Integer(rowkey);
-                if (item.getIdSubParte().compareTo(registry) == 0) {
-                    return item;
-                }
-            }
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(sp -> sp.getIdSubParte().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
         }
         return null;
     }
 
     @Override
     protected Object getKey(SubParte entity) {
-
-        return entity.getIdSubParte();
-
+        if (entity != null) {
+            return entity.getIdSubParte();
+        }
+        return null;
     }
 
     @Override
@@ -116,10 +115,6 @@ public class FrmSubParte extends AbstractBean<SubParte> implements Serializable 
 
     public void setListaParte(List<Parte> listaParte) {
         this.listaParte = listaParte;
-    }
-
-    public void setLazyModel(LazyDataModel<SubParte> lazyModel) {
-        this.lazyModel = lazyModel;
     }
 
 }

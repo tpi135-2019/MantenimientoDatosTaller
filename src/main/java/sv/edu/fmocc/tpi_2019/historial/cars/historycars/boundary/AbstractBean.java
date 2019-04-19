@@ -24,11 +24,11 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
  */
 public abstract class AbstractBean<T> implements Serializable {
 
-    List<T> lista = new ArrayList<>();
     LazyDataModel<T> lazyModel;
     T registro;
     protected EstadosCRUD estado;
     protected Logger logger = Logger.getGlobal();
+
     public enum EstadosCRUD {
         NONE, NUEVO, EDITAR, ELIMINAR, AGREGAR;
     }
@@ -78,11 +78,12 @@ public abstract class AbstractBean<T> implements Serializable {
         if (getFacadeLocal() != null) {
             try {
                 getFacadeLocal().edit(getEntity());
-
                 addMessage("Edicion realizada correctamente.");
             } catch (Exception ex) {
                 addMessage("Error al editar registro.");
                 logger.log(Level.SEVERE, ex.getMessage());
+            } finally {
+                crearNuevo();
             }
         }
     }
@@ -120,35 +121,33 @@ public abstract class AbstractBean<T> implements Serializable {
 
                 @Override
                 public T getRowData(String rowKey) {
-                    if (rowKey != null && !rowKey.isEmpty() && this.getWrappedData() != null) {
-                        return getrowD(rowKey);
-                    }
-                    return null;
+                    return getrowD(rowKey);
 
                 }
 
                 @Override
                 public List<T> load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map<String, Object> filters) {
-                    List<T> ls = new ArrayList<>();
-                    try {
-                        if (getFacadeLocal() != null) {
-                            this.setRowCount(getFacadeLocal().count());
-                            ls = getFacadeLocal().findRange(first, pageSize);
-                        }
-                    } catch (Exception e) {
-                        logger.log(Level.SEVERE, e.getMessage());
-                    }
-
-                    return ls;
+                    this.setRowCount(getFacadeLocal().count());
+                    return myLoad(first, pageSize);
                 }
-
             };
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.getMessage());
-
         }
 
+    }
+
+    public List myLoad(int first, int pageSize) {
+        List<T> ls = new ArrayList();
+        try {
+            if (getFacadeLocal() != null) {
+                ls = getFacadeLocal().findRange(first, pageSize);
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage());
+        }
+        return ls;
     }
 
     public EstadosCRUD getEstado() {
@@ -158,7 +157,6 @@ public abstract class AbstractBean<T> implements Serializable {
     public void onRowSelect(SelectEvent event) {
         estado = EstadosCRUD.EDITAR;
         registro = (T) event.getObject();
-
     }
 
     public T getRegistro() {
@@ -175,12 +173,16 @@ public abstract class AbstractBean<T> implements Serializable {
     public LazyDataModel<T> getLazyModel() {
         return lazyModel;
     }
-
+    
     public void setLogger(Logger logger) {
         this.logger = logger;
     }
 
     protected abstract void crearNuevo();
+
+    protected abstract void btncancelarHandler();
+
+    protected abstract void btnNuevoHandler();
 
     protected abstract T getrowD(String rowkey);
 

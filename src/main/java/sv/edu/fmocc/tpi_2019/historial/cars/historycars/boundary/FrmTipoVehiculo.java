@@ -7,6 +7,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -51,11 +52,13 @@ public class FrmTipoVehiculo extends AbstractBean<TipoVehiculo> implements Seria
         super.eliminar();
     }
 
+    @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
     }
 
+    @Override
     public void btnNuevoHandler() {
         estado = EstadosCRUD.NUEVO;
     }
@@ -69,34 +72,12 @@ public class FrmTipoVehiculo extends AbstractBean<TipoVehiculo> implements Seria
     protected TipoVehiculo getrowD(String rowkey) {
 
         if (rowkey != null && !rowkey.isEmpty() && this.getLazyModel().getWrappedData() != null) {
-
-            for (TipoVehiculo item : (List<TipoVehiculo>) this.getLazyModel().getWrappedData()) {
-                Integer registry = new Integer(rowkey);
-                if (item.getIdTipoVehiculo().compareTo(registry) == 0) {
-                    return item;
-                }
-
-            }
+            return this.getLazyModel().getWrappedData().stream().
+                    filter(tp -> tp.getIdTipoVehiculo().toString().compareTo(rowkey) == 0).collect(Collectors.toList()).get(0);
 
         }
 
         return null;
-    }
-
-    public TipoVehiculoFacade getTipoVehiculoFacade() {
-        return tipoVehiculoFacade;
-    }
-
-    public void setTipoVehiculoFacade(TipoVehiculoFacade tipoVehiculoFacade) {
-        this.tipoVehiculoFacade = tipoVehiculoFacade;
-    }
-
-    public List<TipoVehiculo> getLista() {
-        return lista;
-    }
-
-    public void setLista(List<TipoVehiculo> lista) {
-        this.lista = lista;
     }
 
     public void setLazyModel(LazyDataModel<TipoVehiculo> lazyModel) {
@@ -105,7 +86,10 @@ public class FrmTipoVehiculo extends AbstractBean<TipoVehiculo> implements Seria
 
     @Override
     protected Object getKey(TipoVehiculo entity) {
-        return entity.getIdTipoVehiculo();
+        if (entity != null) {
+            return entity.getIdTipoVehiculo();
+        }
+        return null;
     }
 
     @Override

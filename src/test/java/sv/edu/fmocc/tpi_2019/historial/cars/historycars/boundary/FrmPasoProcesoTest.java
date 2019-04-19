@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -103,11 +102,24 @@ public class FrmPasoProcesoTest extends BackingBeanTest<PasoProceso> {
 
     }
 
-   
 
     @Test
     public void getRowDTest() {
         String key = "";
         getRowDataTest(key);
+    }
+    
+    @Test
+    public void getListaProcesoTest(){
+        cut.setListaProceso(registrosProceso);
+        List ls = cut.getListaProceso();
+        Assert.assertEquals(registrosProceso,ls);
+    }
+    
+    @Test
+    public void getListaPasoTest(){
+        cut.setListaPaso(registrosPaso);
+        List ls = cut.getListaPaso();
+        Assert.assertEquals(registrosPaso,ls);
     }
 }

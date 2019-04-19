@@ -72,9 +72,11 @@
 
                 fecha <p:calendar id="fecha" value="#{frmReparacion.registro.fecha}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
 
-                observaciones <p:inputTextarea id="txtnombre" immediate="true" value="#{frmReparacion.registro.observacion}" required="true" />
+                observaciones <p:inputTextarea id="txtnombre" immediate="true" value="#{frmReparacion.registro.observacion}"  />
 
             </p:panelGrid>
+                                                <p:growl life="2500" showSummary="true" />
+
 
             <gg:botones id="btnes" backingBean="#{frmReparacion}" formularioTabla="frm" formularioRegistro="@form"/>
 
