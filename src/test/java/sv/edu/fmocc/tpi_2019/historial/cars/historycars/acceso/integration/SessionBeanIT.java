@@ -8,6 +8,11 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.integration;
 import java.util.List;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.persistence.Cleanup;
+import org.jboss.arquillian.persistence.CleanupStrategy;
+import org.jboss.arquillian.persistence.TestExecutionPhase;
+import org.jboss.arquillian.persistence.UsingDataSet;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -25,24 +30,26 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietar
  * @author kevin
  */
 @RunWith(Arquillian.class)
+@UsingDataSet("datasets/dataIT.json")
+@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_TABLES_ONLY)
 public abstract class SessionBeanIT<T> {
 
     FacadeGenerico cutGeneric;
     Class<?> entityClass;
     T entity;
+    T entidadEditada;
+    T entidadNueva;
+    Object idNuevo;
     int numeroRegistros;
     List<T> registros;
     List<T> encontrados;
 
     protected abstract FacadeGenerico getSessionBean();
 
-    protected abstract T getEntity();
-
     protected abstract Object getId();
 
     protected abstract List<T> getResgistros();
 
-    protected abstract Class<?> getEntityClass();
 
     @Deployment
     public static WebArchive desplegar() {
@@ -51,6 +58,7 @@ public abstract class SessionBeanIT<T> {
                 .addPackage(Propietario.class.getPackage())
                 .addAsResource("persistence-arquillian.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+
         System.out.println(salida.toString(true));
         return salida;
     }
@@ -60,97 +68,96 @@ public abstract class SessionBeanIT<T> {
         this.cutGeneric = getSessionBean();
         this.registros = getResgistros();
         this.entity = registros.get(0);
+        this.entidadNueva = registros.get(1);
+        this.entidadEditada = registros.get(2);
+        idNuevo = 5;
     }
 
     @After
     public void tearDown() {
-        registros.forEach(registro -> {
-            cutGeneric.remove(registro);
-        });
+//        registros.forEach(registro -> {
+//            cutGeneric.remove(registro);
+//        });
     }
 
     @Test
+    //@UsingDataSet("datasets/algo.json")
+    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_TABLES_ONLY)
     public void testCreate() {
         numeroRegistros = cutGeneric.count();
-        Assert.assertEquals(0, numeroRegistros);
-        cutGeneric.create(this.entity);
+        Assert.assertEquals(2, numeroRegistros);
+        cutGeneric.create(entidadNueva);
         numeroRegistros = cutGeneric.count();
-        Assert.assertEquals(1, numeroRegistros);
+        Assert.assertEquals(3, numeroRegistros);
+        T entidadCreada = (T) cutGeneric.find(idNuevo);
+        Assert.assertTrue(entidadNueva.equals(entidadCreada));
     }
 
     @Test
+    //@UsingDataSet("datasets/algo.json")
+    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.STRICT)
     public void testDelete() {
         numeroRegistros = cutGeneric.count();
-        Assert.assertEquals(0, numeroRegistros);
-        cutGeneric.create(this.entity);
-        numeroRegistros = cutGeneric.count();
-        Assert.assertEquals(1, numeroRegistros);
+        Assert.assertEquals(2, numeroRegistros);
 
-        cutGeneric.remove(this.entity);
+        cutGeneric.remove(entity);
         numeroRegistros = cutGeneric.count();
         T result = (T) cutGeneric.find(getId());
         Assert.assertNull(result);
-        Assert.assertEquals(0, numeroRegistros);
+        Assert.assertEquals(1, numeroRegistros);
     }
 
     @Test
+    @InSequence(2)
+    //@UsingDataSet("datasets/algo.json")
+    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.STRICT)
     public void testEdit() {
         System.out.println("EditIT");
         numeroRegistros = cutGeneric.count();
-        Assert.assertEquals(0, numeroRegistros);
-        cutGeneric.create(this.entity);
-
+        Assert.assertEquals(2, numeroRegistros);
         T encontrado = (T) cutGeneric.find(getId());
+        cutGeneric.detach(entity);
         Assert.assertNotNull(encontrado);
-        this.entity = getEntity();
-        cutGeneric.edit(this.entity);
-        Assert.assertTrue(!entity.equals(encontrado));
-        cutGeneric.remove(this.entity);
+        cutGeneric.edit(entidadEditada);
+        Assert.assertTrue(!entidadEditada.equals(encontrado));
     }
 
     @Test
+    @InSequence(1)
+    //@UsingDataSet("datasets/algo.json")
+    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
     public void testFind() {
         numeroRegistros = cutGeneric.count();
-        Assert.assertEquals(0, numeroRegistros);
-        cutGeneric.create(this.entity);
+        Assert.assertEquals(2, numeroRegistros);
         T encontrado = (T) cutGeneric.find(getId());
         Assert.assertTrue(entity.equals(encontrado));
+        System.out.println("");
     }
 
     @Test
+    //@UsingDataSet("datasets/algo.json")
+    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_TABLES_ONLY)
     public void testFindAll() {
-        numeroRegistros = cutGeneric.count();
-        Assert.assertEquals(0, numeroRegistros);
-
-        registros.forEach(registro -> {
-            cutGeneric.create(registro);
-        });
         encontrados = cutGeneric.findAll();
-        Assert.assertEquals(registros, encontrados);
+        Assert.assertEquals(2, encontrados.size());
 
     }
 
     @Test
+    //@UsingDataSet("datasets/algo.json")
+    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
     public void testFindRange() {
-        numeroRegistros = cutGeneric.count();
-        Assert.assertEquals(0, numeroRegistros);
-
-        registros.forEach(registro -> {
-            cutGeneric.create(registro);
-        });
-
-        encontrados = cutGeneric.findRange(1, 2);
+        encontrados = cutGeneric.findRange(0, 2);
         Assert.assertEquals(2, encontrados.size());
     }
 
     @Test
+    //@UsingDataSet("datasets/algo.json")
+    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
     public void testCount() {
         System.out.println("testCountIT");
         numeroRegistros = cutGeneric.count();
-        Assert.assertEquals(0, numeroRegistros);
-        cutGeneric.create(this.entity);
-        numeroRegistros = cutGeneric.count();
-        Assert.assertEquals(1, numeroRegistros);
+        Assert.assertEquals(2, numeroRegistros);
 
     }
 

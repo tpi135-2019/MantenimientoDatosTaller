@@ -27,19 +27,14 @@ public class MarcaFacadeIT extends SessionBeanIT<Marca> {
 
     public MarcaFacadeIT() {
         datos.add(new Marca(1, "toyota"));
-        datos.add(new Marca(2, "nissan"));
-        datos.add(new Marca(3, "ford"));
-        
+        datos.add(new Marca(5, "nissan"));
+        datos.add(new Marca(1, "mazda"));
+        this.idNuevo = 5;
     }
 
     @Override
     protected FacadeGenerico getSessionBean() {
         return cut;
-    }
-
-    @Override
-    protected Marca getEntity() {
-        return new Marca((Integer) getId(), "mazda");
     }
 
     @Override
@@ -49,13 +44,8 @@ public class MarcaFacadeIT extends SessionBeanIT<Marca> {
     }
 
     @Override
-    protected Class<?> getEntityClass() {
-        return Marca.class;
-    }
-
-    @Override
     protected Object getId() {
-        return datos.get(0).getIdMarca();
+        return entity.getIdMarca();
     }
 
 }

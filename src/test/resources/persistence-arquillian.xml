@@ -24,6 +24,7 @@
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
             <property name="eclipselink.ddl-generation.output-mode" value="database" />
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
         </properties>
     </persistence-unit>
 </persistence>

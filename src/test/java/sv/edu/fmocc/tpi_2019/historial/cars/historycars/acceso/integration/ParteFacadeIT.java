@@ -27,19 +27,14 @@ public class ParteFacadeIT extends SessionBeanIT<Parte> {
 
     public ParteFacadeIT() {
         datos.add(new Parte(1, "motor"));
-        datos.add(new Parte(2, "radiador"));
-        datos.add(new Parte(3, "transmision"));
-        
+        datos.add(new Parte(5, "radiador"));
+        datos.add(new Parte(1, "calefaccion"));
+
     }
 
     @Override
     protected FacadeGenerico getSessionBean() {
         return cut;
-    }
-
-    @Override
-    protected Parte getEntity() {
-        return new Parte((Integer) getId(), "calefaccion");
     }
 
     @Override
@@ -49,13 +44,8 @@ public class ParteFacadeIT extends SessionBeanIT<Parte> {
     }
 
     @Override
-    protected Class<?> getEntityClass() {
-        return Parte.class;
-    }
-
-    @Override
     protected Object getId() {
-        return datos.get(0).getIdParte();
+        return entity.getIdParte();
     }
 
 }

@@ -9,27 +9,36 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PersonalFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SucursalFacade;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 
 /**
  *
  * @author kevin
  */
 @RunWith(Arquillian.class)
-public class SucursalFacadeIT extends SessionBeanIT<Sucursal> {
+public class PersonalFacadeIT extends SessionBeanIT<Personal> {
 
     @Inject
-    SucursalFacade cut;
-    List<Sucursal> datos = new ArrayList();
+    PersonalFacade cut;
+    @Inject
+    SucursalFacade sucursalFacade;
+    List<Personal> datos = new ArrayList();
 
-    public SucursalFacadeIT() {
-        datos.add(new Sucursal(1, "los chepes"));
-        datos.add(new Sucursal(5, "pedro y pablo"));
-        datos.add(new Sucursal(1, "mi chuchito"));
+    public PersonalFacadeIT() {
+        datos.add(new Personal(1, "juan", "perez"));
+        datos.add(new Personal(5, "pedro", "el escamoso"));
+        datos.add(new Personal(1, "pirulin", "pinpon"));
         
+    }
+    
+    @Before
+    public void before(){
+        datos.forEach(item -> item.setIdSucursal(sucursalFacade.find(2)));
     }
 
     @Override
@@ -38,14 +47,14 @@ public class SucursalFacadeIT extends SessionBeanIT<Sucursal> {
     }
 
     @Override
-    protected List<Sucursal> getResgistros() {
+    protected List<Personal> getResgistros() {
         return datos;
 
     }
 
     @Override
     protected Object getId() {
-        return entity.getIdSucursal();
+        return entity.getIdMecanico();
     }
 
 }

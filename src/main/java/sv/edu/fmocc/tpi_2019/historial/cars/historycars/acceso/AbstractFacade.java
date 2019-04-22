@@ -131,5 +131,10 @@ public abstract class AbstractFacade<T> {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         return cq;
     }
+    
+    public void detach(T entity){
+        EntityManager em = getEntityManager();
+        em.detach(entity);
+    }
 
 }
