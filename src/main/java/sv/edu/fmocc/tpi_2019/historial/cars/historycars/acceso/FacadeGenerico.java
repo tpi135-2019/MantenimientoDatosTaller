@@ -37,4 +37,6 @@ public interface FacadeGenerico<T> {
     
     public void setLogger(Logger logger);
     
+    public void detach(T entity);
+    
 }

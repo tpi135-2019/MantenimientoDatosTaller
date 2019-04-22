@@ -27,19 +27,13 @@ public class PasoFacadeIT extends SessionBeanIT<Paso> {
 
     public PasoFacadeIT() {
         datos.add(new Paso(1, "levantar carro"));
-        datos.add(new Paso(2, "bajar carro"));
-        datos.add(new Paso(3, "quitar tuerca"));
-        
+        datos.add(new Paso(5, "bajar carro"));
+        datos.add(new Paso(1, "quitar tuerca"));
     }
 
     @Override
     protected FacadeGenerico getSessionBean() {
         return cut;
-    }
-
-    @Override
-    protected Paso getEntity() {
-        return new Paso((Integer) getId(), "mover algo");
     }
 
     @Override
@@ -49,13 +43,8 @@ public class PasoFacadeIT extends SessionBeanIT<Paso> {
     }
 
     @Override
-    protected Class<?> getEntityClass() {
-        return Paso.class;
-    }
-
-    @Override
     protected Object getId() {
-        return datos.get(0).getIdPaso();
+        return entity.getIdPaso();
     }
 
 }

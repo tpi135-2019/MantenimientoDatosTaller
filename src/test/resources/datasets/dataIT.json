@@ -1,0 +1,241 @@
+{
+    "marca":
+            [
+                {
+                    "id_marca": 1,
+                    "nombre": "toyota",
+                    "descripcion": "Kent",
+                    "activo": 1
+                },
+                {
+                    "id_marca": 2,
+                    "nombre": "dodge",
+                    "descripcion": "algo",
+                    "activo": 1
+                }
+            ],
+    "parte":
+            [
+                {
+                    "id_parte": 1,
+                    "nombre": "motor",
+                    "activo": 1,
+                    "descripcion": "algo"
+                },
+                {
+                    "id_parte": 2,
+                    "nombre": "arduino",
+                    "activo": 1,
+                    "descripcion": "algo"
+                }
+            ],
+    "paso": [
+        {
+            "id_paso": 1,
+            "nombre": "levantar carro",
+            "activo": 1,
+            "descripcion": "alv"
+        },
+        {
+            "id_paso": 2,
+            "nombre": "bajar carro",
+            "activo": 1,
+            "descripcion": "alv"
+        }
+    ],
+    "propietario": [
+        {
+            "id_propietario": 1,
+            "nombre": "juan",
+            "apellido": "perez",
+            "direccion": " el pan",
+            "telefono": "789456"
+        },
+        {
+            "id_propietario": 2,
+            "nombre": "kjhgf",
+            "apellido": "jhgfd",
+            "direccion": " el pan",
+            "telefono": "6954"
+        }
+    ],
+    "sucursal": [
+        {
+            "id_sucursal": 1,
+            "nombre": "los chepes"
+        },
+        {
+            "id_sucursal": 2,
+            "nombre": "algo"
+        }
+    ],
+    "tipo_vehiculo": [
+        {
+            "id_tipo_vehiculo": 1,
+            "nombre": "sedan"
+        },
+        {
+            "id_tipo_vehiculo": 2,
+            "nombre": "camion"
+        }
+    ],
+    "especialidad": [
+        {
+            "id_especialidad": 1,
+            "nombre": "mecanica general"
+        },
+        {
+            "id_especialidad": 2,
+            "nombre": "pintura"
+        }
+    ],
+    "sub_parte":
+            [
+                {
+                    "id_sub_parte": 1,
+                    "nombre": "crankshaft",
+                    "activo": 1,
+                    "descripcion": "null",
+                    "id_parte": 2
+                },
+                {
+                    "id_sub_parte": 2,
+                    "nombre": "serpentin",
+                    "activo": 1,
+                    "descripcion": "HOLA",
+                    "id_parte": 2
+                }
+            ],
+    "modelo":
+            [
+                {
+                    "id_modelo": 1,
+                    "nombre": "ram",
+                    "id_marca": 2,
+                    "id_tipo_vehiculo": 2
+                },
+                {
+                    "id_modelo": 2,
+                    "nombre": "charger",
+                    "id_marca": 2,
+                    "id_tipo_vehiculo": 2
+                }
+            ],
+    "vehiculo":
+            [
+                {
+                    "id_vehiculo": "P789654",
+                    "numero_chasis": "2789654",
+                    "numero_motor": "2789654",
+                    "vin": "2789654",
+                    "id_modelo": 2,
+                    "id_propietario": 2
+                },
+                {
+                    "id_vehiculo": "P365428",
+                    "numero_chasis": "2789654",
+                    "numero_motor": "2789654",
+                    "vin": "2789654",
+                    "id_modelo": 2,
+                    "id_propietario": 2
+                }
+            ],
+    "historial_propietario":
+            [
+                {
+                    "id_vehiculo": "P365428",
+                    "id_propietario": 2,
+                    "numero_registro": 1
+                },
+                {
+                    "id_vehiculo": "P365428",
+                    "id_propietario": 2,
+                    "numero_registro": 2
+                }
+            ],
+    "pieza":
+            [
+                {
+                    "id_pieza": 1,
+                    "nombre": "piston",
+                    "id_sub_parte": 2
+                },
+                {
+                    "id_pieza": 2,
+                    "nombre": "biela",
+                    "id_sub_parte": 2
+                }
+            ],
+    "diagnostico":
+            [
+                {
+                    "id_diagnostico": 1,
+                    "diagnostico": "se murio don yon",
+                    "fecha": "2018-03-16",
+                    "id_vehiculo": "P365428"
+                },
+                {
+                    "id_diagnostico": 2,
+                    "diagnostico": "se arruino algo ",
+                    "fecha": "2018-03-16",
+                    "id_vehiculo": "P365428"
+                }
+            ],
+    "personal": [
+        {
+            "id_mecanico": 1,
+            "nombre": "juan",
+            "apellido": "perez",
+            "id_sucursal": 2
+        },
+        {
+            "id_mecanico": 2,
+            "nombre": "pedro",
+            "apellido": "LOPEZ",
+            "id_sucursal": 2
+        }
+    ],
+    "proceso": [
+        {
+            "id_proceso": 1,
+            "nombre": "cambio de llantas",
+            "id_especialidad": 2
+        },
+        {
+            "id_proceso": 2,
+            "nombre": "cambio de aceite",
+            "id_especialidad": 2
+        }
+    ],
+    "reparacion": [
+        {
+            "id_reparacion": 1,
+            "fecha": "2018-06-19",
+            "id_diagnostico": 2,
+            "observacion": "se repararon los frenos"
+        },
+        {
+            "id_reparacion": 2,
+            "fecha": "2018-12-25",
+            "id_diagnostico": 2,
+            "observacion": "se cambio de sexo"
+        }
+    ],
+    "paso_proceso": [
+        {
+            "id_paso_proceso": 1,
+            "id_paso": 2,
+            "id_proceso": 2,
+            "numero_paso": 1
+        },
+        {
+            "id_paso_proceso": 2,
+            "id_paso": 2,
+            "id_proceso": 2,
+            "numero_paso": 2
+        }
+    ]
+    
+}
+
+  

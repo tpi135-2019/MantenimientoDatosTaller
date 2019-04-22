@@ -27,19 +27,14 @@ public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
 
     public PropietarioFacadeIT() {
         datos.add(new Propietario(1, "juan", "perez"));
-        datos.add(new Propietario(2, "daft", "punk"));
-        datos.add(new Propietario(3, "ford", "henry"));
-        
-    }
+        datos.add(new Propietario(5, "daft", "punk"));
+        datos.add(new Propietario(1, "elmo", "stark"));
 
+    }
+    
     @Override
     protected FacadeGenerico getSessionBean() {
         return cut;
-    }
-
-    @Override
-    protected Propietario getEntity() {
-        return new Propietario((Integer) getId(), "ala", "berga");
     }
 
     @Override
@@ -49,13 +44,8 @@ public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
     }
 
     @Override
-    protected Class<?> getEntityClass() {
-        return Propietario.class;
-    }
-
-    @Override
     protected Object getId() {
-        return datos.get(0).getIdPropietario();
+        return entity.getIdPropietario();
     }
 
 }

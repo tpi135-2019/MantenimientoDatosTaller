@@ -44,7 +44,7 @@
                     <version>5.183</version>
                     <scope>test</scope>
                 </dependency>
-
+                
             </dependencies>
             <build>
                 <plugins>
@@ -90,7 +90,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.4.0.Final</version>
+                <version>1.4.1.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -98,6 +98,12 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-persistence-dbunit</artifactId>
+            <version>1.0.0.Alpha7</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>ues.fmocc.ingenieria.tpi135-2019.accesodatos</groupId>
             <artifactId>libreriaDatosTaller</artifactId>
@@ -243,7 +249,7 @@
                 </executions>
             </plugin>
             <!-- plugin para saber la cobertura de mis test-->
-            <plugin>
+            <!--plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.9</version>
@@ -261,7 +267,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
             
             <!--dependencia de Surefire-->
             <plugin>

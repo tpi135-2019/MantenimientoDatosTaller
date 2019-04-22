@@ -6,6 +6,8 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.integration;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,32 +17,31 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.VehiculoFacade;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacion;
 
 /**
  *
  * @author kevin
  */
 @RunWith(Arquillian.class)
-public class DiagnosticoFacadeIT extends SessionBeanIT<Diagnostico> {
+public class ReparacionFacadeIT extends SessionBeanIT<Reparacion> {
 
     @Inject
-    DiagnosticoFacade cut;
+    ReparacionFacade cut;
     @Inject
-    VehiculoFacade vehiculoFacade;
-    List<Diagnostico> datos = new ArrayList<>();
+    DiagnosticoFacade diagnosticoFacade;
+    List<Reparacion> datos = new ArrayList();
 
-    public DiagnosticoFacadeIT() {
-        datos.add(new Diagnostico(1, "se murio don yon", new Date()));
-        datos.add(new Diagnostico(5, "no furula el carro", new Date()));
-        datos.add(new Diagnostico(1, "no sirve algo random", new Date()));
-        this.idNuevo = 5;
+    public ReparacionFacadeIT()  {
+        datos.add(new Reparacion(1, new Date(2018-06-19), "se repararon los frenos"));
+        datos.add(new Reparacion(5, new Date(2019-03-5), "se reparo el escape"));
+        datos.add(new Reparacion(1, new Date(2018-05-8), "se cambio el aceite todo good"));
     }
     
     @Before
     public void before(){
-        datos.forEach(diagnostico -> diagnostico.setIdVehiculo(vehiculoFacade.find("P365428")));
+        datos.forEach(item -> item.setIdDiagnostico(diagnosticoFacade.find(2)));
     }
 
     @Override
@@ -49,13 +50,14 @@ public class DiagnosticoFacadeIT extends SessionBeanIT<Diagnostico> {
     }
 
     @Override
-    protected List getResgistros() {
+    protected List<Reparacion> getResgistros() {
         return datos;
+
     }
 
     @Override
     protected Object getId() {
-        return entity.getIdDiagnostico();
+        return entity.getIdReparacion();
     }
 
 }
