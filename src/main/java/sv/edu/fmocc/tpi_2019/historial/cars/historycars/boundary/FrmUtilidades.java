@@ -69,9 +69,23 @@ public class FrmUtilidades implements Serializable {
         REPARACION, SUCURSAL, NONE, DIAGNOSTICO, PIEZA, PASO, PROPIETARIO;
     }
 
+      //**** Manejo de imagenes que se desplazan en el inicio
+    List<String> images= new ArrayList<>();
+
+    public void suffleImages() {
+        for (int i = 1; i <= 3; i++) {
+            images.add("image" + i + ".jpg");
+        }
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+    
     @PostConstruct
     public void init() {
         tbl = estadosTbl.NONE;
+        suffleImages();
     }
 
     /**
