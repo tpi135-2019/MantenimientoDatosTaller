@@ -384,6 +384,15 @@ public class FrmUtilidadesTest {
         List ls = cut.getListaPropietario();
         Assert.assertEquals(listaPropietario,ls);
     }
+
+@Test
+ public void getImagesTest() {
+     List imagenes = new ArrayList<>();
+     imagenes.add("image1");
+       cut.images=imagenes;
+       List image=cut.getImages();
+       Assert.assertEquals(imagenes,image);
+    }
     
     @Test
     public void getPropietarioTest(){

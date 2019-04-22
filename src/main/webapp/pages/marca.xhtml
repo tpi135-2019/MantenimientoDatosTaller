@@ -1,28 +1,35 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
-      xmlns:p="http://primefaces.org/ui"
-      >
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
+                template="#{layoutMB.template}">
 
-        <gg:menuBar></gg:menuBar>
+    <ui:define name="metadata">
+        <ui:param name="title" value="Marcas"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="description">
+        Marcas vehiculares
+    </ui:define>
+
+    <ui:define name="body">
 
         <h:form id="frm">
-
-
-            <h:outputText value="Marca"/>
 
 
             <p:dataTable id="tbl" value="#{frmMarca.lazyModel}" var="t"
                          lazy="true" rows="5" paginator="true" selectionMode="single"
                          paginatorPosition="bottom"
                          rowsPerPageTemplate="5,10,15"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          selection="#{frmMarca.registro}"
                          sortBy="#{t.idMarca}"
                          >
@@ -53,14 +60,12 @@
 
 
             <p:panelGrid columns="2" rendered="#{frmMarca.estado!='NONE'}">
-                ID<p:inputText id="txtID" immediate="true" value="#{frmMarca.registro.idMarca}"  />
 
                 Nombre <p:inputText id="txtnombre" immediate="true" value="#{frmMarca.registro.nombre}" />
                 Activo <p:selectBooleanCheckbox id="ckbActivo" value="#{frmMarca.registro.activo}"/>
                 Descripcion <p:inputTextarea id="txtArea" value="#{frmMarca.registro.descripcion}"/>
             </p:panelGrid>
-        
-                                                <p:growl life="2500" showSummary="true" />
+
 
             <gg:botones id="btnes" backingBean="#{frmMarca}" formularioTabla="frm" formularioRegistro="@form"/>
 
@@ -68,7 +73,6 @@
         </h:form>
 
 
+    </ui:define>
 
-    </h:body>
-</html>
-
+</ui:composition>

@@ -1,17 +1,26 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-         xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      >
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-      
-         <gg:menuBar></gg:menuBar>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="PasoProceso"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="description">
+      Desarrollo del progreso de la reparación
+    </ui:define>
+
+    <ui:define name="body">
 
         <h:form id="frm">
 
@@ -23,7 +32,7 @@
                          lazy="true" rows="5" paginator="true" selectionMode="single"
                          paginatorPosition="bottom"
                          rowsPerPageTemplate="5,10,15"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          selection="#{frmPasoProceso.registro}"
                          sortBy="#{t.idPasoProceso}"
                          >
@@ -53,7 +62,6 @@
 
 
             <p:panelGrid columns="2" rendered="#{frmPasoProceso.estado!='NONE'}">
-                ID<p:inputText id="txtID" immediate="true" value="#{frmPasoProceso.registro.idPasoProceso}" />
                 Numero de Paso <p:inputText id="txtnombre" immediate="true" value="#{frmPasoProceso.registro.numeroPaso}" />
 
                 Paso <h:selectOneMenu id="idMarca" value="#{frmPasoProceso.registro.idPaso}" converter="omnifaces.SelectItemsConverter" >
@@ -75,14 +83,12 @@
 
 
             </p:panelGrid>
-                                                <p:growl life="2500" showSummary="true" />
 
 
             <gg:botones id="btnes" backingBean="#{frmPasoProceso}" formularioTabla="frm" formularioRegistro="@form"/>
 
         </h:form>
 
-        
-    </h:body>
-</html>
+   </ui:define>
 
+</ui:composition>

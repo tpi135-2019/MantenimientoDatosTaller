@@ -192,7 +192,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>6.2</version>
+            <version>7.0</version>
             <type>jar</type>
         </dependency>
         
@@ -201,8 +201,16 @@
             <artifactId>admin-theme</artifactId>
             <version>1.0.0</version>
         </dependency>
-
-        
+        <dependency>
+            <groupId>com.github.adminfaces</groupId>
+            <artifactId>admin-template</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+          <dependency>
+            <groupId>org.primefaces.extensions</groupId>
+            <artifactId>primefaces-extensions</artifactId>
+            <version>6.1.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -279,29 +287,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
             </plugin> 
-            
-            <!-- este plugin se va a borrar en la final (se lo puse para no estar moviendo el war a pata xd)-->
-            
-            <!--plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <configuration>
-                    <executable>cp</executable>
-                    <arguments>
-                        <argument>${project.basedir}/target/HistoryCars-1.0-SNAPSHOT.war</argument>
-                        <argument>${project.basedir}/src/main/resources/docker/payara</argument>
-                    </arguments>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin-->
+           
             
         </plugins>
     </build>

@@ -1,29 +1,36 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
-      xmlns:p="http://primefaces.org/ui"
-      >
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-       
-        
-         <gg:menuBar></gg:menuBar>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                xmlns:gg="http://xmlns.jcp.org/jsf/composite/componentes"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <ui:param name="title" value="Talleres"/> <!-- Automatic create breadCrumb and page title when param 'title' is provided. --> 
+
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="description">
+      Talleres registrados 
+    </ui:define>
+
+    <ui:define name="body">
 
         <h:form id="frm">
 
-
-            <h:outputText value="Sucursal"/>
 
 
             <p:dataTable id="tbl" value="#{frmSucursal.lazyModel}" var="t"
                          lazy="true" rows="5" paginator="true" selectionMode="single"
                          paginatorPosition="bottom"
                          rowsPerPageTemplate="5,10,15"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          selection="#{frmSucursal.registro}"
                          sortBy="#{t.idSucursal}"
                          >
@@ -58,23 +65,19 @@
 
 
             <p:panelGrid columns="2" rendered="#{frmSucursal.estado!='NONE'}">
-                ID<p:inputText id="txtID" immediate="true" value="#{frmSucursal.registro.idSucursal}" />
 
                 Nombre <p:inputText id="txtnombre" immediate="true" value="#{frmSucursal.registro.nombre}" />
                 Activo <p:selectBooleanCheckbox id="ckbActivo" value="#{frmSucursal.registro.activo}"/>
                 Telefono <p:inputText id="txttelefono" immediate="true" value="#{frmSucursal.registro.telefono}" />
                 Direccion <p:inputTextarea id="txtArea" value="#{frmSucursal.registro.direccion}"/>
             </p:panelGrid>
-                                                <p:growl life="2500" showSummary="true" />
 
         
             <gg:botones id="btnes" backingBean="#{frmSucursal}" formularioTabla="frm" formularioRegistro="@form"/>
 
 
         </h:form>
+   
+    </ui:define>
 
-        
-        
-    </h:body>
-</html>
-
+</ui:composition>
