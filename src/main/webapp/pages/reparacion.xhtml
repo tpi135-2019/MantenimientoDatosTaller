@@ -78,19 +78,17 @@
 
                 observaciones <p:inputTextarea id="txtnombre" immediate="true" value="#{frmReparacion.registro.observacion}"  />
 
-                Proceso <h:selectOneMenu id="idProceso" value="#{frmReparacion.proceso}" 
-                                             converter="omnifaces.SelectItemsConverter"
-                                             label="seleccione un proceso"
-                                             valueChangeListener="#{frmReparacion.listar()}" 
-                                             >
+                Proceso <p:selectOneMenu id="idProceso" value="#{frmReparacion.proceso}" 
+                                         converter="omnifaces.SelectItemsConverter"
+                                         label="seleccione un proceso">
+                    <p:ajax listener="#{frmReparacion.listar()}" update="idPersonal idPP" />
                     <f:selectItems value="#{frmReparacion.listaProceso}"
                                    var="idIt"
                                    itemValue="#{idIt}"
-                                   itemLabel="#{idIt.nombre.toString()}"
-                                   />
+                                   itemLabel="#{idIt.nombre.toString()}" />
 
-                </h:selectOneMenu>
-                
+                </p:selectOneMenu>
+
                 Piezas <p:selectCheckboxMenu id="idPiezas" value="#{frmReparacion.registro.piezaCollection}" 
                                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
                                              converter="omnifaces.SelectItemsConverter"
@@ -102,11 +100,11 @@
                                    />
 
                 </p:selectCheckboxMenu>
-                
+
                 Personal <p:selectCheckboxMenu id="idPersonal" value="#{frmReparacion.registro.personalCollection}" 
-                                             filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
-                                             converter="omnifaces.SelectItemsConverter"
-                                             label="Seleccione el personal">
+                                               filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
+                                               converter="omnifaces.SelectItemsConverter"
+                                               label="Seleccione el personal">
                     <f:selectItems value="#{frmReparacion.lsPersonal}"
                                    var="idIte"
                                    itemValue="#{idIte}"
@@ -114,11 +112,11 @@
                                    />
 
                 </p:selectCheckboxMenu>
-                
+
                 PasoProceso <p:selectCheckboxMenu id="idPP" value="#{frmReparacion.registro.pasoProcesoCollection}" 
-                                             filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
-                                             converter="omnifaces.SelectItemsConverter" 
-                                             label="Seleccione el Id">
+                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
+                                                  converter="omnifaces.SelectItemsConverter" 
+                                                  label="Seleccione el Id">
                     <f:selectItems value="#{frmReparacion.lspasoProceso}"
                                    var="idIte"
                                    itemValue="#{idIte}"
@@ -126,7 +124,7 @@
                                    />
 
                 </p:selectCheckboxMenu>
-                 
+
             </p:panelGrid>
 
 

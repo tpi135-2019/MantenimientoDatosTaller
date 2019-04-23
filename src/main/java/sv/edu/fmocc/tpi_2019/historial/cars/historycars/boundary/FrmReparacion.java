@@ -65,6 +65,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
 
     public List listarPersonal() {
         try {
+            System.out.println("ID PROCESO"+ proceso.getNombre());
             return lsPersonal = personalFacade.personalPorProceso(proceso.getIdProceso());
         } catch (Exception e) {
             return lsPersonal = Collections.EMPTY_LIST;
@@ -81,13 +82,14 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
 
     public List listarPasoProceso() {
         try {
-            return lspasoProceso = pasoProcesoFacade.findAll();
+            return lspasoProceso = pasoProcesoFacade.PasosPorProceso(proceso.getIdProceso());
         } catch (Exception e) {
             return lspasoProceso = Collections.EMPTY_LIST;
         }
     }
 
     public void listar() {
+        System.out.println("AUI EN LISTAR ");
         listarDiagnosticos();
         listarPiezas();
         listarPasoProceso();

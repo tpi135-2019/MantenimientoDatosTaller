@@ -6,13 +6,18 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.unittests;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 import javax.persistence.EntityManager;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.runners.MockitoJUnitRunner;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
@@ -58,6 +63,24 @@ public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
     @Override
     protected List<PasoProceso> getLista() {
         return registrosEsperados;
+    }
+    
+     @Test
+    public void pasoReparacionTest(){
+        System.out.println("pasosPorProceso");
+        int proceso=1;
+        Mockito.when(ema.createNamedQuery("PasoProceso.findByProceso")).thenReturn(queryMock);
+        Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
+        List ls = cut.PasosPorProceso(proceso);
+        Assert.assertEquals(registrosEsperados.size(), ls.size());
+        
+        ls=cut.PasosPorProceso(-1);
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
+        
+        setEmNull();
+        cut.PasosPorProceso(proceso);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+        
     }
 
 }
