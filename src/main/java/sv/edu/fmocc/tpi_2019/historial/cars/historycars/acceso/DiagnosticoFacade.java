@@ -36,11 +36,6 @@ public class DiagnosticoFacade extends AbstractFacade<Diagnostico> implements Fa
         super(Diagnostico.class);
     }
 
-    @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-
     public List<Diagnostico> diagnosticoPorPlaca(String placa) {
 
         if(placa!=null && !placa.isEmpty()){

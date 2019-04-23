@@ -32,9 +32,4 @@ public class VehiculoFacade extends AbstractFacade<Vehiculo> implements FacadeGe
         super(Vehiculo.class);
     }
     
-       @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-    
 }

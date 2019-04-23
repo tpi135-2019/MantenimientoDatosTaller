@@ -31,10 +31,6 @@ public class TipoVehiculoFacade extends AbstractFacade<TipoVehiculo> implements 
     public TipoVehiculoFacade() {
         super(TipoVehiculo.class);
     }
-    
-       @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
+
     
 }

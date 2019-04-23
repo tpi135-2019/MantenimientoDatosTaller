@@ -35,12 +35,7 @@ public class PasoProcesoFacade extends AbstractFacade<PasoProceso> implements Fa
     public PasoProcesoFacade() {
         super(PasoProceso.class);
     }
-    
-       @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-    
+
     public List<PasoProceso> PasosPorProceso(int proceso){
     if(proceso>0){
             try {

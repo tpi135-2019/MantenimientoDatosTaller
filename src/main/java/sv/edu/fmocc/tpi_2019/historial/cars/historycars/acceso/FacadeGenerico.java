@@ -36,10 +36,7 @@ public interface FacadeGenerico<T> {
     
     public CriteriaQuery obtenerCriteriaQueryComun(EntityManager em);
     
-    public void setLogger(Logger logger);
-    
     public void detach(T entity);
-    
-    public boolean ver(T enti);
+   
     
 }

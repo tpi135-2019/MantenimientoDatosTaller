@@ -36,10 +36,6 @@ public class SucursalFacade extends AbstractFacade<Sucursal> implements FacadeGe
         super(Sucursal.class);
     }
 
-    @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
 
     public List lugarReparacion(int reparacion) {
         if (reparacion >= 0) {

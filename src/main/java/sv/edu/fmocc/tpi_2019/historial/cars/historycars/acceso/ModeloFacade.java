@@ -32,9 +32,5 @@ public class ModeloFacade extends AbstractFacade<Modelo> implements FacadeGeneri
         super(Modelo.class);
     }
     
-       @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-    
+
 }

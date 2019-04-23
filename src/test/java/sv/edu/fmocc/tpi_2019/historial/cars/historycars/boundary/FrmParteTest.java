@@ -34,6 +34,7 @@ public class FrmParteTest extends BackingBeanTest<Parte> {
     List<Parte> registrosParte = new ArrayList<>();
 
     @Before
+    @Override
     public void setup() {
         registrosParte.add(new Parte(1, "Motor"));
         registrosParte.add(new Parte(2, "Interiores"));

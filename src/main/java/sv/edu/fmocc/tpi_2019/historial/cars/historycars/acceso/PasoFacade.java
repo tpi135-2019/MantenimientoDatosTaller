@@ -35,12 +35,6 @@ public class PasoFacade extends AbstractFacade<Paso> implements FacadeGenerico<P
     public PasoFacade() {
         super(Paso.class);
     }
-    
-       @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-    
  
     public List<Paso> pasoReparacion(int reparacion){
         if(reparacion>0){

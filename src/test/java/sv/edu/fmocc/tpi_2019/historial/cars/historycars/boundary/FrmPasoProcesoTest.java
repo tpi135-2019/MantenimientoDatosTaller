@@ -47,6 +47,7 @@ public class FrmPasoProcesoTest extends BackingBeanTest<PasoProceso> {
     List<PasoProceso> registrosPasoProceso = new ArrayList<>();
 
     @Before
+    @Override
     public void setup() {
         registrosPaso.add(new Paso(1, "colocar el gato hidraulico"));
         registrosPaso.add(new Paso(2, "quitar tuecas"));

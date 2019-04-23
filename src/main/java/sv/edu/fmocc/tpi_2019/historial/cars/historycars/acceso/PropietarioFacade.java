@@ -36,10 +36,6 @@ public class PropietarioFacade extends AbstractFacade<Propietario> implements Fa
         super(Propietario.class);
     }
 
-    @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
 
     public List historialPropietarios(String placa) {
         if (placa != null && !placa.trim().isEmpty()) {

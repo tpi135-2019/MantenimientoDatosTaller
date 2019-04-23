@@ -36,11 +36,6 @@ public class PiezaFacade extends AbstractFacade<Pieza> implements FacadeGenerico
         super(Pieza.class);
     }
 
-    @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-
     public List<Pieza> piezasReparacion(int reparacion) {
         if (reparacion >= 0) {
 

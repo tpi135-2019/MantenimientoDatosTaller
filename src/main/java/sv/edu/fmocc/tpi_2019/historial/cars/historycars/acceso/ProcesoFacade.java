@@ -31,10 +31,5 @@ public class ProcesoFacade extends AbstractFacade<Proceso> implements FacadeGene
     public ProcesoFacade() {
         super(Proceso.class);
     }
-    
-       @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-    
+ 
 }

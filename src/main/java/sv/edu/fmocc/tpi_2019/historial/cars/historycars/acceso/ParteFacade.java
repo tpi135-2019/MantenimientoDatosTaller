@@ -31,10 +31,6 @@ public class ParteFacade extends AbstractFacade<Parte> implements FacadeGenerico
     public ParteFacade() {
         super(Parte.class);
     }
-    
-       @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
+
     
 }

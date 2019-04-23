@@ -36,10 +36,6 @@ public class PersonalFacade extends AbstractFacade<Personal> implements FacadeGe
         super(Personal.class);
     }
 
-    @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
 
     public List<Personal> personalPorReparacion(int idReparacion) {
 
