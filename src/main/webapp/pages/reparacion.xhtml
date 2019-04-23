@@ -73,6 +73,17 @@
                                    />
 
                 </h:selectOneMenu>
+                
+                Piezas <p:selectCheckboxMenu id="idPiezas" value="#{frmReparacion.registro.piezaCollection}" 
+                                        filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
+                                        converter="omnifaces.SelectItemsConverter" >
+                    <f:selectItems value="#{frmReparacion.listaPiezas}"
+                                   var="idIt"
+                                   itemValue="#{idIt}"
+                                   itemLabel="#{idIt.nombre.toString()}"
+                                   />
+
+                </p:selectCheckboxMenu>
 
                 fecha <p:calendar id="fecha" value="#{frmReparacion.registro.fecha}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
 
