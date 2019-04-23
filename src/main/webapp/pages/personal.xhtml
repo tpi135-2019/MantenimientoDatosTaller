@@ -38,7 +38,6 @@
                 <p:ajax event="rowSelect" listener="#{frmPersonal.onRowSelect}" update=":frm2" />
 
 
-
                 <p:column headerText="idMecanico">
                     <h:outputText  value="#{t.idMecanico}"/>
                 </p:column>
@@ -71,17 +70,28 @@
                 Nombre<p:inputText id="txtName" immediate="true" value="#{frmPersonal.registro.nombre}" />
                 Apellido<p:inputText id="txtLastName" immediate="true" value="#{frmPersonal.registro.apellido}" />
 
-                Estado <p:selectBooleanCheckbox id="ckbActivo" value="#{frmPersonal.registro.activo}"/>
+                Estado <p:selectBooleanCheckbox id="ckbActivo" value="#{frmPersonal.registro.activo}" />
 
 
-                Lugar de Trabajo <h:selectOneMenu id="idSucu" value="#{frmPersonal.idSucursalSeleccionada}" >
+                Lugar de Trabajo <h:selectOneMenu id="idSucu" value="#{frmPersonal.registro.idSucursal}" converter="omnifaces.SelectItemsConverter" >
                     <f:selectItems value="#{frmPersonal.listaSucursal}"
                                    var="idIt"
-                                   itemValue="#{idIt.idSucursal}"
+                                   itemValue="#{idIt}"
                                    itemLabel="#{idIt.nombre.toString()}"
                                    />
 
                 </h:selectOneMenu>
+                Especialidad <p:selectCheckboxMenu id="idES" value="#{frmPersonal.registro.especialidadCollection}" 
+                                             filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
+                                             converter="omnifaces.SelectItemsConverter" 
+                                             label="Seleccione su especialidad">
+                    <f:selectItems value="#{frmPersonal.lsEspecialidad}"
+                                   var="idItem"
+                                   itemValue="#{idItem}"
+                                   itemLabel="#{idItem.nombre.toString()}"
+                                   />
+
+                </p:selectCheckboxMenu>
 
                 fecha de Contrato <p:calendar id="fecha" value="#{frmPersonal.registro.fechaContratacion}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
 

@@ -13,9 +13,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.EspecialidadFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PersonalFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SucursalFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Especialidad;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 
@@ -32,12 +34,24 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable 
     @Inject
     SucursalFacade sucursalFacade;
     List<Sucursal> listaSucursal;
+    @Inject
+    EspecialidadFacade especialidadFacade;
+    List<Especialidad> lsEspecialidad;
+    
+    public List listarESpecialidades(){
+        try {
+            return lsEspecialidad=especialidadFacade.findAll();
+        } catch (Exception e) {
+        return lsEspecialidad=Collections.EMPTY_LIST;
+        }
+    }
 
     @PostConstruct
     @Override
     protected void init() {
         super.init();
         listarSucursales();
+        listarESpecialidades();
     }
 
     public List listarSucursales() {
@@ -118,5 +132,15 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable 
     public void setListaSucursal(List<Sucursal> listaSucursal) {
         this.listaSucursal = listaSucursal;
     }
+
+    public List<Especialidad> getLsEspecialidad() {
+        return lsEspecialidad;
+    }
+
+    public void setLsEspecialidad(List<Especialidad> lsEspecialidad) {
+        this.lsEspecialidad = lsEspecialidad;
+    }
+    
+    
 
 }
