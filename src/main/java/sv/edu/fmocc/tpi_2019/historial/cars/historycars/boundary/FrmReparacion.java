@@ -19,11 +19,13 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoProcesoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PersonalFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ProcesoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacion;
 
 /**
@@ -43,43 +45,61 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     @Inject
     PasoProcesoFacade pasoProcesoFacade;
     @Inject
+    ProcesoFacade procesoFacade;
+    @Inject
     PersonalFacade personalFacade;
     List<Diagnostico> listaDiagnostico;
     List<Pieza> lspieza;
     List<PasoProceso> lspasoProceso;
     List<Personal> lsPersonal;
-  
+    List<Proceso> listaProceso;
+    Proceso proceso;
 
     public List listarPiezas() {
         try {
-            return lspieza =piezaFacade.findAll();
+            return lspieza = piezaFacade.findAll();
         } catch (Exception e) {
-            return lspieza=Collections.EMPTY_LIST;
+            return lspieza = Collections.EMPTY_LIST;
         }
     }
-     public List listarPersonal() {
+
+    public List listarPersonal() {
         try {
-            return lsPersonal =personalFacade.findAll();
+            return lsPersonal = personalFacade.personalPorProceso(proceso.getIdProceso());
         } catch (Exception e) {
-            return lsPersonal=Collections.EMPTY_LIST;
+            return lsPersonal = Collections.EMPTY_LIST;
         }
     }
-      public List listarPasoProceso() {
+
+    public List listarProcesos() {
         try {
-            return lspasoProceso =pasoProcesoFacade.findAll();
+            return listaProceso = procesoFacade.findAll();
         } catch (Exception e) {
-            return lspasoProceso=Collections.EMPTY_LIST;
+            return listaProceso = Collections.EMPTY_LIST;
         }
+    }
+
+    public List listarPasoProceso() {
+        try {
+            return lspasoProceso = pasoProcesoFacade.findAll();
+        } catch (Exception e) {
+            return lspasoProceso = Collections.EMPTY_LIST;
+        }
+    }
+
+    public void listar() {
+        listarDiagnosticos();
+        listarPiezas();
+        listarPasoProceso();
+        listarPersonal();
     }
 
     @PostConstruct
     @Override
     protected void init() {
         super.init();
-        listarDiagnosticos();
-        listarPiezas();
-        listarPasoProceso();
-        listarPersonal();
+        listarProcesos();
+        listar();
     }
 
     @Override
@@ -184,6 +204,21 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     public void setLsPersonal(List<Personal> lsPersonal) {
         this.lsPersonal = lsPersonal;
     }
-    
+
+    public List<Proceso> getListaProceso() {
+        return listaProceso;
+    }
+
+    public void setListaProceso(List<Proceso> listaProceso) {
+        this.listaProceso = listaProceso;
+    }
+
+    public Proceso getProceso() {
+        return proceso;
+    }
+
+    public void setProceso(Proceso proceso) {
+        this.proceso = proceso;
+    }
 
 }

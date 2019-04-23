@@ -102,12 +102,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-persistence-dbunit</artifactId>
-            <version>1.0.0.Alpha7</version>
-            <scope>test</scope>
-        </dependency>
+        
         <dependency>
             <groupId>ues.fmocc.ingenieria.tpi135-2019.accesodatos</groupId>
             <artifactId>libreriaDatosTaller</artifactId>
@@ -187,6 +182,13 @@
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-persistence-dbunit</artifactId>
+            <version>1.0.0.Alpha7</version>
+            <scope>test</scope>
+        </dependency>
      
         <!-- dependecia para el lazyDataModel-->
         <dependency>
@@ -206,7 +208,7 @@
             <artifactId>admin-template</artifactId>
             <version>1.0.0</version>
         </dependency>
-          <dependency>
+        <dependency>
             <groupId>org.primefaces.extensions</groupId>
             <artifactId>primefaces-extensions</artifactId>
             <version>6.1.1</version>
@@ -288,7 +290,7 @@
                 <version>2.22.1</version>
             </plugin> 
            
-           <!-- este plugin se va a borrar en la final (se lo puse para no estar moviendo el war a pata xd)-->
+            <!-- este plugin se va a borrar en la final (se lo puse para no estar moviendo el war a pata xd)-->
           
         </plugins>
     </build>
