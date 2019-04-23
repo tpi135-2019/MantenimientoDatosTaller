@@ -76,23 +76,23 @@
                 Vin <p:inputText id="txtVin" immediate="true" value="#{frmVehiculo.registro.vin}"  />
                 color <p:inputText id="txtColor" immediate="true" value="#{frmVehiculo.registro.color}"  />
 
-                Modelo <h:selectOneMenu id="idModelo" value="#{frmVehiculo.registro.idModelo}" converter="omnifaces.SelectItemsConverter" >
+                Modelo <p:selectOneMenu id="idModelo" value="#{frmVehiculo.registro.idModelo}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">
                     <f:selectItems value="#{frmVehiculo.listaModelo}"
                                    var="idIt"
                                    itemValue="#{idIt}"
                                    itemLabel="#{idIt.nombre.toString()}"
                                    />
 
-                </h:selectOneMenu>
+                </p:selectOneMenu>
 
-                Propietario <h:selectOneMenu id="idPropietario" value="#{frmVehiculo.registro.idPropietario}" converter="omnifaces.SelectItemsConverter" >
+                Propietario <p:selectOneMenu id="idPropietario" value="#{frmVehiculo.registro.idPropietario}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{frmVehiculo.listaPropietario}"
                                    var="idItem"
                                    itemValue="#{idItem}"
-                                   itemLabel="#{idItem.nombre.toString()} #{idItem.apellido.toString()}"
+                                   itemLabel="#{idItem.idPropietario.toString()} #{idItem.nombre.toString()} #{idItem.apellido.toString()}"
                                    />
 
-                </h:selectOneMenu>
+                </p:selectOneMenu>
 
             </p:panelGrid>
                                                 <!--p:growl life="2500" showSummary="true" /-->

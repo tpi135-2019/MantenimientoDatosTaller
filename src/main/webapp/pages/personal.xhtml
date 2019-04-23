@@ -73,14 +73,14 @@
                 Estado <p:selectBooleanCheckbox id="ckbActivo" value="#{frmPersonal.registro.activo}" />
 
 
-                Lugar de Trabajo <h:selectOneMenu id="idSucu" value="#{frmPersonal.registro.idSucursal}" converter="omnifaces.SelectItemsConverter" >
+                Lugar de Trabajo <p:selectOneMenu id="idSucu" value="#{frmPersonal.registro.idSucursal}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">
                     <f:selectItems value="#{frmPersonal.listaSucursal}"
                                    var="idIt"
                                    itemValue="#{idIt}"
                                    itemLabel="#{idIt.nombre.toString()}"
                                    />
 
-                </h:selectOneMenu>
+                </p:selectOneMenu>
                 Especialidad <p:selectCheckboxMenu id="idES" value="#{frmPersonal.registro.especialidadCollection}" 
                                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
                                              converter="omnifaces.SelectItemsConverter" 

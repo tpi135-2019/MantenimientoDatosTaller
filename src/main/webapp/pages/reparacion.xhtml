@@ -65,14 +65,13 @@
             <p:panelGrid columns="2" rendered="#{frmReparacion.estado!='NONE'}">
 
 
-                Diagnostico <h:selectOneMenu id="idDiagnostico" value="#{frmReparacion.registro.idDiagnostico}" converter="omnifaces.SelectItemsConverter" >
+                Diagnostico <p:selectOneMenu id="idDiagnostico" value="#{frmReparacion.registro.idDiagnostico}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains">
                     <f:selectItems value="#{frmReparacion.listaDiagnostico}"
                                    var="idI"
                                    itemValue="#{idI}"
-                                   itemLabel="#{idI.diagnostico.toString()}"
+                                   itemLabel="#{idI.idDiagnostico.toString()} #{idI.diagnostico.toString()}"
                                    />
-
-                </h:selectOneMenu>
+                </p:selectOneMenu>
 
                 fecha <p:calendar id="fecha" value="#{frmReparacion.registro.fecha}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
 
@@ -80,7 +79,7 @@
 
                 Proceso <p:selectOneMenu id="idProceso" value="#{frmReparacion.proceso}" 
                                          converter="omnifaces.SelectItemsConverter"
-                                         label="seleccione un proceso">
+                                         label="seleccione un proceso" filter="true" filterMatchMode="startsWith">
                     <p:ajax listener="#{frmReparacion.listar()}" update="idPersonal idPP" />
                     <f:selectItems value="#{frmReparacion.listaProceso}"
                                    var="idIt"

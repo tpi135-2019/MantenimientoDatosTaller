@@ -64,22 +64,22 @@
             <p:panelGrid columns="2" rendered="#{frmPasoProceso.estado!='NONE'}">
                 Numero de Paso <p:inputText id="txtnombre" immediate="true" value="#{frmPasoProceso.registro.numeroPaso}" />
 
-                Paso <h:selectOneMenu id="idMarca" value="#{frmPasoProceso.registro.idPaso}" converter="omnifaces.SelectItemsConverter" >
+                Paso <p:selectOneMenu id="idMarca" value="#{frmPasoProceso.registro.idPaso}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">
                    <f:selectItems value="#{frmPasoProceso.listaPaso}"
                                    var="idIt"
                                    itemValue="#{idIt}"
                                    itemLabel="#{idIt.nombre.toString()}"
                                    />
 
-                </h:selectOneMenu>
-               Proceso <h:selectOneMenu id="idTPV" value="#{frmPasoProceso.registro.idProceso}" converter="omnifaces.SelectItemsConverter"  >
+                </p:selectOneMenu>
+               Proceso <p:selectOneMenu id="idTPV" value="#{frmPasoProceso.registro.idProceso}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith" >
                    <f:selectItems value="#{frmPasoProceso.listaProceso}"
                                    var="idItem"
                                    itemValue="#{idItem}"
                                    itemLabel="#{idItem.nombre.toString()}"
                                    />
 
-                </h:selectOneMenu>
+                </p:selectOneMenu>
 
 
             </p:panelGrid>

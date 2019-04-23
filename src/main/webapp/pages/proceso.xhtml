@@ -66,14 +66,14 @@
                 Estado <p:selectBooleanCheckbox id="ckbActivo" value="#{frmProceso.registro.activo}"/>
 
 
-                Area <h:selectOneMenu id="idSucu" value="#{frmProceso.registro.idEspecialidad}" converter="omnifaces.SelectItemsConverter" >
+                Area <p:selectOneMenu id="idSucu" value="#{frmProceso.registro.idEspecialidad}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">
                     <f:selectItems value="#{frmProceso.listaEspecialidad}"
                                    var="idItem"
                                    itemValue="#{idItem}"
                                    itemLabel="#{idItem.nombre.toString()}"
                                    />
 
-                </h:selectOneMenu>
+                </p:selectOneMenu>
 
 
             </p:panelGrid>
