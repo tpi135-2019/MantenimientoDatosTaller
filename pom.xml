@@ -289,9 +289,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
             </plugin> 
-           
-            <!-- este plugin se va a borrar en la final (se lo puse para no estar moviendo el war a pata xd)-->
-          
+                     
         </plugins>
     </build>
     

@@ -32,9 +32,5 @@ public class HistorialPropietarioFacade extends AbstractFacade<HistorialPropieta
         super(HistorialPropietario.class);
     }
     
-       @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
     
 }

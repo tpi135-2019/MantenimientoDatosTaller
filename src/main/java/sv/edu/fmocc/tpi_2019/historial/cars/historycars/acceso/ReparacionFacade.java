@@ -38,11 +38,6 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
         super(Reparacion.class);
     }
 
-    @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-
     public List<Reparacion> reparacionesPorPlaca(String placa) {
         if (placa != null && !placa.isEmpty()) {
             try {

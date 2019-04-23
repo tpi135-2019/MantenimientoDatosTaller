@@ -138,9 +138,4 @@ public abstract class AbstractFacade<T> {
         em.detach(entity);
     }
 
-    public boolean ver(T enti) {
-        EntityManager em = getEntityManager();
-        return em.contains(enti);
-    }
-
 }

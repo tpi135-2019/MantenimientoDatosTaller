@@ -99,7 +99,7 @@ public class FrmModeloTest extends BackingBeanTest<Modelo> {
         org.junit.Assert.assertEquals(registrosTipoVehiculo.size(), lista.size());
         Mockito.when(tipoVehiculoFacade.findAll()).thenThrow(Exception.class);
         lista = cut.listarTiposdeVehiculo();
-        org.junit.Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
     @Test
@@ -112,14 +112,14 @@ public class FrmModeloTest extends BackingBeanTest<Modelo> {
     public void getListaMarcaTest() {
         cut.setListaMarcas(registrosMarca);
         List ls = cut.getListaMarcas();
-        org.junit.Assert.assertEquals(registrosMarca,ls);
+        Assert.assertEquals(registrosMarca,ls);
     }
 
     @Test
     public void getListaTipoVehiculoTest() {
         cut.setListaTipoVehiculo(registrosTipoVehiculo);
         List ls = cut.getListaTipoVehiculo();
-        org.junit.Assert.assertEquals(registrosTipoVehiculo,ls);
+        Assert.assertEquals(registrosTipoVehiculo,ls);
     }
 
 }

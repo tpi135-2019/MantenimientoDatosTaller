@@ -31,10 +31,6 @@ public class MarcaFacade extends AbstractFacade<Marca> implements FacadeGenerico
     public MarcaFacade() {
         super(Marca.class);
     }
-    
-       @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
+
     
 }

@@ -75,7 +75,7 @@ public abstract class SessionBeanTest<T> {
         Mockito.when(em.getCriteriaBuilder()).thenReturn(criteriaBuilderMock);
         cutGeneric = getSessionBean();
         entity = getEntity();
-        cutGeneric.setLogger(logger);
+        //cutGeneric.setLogger(logger);
         registrosEsperados = getLista();
     }
 

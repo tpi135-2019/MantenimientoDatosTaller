@@ -32,9 +32,5 @@ public class SubParteFacade extends AbstractFacade<SubParte> implements FacadeGe
         super(SubParte.class);
     }
     
-       @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
     
 }

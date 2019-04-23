@@ -31,10 +31,8 @@ public class EspecialidadFacade extends AbstractFacade<Especialidad> implements 
     public EspecialidadFacade() {
         super(Especialidad.class);
     }
-    
-    @Override
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
+
+   
+ 
     
 }

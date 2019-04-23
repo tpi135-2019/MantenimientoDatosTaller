@@ -9,4 +9,5 @@
 *.log
 *.sql
 *.war
+Dockerfile
 /nbproject/
