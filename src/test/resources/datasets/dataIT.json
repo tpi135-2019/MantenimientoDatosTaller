@@ -48,15 +48,15 @@
             "id_propietario": 1,
             "nombre": "juan",
             "apellido": "perez",
-            "direccion": " el pan",
-            "telefono": "789456"
+            "direccion": " el pangsgdgsdgdgdsgsdg",
+            "telefono": "7894-8956"
         },
         {
             "id_propietario": 2,
             "nombre": "kjhgf",
             "apellido": "jhgfd",
-            "direccion": " el pan",
-            "telefono": "6954"
+            "direccion": " el pansdgsdgdsgsdgsgsgsdgsdg",
+            "telefono": "6954-6935"
         }
     ],
     "sucursal": [
@@ -149,7 +149,7 @@
                 },
                 {
                     "id_vehiculo": "P365428",
-                    "id_propietario": 2,
+                    "id_propietario": 1,
                     "numero_registro": 2
                 }
             ],
@@ -210,7 +210,7 @@
     "reparacion": [
         {
             "id_reparacion": 1,
-            "fecha": "2018-06-19",
+            "fecha": "2015-06-19",
             "id_diagnostico": 2,
             "observacion": "se repararon los frenos"
         },
@@ -234,8 +234,63 @@
             "id_proceso": 2,
             "numero_paso": 2
         }
+    ],
+    "paso_reparacion": [
+        {
+            "id_reparacion": 2,
+            "id_paso_proceso": 1
+        },
+        {
+            "id_reparacion": 2,
+            "id_paso_proceso": 2
+        },
+        {
+            "id_reparacion": 1,
+            "id_paso_proceso": 2
+        }
+    ],
+    "personal_reparacion": [
+        {
+            "id_mecanico": 1,
+            "id_reparacion": 2
+        },
+        {
+            "id_mecanico": 2,
+            "id_reparacion": 2
+        },
+        {
+            "id_mecanico": 1,
+            "id_reparacion": 1
+        }
+    ],
+    "personal_especialidad": [
+        {
+            "id_mecanico": 1,
+            "id_especialidad": 2
+        },
+        {
+            "id_mecanico": 2,
+            "id_especialidad": 1
+        },
+        {
+            "id_mecanico": 2,
+            "id_especialidad": 2
+        }
+    ],
+    "pieza_reparacion": [
+        {
+            "id_pieza": 1,
+            "id_reparacion": 2
+        },
+        {
+            "id_pieza": 2,
+            "id_reparacion": 1
+        },
+        {
+            "id_pieza": 2,
+            "id_reparacion": 2
+        }
     ]
-    
 }
 
   

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
@@ -31,7 +33,7 @@ public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
         datos.add(new Propietario(1, "elmo", "stark"));
 
     }
-    
+
     @Override
     protected FacadeGenerico getSessionBean() {
         return cut;
@@ -46,6 +48,12 @@ public class PropietarioFacadeIT extends SessionBeanIT<Propietario> {
     @Override
     protected Object getId() {
         return entity.getIdPropietario();
+    }
+
+    @Test
+    public void testHistorialPropietarios() {
+        List<Propietario> resultados = cut.historialPropietarios("P365428");
+        Assert.assertEquals(2, resultados.size());
     }
 
 }

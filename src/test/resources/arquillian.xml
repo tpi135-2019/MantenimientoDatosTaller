@@ -6,7 +6,7 @@
     <extension qualifier="persistence">
         <property name="defaultDataSource">jdbc_arquillian</property>
     </extension>
-    
+
     <container qualifier="payara-container" default="true">
         <configuration>
             <property name="resourcesXml">src/test/resources/glassfish-resources.xml</property>

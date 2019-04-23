@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PersonalFacade;
@@ -55,6 +57,18 @@ public class PersonalFacadeIT extends SessionBeanIT<Personal> {
     @Override
     protected Object getId() {
         return entity.getIdMecanico();
+    }
+    
+    @Test
+    public void testPersonalPorReparacion(){
+        List<Personal> resultados = cut.personalPorReparacion(2);
+        Assert.assertEquals(2, resultados.size());
+    }
+    
+     @Test
+    public void testPersonalPorProceso(){
+        List<Personal> resultados = cut.personalPorProceso(1);
+        Assert.assertEquals(2, resultados.size());
     }
 
 }

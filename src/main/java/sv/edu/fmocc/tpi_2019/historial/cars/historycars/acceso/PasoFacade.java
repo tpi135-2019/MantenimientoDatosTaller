@@ -42,7 +42,7 @@ public class PasoFacade extends AbstractFacade<Paso> implements FacadeGenerico<P
     }
     
  
-    public List pasoReparacion(int reparacion){
+    public List<Paso> pasoReparacion(int reparacion){
         if(reparacion>0){
             try {
                 Query query=em.createNamedQuery("Paso.Reparacion");

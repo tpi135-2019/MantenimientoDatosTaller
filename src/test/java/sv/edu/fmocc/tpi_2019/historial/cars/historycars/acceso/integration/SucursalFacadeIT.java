@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SucursalFacade;
@@ -29,7 +31,7 @@ public class SucursalFacadeIT extends SessionBeanIT<Sucursal> {
         datos.add(new Sucursal(1, "los chepes"));
         datos.add(new Sucursal(5, "pedro y pablo"));
         datos.add(new Sucursal(1, "mi chuchito"));
-        
+
     }
 
     @Override
@@ -46,6 +48,13 @@ public class SucursalFacadeIT extends SessionBeanIT<Sucursal> {
     @Override
     protected Object getId() {
         return entity.getIdSucursal();
+    }
+
+    @Test
+    public void tallerReparacionTest() {
+        List<Sucursal> resultados = cut.lugarReparacion(1);
+        Assert.assertEquals(1, resultados.size());
+
     }
 
 }
