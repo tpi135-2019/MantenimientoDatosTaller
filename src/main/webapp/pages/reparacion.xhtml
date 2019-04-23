@@ -17,11 +17,11 @@
     </ui:define>
 
     <ui:define name="description">
-      Registro de autos intervenidos
+        Registro de autos intervenidos
     </ui:define>
 
     <ui:define name="body">
-               
+
 
         <h:form id="frm">
 
@@ -67,30 +67,54 @@
 
                 Diagnostico <h:selectOneMenu id="idDiagnostico" value="#{frmReparacion.registro.idDiagnostico}" converter="omnifaces.SelectItemsConverter" >
                     <f:selectItems value="#{frmReparacion.listaDiagnostico}"
-                                   var="idIt"
-                                   itemValue="#{idIt}"
-                                   itemLabel="#{idIt.diagnostico.toString()}"
+                                   var="idI"
+                                   itemValue="#{idI}"
+                                   itemLabel="#{idI.diagnostico.toString()}"
                                    />
 
                 </h:selectOneMenu>
-                
+
+                fecha <p:calendar id="fecha" value="#{frmReparacion.registro.fecha}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+
+                observaciones <p:inputTextarea id="txtnombre" immediate="true" value="#{frmReparacion.registro.observacion}"  />
+
                 Piezas <p:selectCheckboxMenu id="idPiezas" value="#{frmReparacion.registro.piezaCollection}" 
-                                        filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
-                                        converter="omnifaces.SelectItemsConverter" >
-                    <f:selectItems value="#{frmReparacion.listaPiezas}"
+                                             filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             label="seleccione las piezas">
+                    <f:selectItems value="#{frmReparacion.lspieza}"
                                    var="idIt"
                                    itemValue="#{idIt}"
                                    itemLabel="#{idIt.nombre.toString()}"
                                    />
 
                 </p:selectCheckboxMenu>
+                
+                Personal <p:selectCheckboxMenu id="idPersonal" value="#{frmReparacion.registro.personalCollection}" 
+                                             filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             label="Seleccione el personal">
+                    <f:selectItems value="#{frmReparacion.lsPersonal}"
+                                   var="idIte"
+                                   itemValue="#{idIte}"
+                                   itemLabel="#{idIte.nombre.toString()} #{idIte.apellido.toString()}"
+                                   />
 
-                fecha <p:calendar id="fecha" value="#{frmReparacion.registro.fecha}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+                </p:selectCheckboxMenu>
+                
+                PasoProceso <p:selectCheckboxMenu id="idPP" value="#{frmReparacion.registro.pasoProcesoCollection}" 
+                                             filter="true" filterMatchMode="startsWith" panelStyle="width:250px"
+                                             converter="omnifaces.SelectItemsConverter" 
+                                             label="Seleccione el Id">
+                    <f:selectItems value="#{frmReparacion.lspasoProceso}"
+                                   var="idIte"
+                                   itemValue="#{idIte}"
+                                   itemLabel="#{idIte.idPasoProceso.toString()}"
+                                   />
 
-                observaciones <p:inputTextarea id="txtnombre" immediate="true" value="#{frmReparacion.registro.observacion}"  />
-
+                </p:selectCheckboxMenu>
+                 
             </p:panelGrid>
-                                                <p:growl life="2500" showSummary="true" />
 
 
             <gg:botones id="btnes" backingBean="#{frmReparacion}" formularioTabla="frm" formularioRegistro="@form"/>
