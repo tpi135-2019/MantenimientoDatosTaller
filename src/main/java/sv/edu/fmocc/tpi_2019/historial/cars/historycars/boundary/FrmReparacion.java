@@ -15,8 +15,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacion;
 
 /**
@@ -31,6 +33,9 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     ReparacionFacade reparacionFacade;
     @Inject
     DiagnosticoFacade diagnosticoFacade;
+    @Inject
+    PiezaFacade piezaFacade;
+    List<Pieza> listaPiezas;
     List<Diagnostico> listaDiagnostico;
 
     @PostConstruct
@@ -38,6 +43,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     protected void init() {
         super.init();
         listarDiagnosticos();
+        listarPiezas();
     }
 
     @Override
@@ -72,6 +78,14 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     @Override
     protected void crearNuevo() {
         this.registro = new Reparacion();
+    }
+
+    public List listarPiezas() {
+        try {
+            return listaPiezas = piezaFacade.findAll();
+        } catch (Exception e) {
+            return listaPiezas = Collections.EMPTY_LIST;
+        }
     }
 
     public List listarDiagnosticos() {
@@ -117,6 +131,14 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
 
     public void setListaDiagnostico(List<Diagnostico> listaDiagnostico) {
         this.listaDiagnostico = listaDiagnostico;
+    }
+
+    public List<Pieza> getListaPiezas() {
+        return listaPiezas;
+    }
+
+    public void setListaPiezas(List<Pieza> listaPiezas) {
+        this.listaPiezas = listaPiezas;
     }
 
 }
