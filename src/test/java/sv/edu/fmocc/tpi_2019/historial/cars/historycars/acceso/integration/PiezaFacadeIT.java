@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
@@ -55,5 +57,12 @@ public class PiezaFacadeIT extends SessionBeanIT<Pieza> {
     protected Object getId() {
         return entity.getIdPieza();
     }
+    
+    @Test
+    public void testPiezasReparacion(){
+        List<Pieza> resultados = cut.piezasReparacion(2);
+        Assert.assertEquals(2, resultados.size());
+    }
+    
 
 }

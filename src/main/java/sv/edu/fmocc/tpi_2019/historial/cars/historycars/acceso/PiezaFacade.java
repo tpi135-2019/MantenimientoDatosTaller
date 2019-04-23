@@ -41,7 +41,7 @@ public class PiezaFacade extends AbstractFacade<Pieza> implements FacadeGenerico
         this.logger = logger;
     }
 
-    public List piezasReparacion(int reparacion) {
+    public List<Pieza> piezasReparacion(int reparacion) {
         if (reparacion >= 0) {
 
             try {

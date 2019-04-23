@@ -16,7 +16,6 @@ import org.jboss.arquillian.persistence.UsingDataSet;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +49,6 @@ public abstract class SessionBeanIT<T> {
 
     protected abstract List<T> getResgistros();
 
-
     @Deployment
     public static WebArchive desplegar() {
         WebArchive salida = ShrinkWrap.create(WebArchive.class)
@@ -73,16 +71,8 @@ public abstract class SessionBeanIT<T> {
         idNuevo = 5;
     }
 
-    @After
-    public void tearDown() {
-//        registros.forEach(registro -> {
-//            cutGeneric.remove(registro);
-//        });
-    }
 
     @Test
-    //@UsingDataSet("datasets/algo.json")
-    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_TABLES_ONLY)
     public void testCreate() {
         numeroRegistros = cutGeneric.count();
         Assert.assertEquals(2, numeroRegistros);
@@ -94,8 +84,6 @@ public abstract class SessionBeanIT<T> {
     }
 
     @Test
-    //@UsingDataSet("datasets/algo.json")
-    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.STRICT)
     public void testDelete() {
         numeroRegistros = cutGeneric.count();
         Assert.assertEquals(2, numeroRegistros);
@@ -109,8 +97,6 @@ public abstract class SessionBeanIT<T> {
 
     @Test
     @InSequence(2)
-    //@UsingDataSet("datasets/algo.json")
-    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.STRICT)
     public void testEdit() {
         System.out.println("EditIT");
         numeroRegistros = cutGeneric.count();
@@ -124,8 +110,6 @@ public abstract class SessionBeanIT<T> {
 
     @Test
     @InSequence(1)
-    //@UsingDataSet("datasets/algo.json")
-    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
     public void testFind() {
         numeroRegistros = cutGeneric.count();
         Assert.assertEquals(2, numeroRegistros);
@@ -135,8 +119,6 @@ public abstract class SessionBeanIT<T> {
     }
 
     @Test
-    //@UsingDataSet("datasets/algo.json")
-    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_TABLES_ONLY)
     public void testFindAll() {
         encontrados = cutGeneric.findAll();
         Assert.assertEquals(2, encontrados.size());
@@ -144,16 +126,12 @@ public abstract class SessionBeanIT<T> {
     }
 
     @Test
-    //@UsingDataSet("datasets/algo.json")
-    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
     public void testFindRange() {
         encontrados = cutGeneric.findRange(0, 2);
         Assert.assertEquals(2, encontrados.size());
     }
 
     @Test
-    //@UsingDataSet("datasets/algo.json")
-    //@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
     public void testCount() {
         System.out.println("testCountIT");
         numeroRegistros = cutGeneric.count();

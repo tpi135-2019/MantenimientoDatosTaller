@@ -41,7 +41,7 @@ public class DiagnosticoFacade extends AbstractFacade<Diagnostico> implements Fa
         this.logger = logger;
     }
 
-    public List diagnosticoPorPlaca(String placa) {
+    public List<Diagnostico> diagnosticoPorPlaca(String placa) {
 
         if(placa!=null && !placa.isEmpty()){
         try {

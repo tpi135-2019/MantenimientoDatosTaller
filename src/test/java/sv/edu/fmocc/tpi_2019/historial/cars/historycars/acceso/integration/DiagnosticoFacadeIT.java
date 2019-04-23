@@ -5,13 +5,14 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.integration;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
@@ -32,9 +33,9 @@ public class DiagnosticoFacadeIT extends SessionBeanIT<Diagnostico> {
     List<Diagnostico> datos = new ArrayList<>();
 
     public DiagnosticoFacadeIT() {
-        datos.add(new Diagnostico(1, "se murio don yon", new Date()));
-        datos.add(new Diagnostico(5, "no furula el carro", new Date()));
-        datos.add(new Diagnostico(1, "no sirve algo random", new Date()));
+        datos.add(new Diagnostico(1, "se murio don yon", new Date(2018-03-16)));
+        datos.add(new Diagnostico(5, "no furula el carro", new Date(2019-02-05)));
+        datos.add(new Diagnostico(1, "no sirve algo random", new Date(2018-01-16)));
         this.idNuevo = 5;
     }
     
@@ -56,6 +57,12 @@ public class DiagnosticoFacadeIT extends SessionBeanIT<Diagnostico> {
     @Override
     protected Object getId() {
         return entity.getIdDiagnostico();
+    }
+    
+    @Test
+    public void testDiagnosticoPorPlaca(){
+        List<Diagnostico> resultado = cut.diagnosticoPorPlaca("P365428");
+        Assert.assertEquals(2, resultado.size());
     }
 
 }

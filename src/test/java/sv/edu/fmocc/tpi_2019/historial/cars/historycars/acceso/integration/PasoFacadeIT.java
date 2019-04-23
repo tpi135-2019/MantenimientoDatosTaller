@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoFacade;
@@ -45,6 +47,12 @@ public class PasoFacadeIT extends SessionBeanIT<Paso> {
     @Override
     protected Object getId() {
         return entity.getIdPaso();
+    }
+    
+    @Test
+    public void testPasoReparacion(){
+        List<Paso> resultados = cut.pasoReparacion(2);
+        Assert.assertEquals(2, resultados.size());
     }
 
 }

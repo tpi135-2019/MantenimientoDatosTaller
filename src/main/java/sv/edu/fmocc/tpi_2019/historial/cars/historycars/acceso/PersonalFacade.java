@@ -41,7 +41,7 @@ public class PersonalFacade extends AbstractFacade<Personal> implements FacadeGe
         this.logger = logger;
     }
 
-    public List personalPorReparacion(int idReparacion) {
+    public List<Personal> personalPorReparacion(int idReparacion) {
 
         if (idReparacion >= 0) {
 
@@ -56,7 +56,7 @@ public class PersonalFacade extends AbstractFacade<Personal> implements FacadeGe
         return Collections.EMPTY_LIST;
     }
 
-    public List personalPorProceso(int idProceso) {
+    public List<Personal> personalPorProceso(int idProceso) {
 
         if (idProceso >= 0) {
             try {

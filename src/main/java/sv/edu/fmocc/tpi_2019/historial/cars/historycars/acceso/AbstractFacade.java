@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -131,10 +132,15 @@ public abstract class AbstractFacade<T> {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         return cq;
     }
-    
-    public void detach(T entity){
+
+    public void detach(T entity) {
         EntityManager em = getEntityManager();
         em.detach(entity);
+    }
+
+    public boolean ver(T enti) {
+        EntityManager em = getEntityManager();
+        return em.contains(enti);
     }
 
 }

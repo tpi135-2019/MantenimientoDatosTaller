@@ -43,7 +43,7 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
         this.logger = logger;
     }
 
-    public List reparacionesPorPlaca(String placa) {
+    public List<Reparacion> reparacionesPorPlaca(String placa) {
         if (placa != null && !placa.isEmpty()) {
             try {
                 Query query = em.createNamedQuery("ReparacionPorPlaca");
@@ -56,7 +56,7 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
         return Collections.EMPTY_LIST;
     }
 
-    public List reparacionPorDiagnostico(int idDiagnostico) {
+    public List<Reparacion> reparacionPorDiagnostico(int idDiagnostico) {
 
         if (idDiagnostico >= 0) {
             try {
@@ -70,7 +70,7 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
         return Collections.EMPTY_LIST;
     }
 
-    public List reparacionPorPersonal(int idMecanico) {
+    public List<Reparacion> reparacionPorPersonal(int idMecanico) {
 
         if (idMecanico >= 0) {
             try {
@@ -84,7 +84,7 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
         return Collections.EMPTY_LIST;
     }
     
-    public List reparacionEntreFechas(Date desde,Date hasta){
+    public List<Reparacion> reparacionEntreFechas(Date desde,Date hasta){
         
         if(desde!=null && hasta!=null){
             try {
