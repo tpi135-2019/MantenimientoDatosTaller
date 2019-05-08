@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -100,14 +99,14 @@ public abstract class AbstractFacade<T> {
 
     }
 
-    public List<T> findRange(int desde, int hasta) {
+    public List<T> findRange(int inicio, int size) {
         EntityManager em = getEntityManager();
         if (em != null) {
             CriteriaQuery cq = obtenerCriteriaQueryComun(em);
             cq.select(cq.from(entityClass));
             Query q = em.createQuery(cq);
-            q.setMaxResults(hasta);
-            q.setFirstResult(desde);
+            q.setMaxResults(size);
+            q.setFirstResult(inicio);
             return q.getResultList();
         } else {
             logger.log(Level.WARNING, "Entity Manager");
