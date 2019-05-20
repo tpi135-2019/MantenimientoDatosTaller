@@ -63,8 +63,8 @@ public class PasoProcesoFacadeIT extends SessionBeanIT<PasoProceso> {
     }
     
     @Test
-    public void testPasosPorReparacion(){
-        List<PasoProceso> resultados = cut.PasosPorProceso(1);
+    public void testPasosPorProceso(){
+        List<Paso> resultados = cut.PasosPorProceso(1,"");
         Assert.assertEquals(0, resultados.size());
     }
     

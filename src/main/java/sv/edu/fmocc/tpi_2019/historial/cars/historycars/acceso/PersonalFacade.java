@@ -66,5 +66,5 @@ public class PersonalFacade extends AbstractFacade<Personal> implements FacadeGe
         }
         return Collections.EMPTY_LIST;
     }
-
+    
 }

@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Vehiculo;
 
 /**
  *
@@ -36,12 +37,24 @@ public class PropietarioFacade extends AbstractFacade<Propietario> implements Fa
         super(Propietario.class);
     }
 
-
     public List historialPropietarios(String placa) {
         if (placa != null && !placa.trim().isEmpty()) {
             try {
                 Query query = em.createNamedQuery("Vehiculo.HistorialPropietarios");
                 query.setParameter("placa", placa);
+                return query.getResultList();
+            } catch (Exception e) {
+                logger.log(Level.WARNING, e.getMessage());
+            }
+        }
+        return Collections.EMPTY_LIST;
+    }
+
+    public List<Vehiculo> vehiculosPorPropietario(int propietario) {
+        if (propietario >= 0) {
+            try {
+                Query query = em.createNamedQuery("Propietario.VehiculosPropietario");
+                query.setParameter("idPropietario", propietario);
                 return query.getResultList();
             } catch (Exception e) {
                 logger.log(Level.WARNING, e.getMessage());

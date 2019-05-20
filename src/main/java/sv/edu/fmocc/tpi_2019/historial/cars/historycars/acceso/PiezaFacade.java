@@ -49,4 +49,19 @@ public class PiezaFacade extends AbstractFacade<Pieza> implements FacadeGenerico
         }
         return Collections.EMPTY_LIST;
     }
+
+    public List<Pieza> piezasPorSubParte(int idSubParte, String pieza) {
+        if (idSubParte >= 0) {
+
+            try {
+                Query query = em.createNamedQuery("Pieza.findBySubarteNombreLike");
+                query.setParameter("idSubparte", idSubParte);
+                query.setParameter("nombre", pieza);
+                return query.getResultList();
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, e.getMessage());
+            }
+        }
+        return Collections.EMPTY_LIST;
+    }
 }

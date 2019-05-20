@@ -66,19 +66,19 @@ public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
     }
     
      @Test
-    public void pasoReparacionTest(){
+    public void PasosPorProcesoTest(){
         System.out.println("pasosPorProceso");
         int proceso=1;
         Mockito.when(ema.createNamedQuery("PasoProceso.findByProceso")).thenReturn(queryMock);
         Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
-        List ls = cut.PasosPorProceso(proceso);
+        List ls = cut.PasosPorProceso(proceso,"");
         Assert.assertEquals(registrosEsperados.size(), ls.size());
         
-        ls=cut.PasosPorProceso(-1);
+        ls=cut.PasosPorProceso(-1,"");
         Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
         
         setEmNull();
-        cut.PasosPorProceso(proceso);
+        cut.PasosPorProceso(proceso,"");
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
         
     }
