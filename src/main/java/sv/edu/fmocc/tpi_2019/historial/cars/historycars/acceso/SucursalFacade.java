@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 
 /**
@@ -36,7 +37,6 @@ public class SucursalFacade extends AbstractFacade<Sucursal> implements FacadeGe
         super(Sucursal.class);
     }
 
-
     public List lugarReparacion(int reparacion) {
         if (reparacion >= 0) {
             try {
@@ -45,6 +45,22 @@ public class SucursalFacade extends AbstractFacade<Sucursal> implements FacadeGe
                 return query.getResultList();
             } catch (Exception e) {
                 logger.log(Level.WARNING, e.getMessage());
+            }
+        }
+        return Collections.EMPTY_LIST;
+    }
+
+    public List<Personal> personalPorSucursal(int idSucursal, String nombre) {
+
+        if (idSucursal >= 0) {
+            try {
+                Query query = em.createNamedQuery("Personal.SucursalNombreLike");
+                query.setParameter("idSucursal", idSucursal);
+                query.setParameter("nombre", nombre);
+                return query.getResultList();
+            } catch (Exception e) {
+                logger.log(Level.WARNING, e.getMessage());
+
             }
         }
         return Collections.EMPTY_LIST;

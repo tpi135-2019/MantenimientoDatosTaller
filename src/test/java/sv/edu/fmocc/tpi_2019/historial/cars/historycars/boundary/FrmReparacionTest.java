@@ -27,6 +27,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ProcesoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Paso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
@@ -62,6 +63,7 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
     List<Pieza> registrosPieza = new ArrayList<>();
     List<Personal> registrosPersonal = new ArrayList<>();
     List<Reparacion> registrosReparacion = new ArrayList<>();
+    List<Paso> registrosPaso = new ArrayList<>();
     Proceso proceso = new Proceso(1);
 
     @Before
@@ -72,6 +74,9 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
 
         registrosReparacion.add(new Reparacion(1));
         registrosReparacion.add(new Reparacion(2));
+        
+        registrosPaso.add(new Paso(1, "quitar llanta"));
+        registrosPaso.add(new Paso(2, "poner nueva llanta"));
 
         registrosPasoProceso.add(new PasoProceso(1));
         registrosPersonal.add(new Personal(1));
@@ -144,10 +149,10 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
     public void listarPasoProcesoTest() {
         System.out.println("listarPasoProceso");
         cut.setProceso(proceso);
-        Mockito.when(pasoProcesoFacade.PasosPorProceso(Matchers.anyInt())).thenReturn(registrosPasoProceso);
+        Mockito.when(pasoProcesoFacade.PasosPorProceso(Matchers.anyInt(), Matchers.anyString())).thenReturn(registrosPaso);
         List lista = cut.listarPasoProceso();
-        Assert.assertEquals(registrosPasoProceso.size(), lista.size());
-        Mockito.when(pasoProcesoFacade.PasosPorProceso(Matchers.anyInt())).thenThrow(Exception.class);
+        Assert.assertEquals(registrosPaso.size(), lista.size());
+        Mockito.when(pasoProcesoFacade.PasosPorProceso(Matchers.anyInt(), Matchers.anyString())).thenThrow(Exception.class);
         lista = cut.listarPasoProceso();
         Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }

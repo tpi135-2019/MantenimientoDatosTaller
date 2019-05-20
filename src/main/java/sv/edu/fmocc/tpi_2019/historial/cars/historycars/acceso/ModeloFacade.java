@@ -5,11 +5,14 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
-import java.util.logging.Logger;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Modelo;
 
 /**
@@ -18,7 +21,7 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Modelo;
  */
 @Stateless
 @LocalBean
-public class ModeloFacade extends AbstractFacade<Modelo> implements FacadeGenerico<Modelo>{
+public class ModeloFacade extends AbstractFacade<Modelo> implements FacadeGenerico<Modelo> {
 
     @PersistenceContext(unitName = "PU_talleres")
     private EntityManager em;
@@ -31,6 +34,6 @@ public class ModeloFacade extends AbstractFacade<Modelo> implements FacadeGeneri
     public ModeloFacade() {
         super(Modelo.class);
     }
-    
-
 }
+
+

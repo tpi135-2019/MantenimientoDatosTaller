@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Paso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
 
 /**
@@ -22,7 +23,7 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProce
  */
 @Stateless
 @LocalBean
-public class PasoProcesoFacade extends AbstractFacade<PasoProceso> implements FacadeGenerico<PasoProceso>{
+public class PasoProcesoFacade extends AbstractFacade<PasoProceso> implements FacadeGenerico<PasoProceso> {
 
     @PersistenceContext(unitName = "PU_talleres")
     private EntityManager em;
@@ -36,17 +37,18 @@ public class PasoProcesoFacade extends AbstractFacade<PasoProceso> implements Fa
         super(PasoProceso.class);
     }
 
-    public List<PasoProceso> PasosPorProceso(int proceso){
-    if(proceso>0){
+    public List<Paso> PasosPorProceso(int proceso, String paso) {
+        if (proceso > 0) {
             try {
-                Query query=em.createNamedQuery("PasoProceso.findByProceso");
-                query.setParameter("idProceso",proceso);
+                Query query = em.createNamedQuery("PasoProceso.findByProceso");
+                query.setParameter("idProceso", proceso);
+                query.setParameter("paso", paso);
                 return query.getResultList();
             } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage());
+                logger.log(Level.SEVERE, e.getMessage());
             }
         }
         return Collections.EMPTY_LIST;
     }
-    
+
 }

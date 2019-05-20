@@ -22,6 +22,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ProcesoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Paso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
@@ -50,7 +51,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     PersonalFacade personalFacade;
     List<Diagnostico> listaDiagnostico;
     List<Pieza> lspieza;
-    List<PasoProceso> lspasoProceso;
+    List<Paso> lspasoProceso;
     List<Personal> lsPersonal;
     List<Proceso> listaProceso;
     Proceso proceso;
@@ -82,7 +83,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
 
     public List listarPasoProceso() {
         try {
-            return lspasoProceso = pasoProcesoFacade.PasosPorProceso(proceso.getIdProceso());
+            return lspasoProceso = pasoProcesoFacade.PasosPorProceso(proceso.getIdProceso(),"");
         } catch (Exception e) {
             return lspasoProceso = Collections.EMPTY_LIST;
         }
@@ -191,11 +192,11 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         this.lspieza = lspieza;
     }
 
-    public List<PasoProceso> getLspasoProceso() {
+    public List<Paso> getLspasoProceso() {
         return lspasoProceso;
     }
 
-    public void setLspasoProceso(List<PasoProceso> lspasoProceso) {
+    public void setLspasoProceso(List<Paso> lspasoProceso) {
         this.lspasoProceso = lspasoProceso;
     }
 

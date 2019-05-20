@@ -5,11 +5,20 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources;
 
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Modelo;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
 
 /**
@@ -25,11 +34,19 @@ public class PiezaResource extends AbstractResource<Pieza, Integer> {
 
     @Override
     protected FacadeGenerico getSessionBean() {
-        return  piezaFacade;
+        return piezaFacade;
     }
 
     @Override
     protected Pieza getNewEntity() {
         return null;
+    }
+
+    @Override
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findRange(@QueryParam("first") @DefaultValue("0") int first,
+            @QueryParam("pagesize") @DefaultValue("10") int pagesize) {
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }
