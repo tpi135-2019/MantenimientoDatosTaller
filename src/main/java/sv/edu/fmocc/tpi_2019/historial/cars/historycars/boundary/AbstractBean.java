@@ -25,9 +25,9 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 public abstract class AbstractBean<T> implements Serializable {
 
     LazyDataModel<T> lazyModel;
-    T registro;
+    transient T registro;
     protected EstadosCRUD estado;
-    protected Logger logger = Logger.getGlobal();
+    transient Logger logger = Logger.getGlobal();
 
     public enum EstadosCRUD {
         NONE, NUEVO, EDITAR, ELIMINAR, AGREGAR;

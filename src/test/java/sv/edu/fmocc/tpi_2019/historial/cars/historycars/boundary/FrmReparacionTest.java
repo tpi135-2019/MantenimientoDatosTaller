@@ -74,7 +74,7 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
 
         registrosReparacion.add(new Reparacion(1));
         registrosReparacion.add(new Reparacion(2));
-        
+
         registrosPaso.add(new Paso(1, "quitar llanta"));
         registrosPaso.add(new Paso(2, "poner nueva llanta"));
 
@@ -104,22 +104,18 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
     public void listarDiagnosticoTest() {
         System.out.println("listarDiagnostico");
         Mockito.when(diagnosticoFacade.findAll()).thenReturn(registrosDiagnostico);
-        List lista = cut.listarDiagnosticos();
+        cut.listarDiagnosticos();
+        List lista = cut.getListaDiagnostico();
         Assert.assertEquals(registrosDiagnostico.size(), lista.size());
-        Mockito.when(diagnosticoFacade.findAll()).thenThrow(Exception.class);
-        lista = cut.listarDiagnosticos();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
     @Test
     public void listarPiezasTest() {
         System.out.println("listarPiezas");
         Mockito.when(piezaFacade.findAll()).thenReturn(registrosPieza);
-        List lista = cut.listarPiezas();
+        cut.listarPiezas();
+        List lista = cut.getLspieza();
         Assert.assertEquals(registrosPieza.size(), lista.size());
-        Mockito.when(piezaFacade.findAll()).thenThrow(Exception.class);
-        lista = cut.listarPiezas();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
     @Test
@@ -127,10 +123,12 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
         System.out.println("listarPersonal");
         cut.setProceso(proceso);
         Mockito.when(personalFacade.personalPorProceso(Matchers.anyInt())).thenReturn(registrosPersonal);
-        List lista = cut.listarPersonal();
+        cut.listarPersonal();
+        List lista = cut.getLsPersonal();
         Assert.assertEquals(registrosPersonal.size(), lista.size());
         Mockito.when(personalFacade.personalPorProceso(Matchers.anyInt())).thenThrow(Exception.class);
-        lista = cut.listarPersonal();
+        cut.listarPersonal();
+        lista = cut.getLsPersonal();
         Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
@@ -138,23 +136,19 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
     public void listarProcesoTest() {
         System.out.println("listarProceso");
         Mockito.when(procesoFacade.findAll()).thenReturn(registrosProceso);
-        List lista = cut.listarProcesos();
+        cut.listarProcesos();
+        List lista = cut.getListaProceso();
         Assert.assertEquals(registrosProceso.size(), lista.size());
-        Mockito.when(procesoFacade.findAll()).thenThrow(Exception.class);
-        lista = cut.listarProcesos();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
     @Test
     public void listarPasoProcesoTest() {
         System.out.println("listarPasoProceso");
         cut.setProceso(proceso);
-        Mockito.when(pasoProcesoFacade.PasosPorProceso(Matchers.anyInt(), Matchers.anyString())).thenReturn(registrosPaso);
-        List lista = cut.listarPasoProceso();
+        Mockito.when(pasoProcesoFacade.pasosPorProceso(Matchers.anyInt(), Matchers.anyString())).thenReturn(registrosPaso);
+        cut.listarPasoProceso();
+        List lista = cut.getLspasoProceso();
         Assert.assertEquals(registrosPaso.size(), lista.size());
-        Mockito.when(pasoProcesoFacade.PasosPorProceso(Matchers.anyInt(), Matchers.anyString())).thenThrow(Exception.class);
-        lista = cut.listarPasoProceso();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
     @Override

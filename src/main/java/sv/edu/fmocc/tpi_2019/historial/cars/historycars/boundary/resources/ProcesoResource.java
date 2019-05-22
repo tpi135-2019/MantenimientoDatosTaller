@@ -49,7 +49,7 @@ public class ProcesoResource extends AbstractResource<Proceso, Integer> {
     public Response PasosPorProceso(@PathParam("id") Integer id,
             @QueryParam("paso") @DefaultValue("") String paso){
       if (pasoProcesoFacade != null) {
-            List<Paso> pasos = pasoProcesoFacade.PasosPorProceso(id, paso);
+            List<Paso> pasos = pasoProcesoFacade.pasosPorProceso(id, paso);
             return Response.ok(pasos).build();
         }
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

@@ -8,7 +8,6 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -37,7 +36,7 @@ public class PasoProcesoFacade extends AbstractFacade<PasoProceso> implements Fa
         super(PasoProceso.class);
     }
 
-    public List<Paso> PasosPorProceso(int proceso, String paso) {
+    public List<Paso> pasosPorProceso(int proceso, String paso) {
         if (proceso > 0) {
             try {
                 Query query = em.createNamedQuery("PasoProceso.findByProceso");
@@ -48,7 +47,7 @@ public class PasoProcesoFacade extends AbstractFacade<PasoProceso> implements Fa
                 logger.log(Level.SEVERE, e.getMessage());
             }
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
 }

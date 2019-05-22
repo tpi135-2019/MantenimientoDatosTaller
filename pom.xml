@@ -131,11 +131,11 @@
 
     <dependencies>
         
-        <!--dependency>
+        <dependency>
             <groupId>ues.fmocc.ingenieria.tpi135-2019.accesodatos</groupId>
             <artifactId>libreriaDatosTaller</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency-->
+        </dependency>
         	<dependency>
 	    <groupId>com.github.tpi135-2019</groupId>
 	    <artifactId>DataLib</artifactId>

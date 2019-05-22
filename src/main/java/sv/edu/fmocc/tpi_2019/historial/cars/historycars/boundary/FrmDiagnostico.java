@@ -6,7 +6,6 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
@@ -17,7 +16,6 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.VehiculoFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Vehiculo;
 
 /**
  *
@@ -31,7 +29,6 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
     DiagnosticoFacade diagnosticoFacade;
     @Inject
     VehiculoFacade vehiculoFacade;
-    List<Vehiculo> listaVehiculo;
 
     @PostConstruct
     @Override
@@ -70,11 +67,7 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
     }
 
     public List listarVehiculos() {
-        try {
-            return listaVehiculo = vehiculoFacade.findAll();
-        } catch (Exception e) {
-            return listaVehiculo = Collections.EMPTY_LIST;
-        }
+        return  vehiculoFacade.findAll();
     }
 
     @Override
@@ -110,14 +103,6 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
     @Override
     protected Diagnostico getEntity() {
         return this.registro;
-    }
-
-    public List<Vehiculo> getListaVehiculo() {
-        return listaVehiculo;
-    }
-
-    public void setListaVehiculo(List<Vehiculo> listaVehiculo) {
-        this.listaVehiculo = listaVehiculo;
     }
 
 }

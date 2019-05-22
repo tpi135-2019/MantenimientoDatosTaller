@@ -90,10 +90,4 @@ public class FrmDiagnosticoTest extends BackingBeanTest<Diagnostico> {
         getRowDataTest(key);
     }
 
-    @Test
-    public void getListaVehiculoTest() {
-        cut.setListaVehiculo(registrosVehiculos);
-        List ls = cut.getListaVehiculo();
-        Assert.assertEquals(registrosVehiculos, ls);
-    }
 }

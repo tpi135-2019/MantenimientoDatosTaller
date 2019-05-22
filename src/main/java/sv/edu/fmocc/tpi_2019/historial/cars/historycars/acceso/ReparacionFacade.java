@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -48,7 +47,7 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
                 logger.log(Level.WARNING, e.getMessage());
             }
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     public List<Reparacion> reparacionPorDiagnostico(int idDiagnostico) {
@@ -62,7 +61,7 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
                 logger.log(Level.WARNING, e.getMessage());
             }
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     public List<Reparacion> reparacionPorPersonal(int idMecanico) {
@@ -76,7 +75,7 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
                 logger.log(Level.WARNING, e.getMessage());
             }
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
     
     public List<Reparacion> reparacionEntreFechas(Date desde,Date hasta){
@@ -91,7 +90,7 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
                 logger.log(Level.SEVERE, e.getMessage());
             }
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
         
     }
 
