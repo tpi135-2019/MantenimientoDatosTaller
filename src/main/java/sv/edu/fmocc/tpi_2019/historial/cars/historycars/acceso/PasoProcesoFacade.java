@@ -36,8 +36,8 @@ public class PasoProcesoFacade extends AbstractFacade<PasoProceso> implements Fa
         super(PasoProceso.class);
     }
 
-    public List<Paso> pasosPorProceso(int proceso, String paso) {
-        if (proceso > 0) {
+    public List<Paso> pasosPorProceso(Integer proceso, String paso) {
+        if (proceso > 0 && proceso != null) {
             try {
                 Query query = em.createNamedQuery("PasoProceso.findByProceso");
                 query.setParameter("idProceso", proceso);

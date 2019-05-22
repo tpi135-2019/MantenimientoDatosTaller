@@ -316,7 +316,7 @@
                 </executions>
             </plugin>
             <!-- plugin para saber la cobertura de mis test-->
-            <!--plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.7.201606060606</version>
@@ -334,7 +334,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
             
             <!--dependencia de Surefire-->
             <plugin>

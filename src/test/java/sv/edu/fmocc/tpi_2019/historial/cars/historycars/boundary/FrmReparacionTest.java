@@ -126,10 +126,6 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
         cut.listarPersonal();
         List lista = cut.getLsPersonal();
         Assert.assertEquals(registrosPersonal.size(), lista.size());
-        Mockito.when(personalFacade.personalPorProceso(Matchers.anyInt())).thenThrow(Exception.class);
-        cut.listarPersonal();
-        lista = cut.getLsPersonal();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
     }
 
     @Test

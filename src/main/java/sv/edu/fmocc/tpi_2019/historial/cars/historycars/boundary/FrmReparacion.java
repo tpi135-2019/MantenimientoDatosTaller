@@ -6,8 +6,8 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -59,7 +59,11 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     }
 
     public void listarPersonal() {
+        try{
         lsPersonal = personalFacade.personalPorProceso(proceso.getIdProceso());
+         } catch (Exception e) {
+            logger.log(Level.WARNING,e.getMessage());
+        }
     }
 
     public void listarProcesos() {
@@ -67,7 +71,11 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     }
 
     public void listarPasoProceso() {
-        lspasoProceso = pasoProcesoFacade.pasosPorProceso(proceso.getIdProceso(), "");
+        try {
+            lspasoProceso = pasoProcesoFacade.pasosPorProceso(proceso.getIdProceso(), "");
+        } catch (Exception e) {
+            logger.log(Level.WARNING,e.getMessage());
+        }
     }
 
     public void listar() {

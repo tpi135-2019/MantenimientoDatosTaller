@@ -74,9 +74,6 @@ public class FrmDiagnosticoTest extends BackingBeanTest<Diagnostico> {
         Mockito.when(vehiculoFacade.findAll()).thenReturn(registrosVehiculos);
         List lsta = cut.listarVehiculos();
         Assert.assertEquals(registrosVehiculos.size(), lsta.size());
-        Mockito.when(vehiculoFacade.findAll()).thenThrow(Exception.class);
-        lsta = cut.listarVehiculos();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lsta.size());
     }
 
     @Override
