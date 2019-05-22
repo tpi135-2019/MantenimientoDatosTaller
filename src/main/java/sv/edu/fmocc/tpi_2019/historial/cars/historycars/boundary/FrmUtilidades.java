@@ -50,16 +50,16 @@ public class FrmUtilidades implements Serializable {
     @Inject
     PropietarioFacade propietarioFacade;
 
-    protected Logger logger = Logger.getGlobal();
+    protected transient Logger logger = Logger.getGlobal();
 
-    List<Paso> listaPaso;
-    List<Pieza> listaPieza;
-    List<Reparacion> listaReparacion;
-    List<Diagnostico> listaDiagnostico;
-    List<Sucursal> listaSucursal;
-    List<Propietario> listaPropietario;
+    private List<Paso> listaPaso;
+    private List<Pieza> listaPieza;
+    private List<Reparacion> listaReparacion;
+    private List<Diagnostico> listaDiagnostico;
+    private List<Sucursal> listaSucursal;
+    private List<Propietario> listaPropietario;
 
-    String reparacionDiagnostico = "", placaReparacion = "", reparacionPersonal = "", reparacionSucursal = "", diagnosticoPlaca = "", pieza = "", pasoReparacion = "", propietario = "";
+    String reparacionDiagnostico = "",placaReparacion = "", reparacionPersonal = "", reparacionSucursal = "", diagnosticoPlaca = "", pieza = "", pasoReparacion = "", propietario = "";
     estadosTbl tbl;
     
     Date desde;
@@ -70,7 +70,7 @@ public class FrmUtilidades implements Serializable {
     }
 
       //**** Manejo de imagenes que se desplazan en el inicio
-    List<String> images= new ArrayList<>();
+    private List<String> images= new ArrayList<>();
 
     public void suffleImages() {
         for (int i = 1; i <= 3; i++) {
