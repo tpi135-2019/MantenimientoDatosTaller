@@ -35,19 +35,6 @@ public abstract class AbstractResource<T, P> {
 
     protected abstract T getNewEntity();
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<T> findAll() {
-//        FacadeGenerico sessionBean = getSessionBean();
-//        if (sessionBean != null) {
-//            try {
-//                return sessionBean.findAll();
-//            } catch (Exception e) {
-//                logger.log(Level.SEVERE, e.getMessage(), e);
-//            }
-//        }
-//        return Collections.EMPTY_LIST;
-//    }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findRange(
