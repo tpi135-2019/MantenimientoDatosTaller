@@ -70,11 +70,11 @@ public class FrmDiagnosticoTest extends BackingBeanTest<Diagnostico> {
     @Test
     public void listarVehiculosTest() {
         System.out.println("listarVehiculos");
-       cut.listarVehiculos();
-       Mockito.verify(vehiculoFacade).findAll();
-       cut.vehiculoFacade=null;
-       cut.listarVehiculos();
-       Mockito.doThrow(Exception.class).when(vehiculoFacade).findAll();
+        cut.listarVehiculos();
+        Mockito.verify(vehiculoFacade).findAll();
+        cut.vehiculoFacade = null;
+        cut.listarVehiculos();
+        Mockito.doThrow(Exception.class).when(vehiculoFacade).findAll();
     }
 
     @Override
@@ -86,6 +86,13 @@ public class FrmDiagnosticoTest extends BackingBeanTest<Diagnostico> {
     public void getRowDTest() {
         String key = "";
         getRowDataTest(key);
+    }
+
+    @Test
+    public void getListaVehiculos() {
+        cut.setListaVehiculo(registrosVehiculos);
+        List ls = cut.getListaVehiculo();
+        Assert.assertEquals(registrosVehiculos, ls);
     }
 
 }

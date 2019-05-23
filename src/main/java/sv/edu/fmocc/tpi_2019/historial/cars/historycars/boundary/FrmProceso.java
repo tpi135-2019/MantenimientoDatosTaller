@@ -55,7 +55,7 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
         try {
             listaEspecialidad = especialidadFacade.findAll();
         } catch (Exception e) {
-            listaEspecialidad = Collections.EMPTY_LIST;
+            listaEspecialidad = Collections.emptyList();
         }
     }
 

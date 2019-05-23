@@ -26,22 +26,11 @@ public class FrmEspecialidad extends AbstractBean<Especialidad> implements Seria
     @Inject
     EspecialidadFacade especialidadFacade;
 
-    @PostConstruct
-    @Override
-    protected void init() {
-        super.init();
-
-    }
 
     @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
-    }
-
-    @Override
-    public void btnNuevoHandler() {
-        estado = EstadosCRUD.NUEVO;
     }
 
     @Override

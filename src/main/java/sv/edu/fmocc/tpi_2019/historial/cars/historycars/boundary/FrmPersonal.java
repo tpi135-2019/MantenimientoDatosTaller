@@ -33,12 +33,13 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable 
     PersonalFacade personalFacade;
     @Inject
     SucursalFacade sucursalFacade;
-    private List<Sucursal> listaSucursal;
     @Inject
     EspecialidadFacade especialidadFacade;
+    private List<Sucursal> listaSucursal;
+ 
     private List<Especialidad> lsEspecialidad;
 
-    public void listarESpecialidades() {
+    public void listarEspecialidades() {
         try {
             lsEspecialidad = especialidadFacade.findAll();
         } catch (Exception e) {
@@ -51,7 +52,7 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable 
     protected void init() {
         super.init();
         listarSucursales();
-        listarESpecialidades();
+        listarEspecialidades();
     }
 
     public void listarSucursales() {

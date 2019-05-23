@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
@@ -33,6 +34,7 @@ public abstract class AbstractBean<T> implements Serializable {
         NONE, NUEVO, EDITAR, ELIMINAR, AGREGAR;
     }
 
+    @PostConstruct
     protected void init() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
@@ -110,6 +112,10 @@ public abstract class AbstractBean<T> implements Serializable {
             }
         }
     }
+    
+     public void  btnNuevoHandler(){
+        estado = EstadosCRUD.NUEVO;
+    };
 
     /**
      * Modelo para el lazyDataModel para ser implementantado por cualquier
@@ -187,7 +193,6 @@ public abstract class AbstractBean<T> implements Serializable {
 
     protected abstract void btncancelarHandler();
 
-    protected abstract void btnNuevoHandler();
 
     protected abstract T getrowD(String rowkey);
 

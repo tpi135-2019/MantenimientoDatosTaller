@@ -115,6 +115,9 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
         cut.listarPiezas();
         List lista = cut.getLspieza();
         Assert.assertEquals(registrosPieza.size(), lista.size());
+        cut.piezaFacade=null;
+        cut.listarPiezas();
+        Mockito.doThrow(Exception.class).when(piezaFacade).findAll();
     }
 
     @Test

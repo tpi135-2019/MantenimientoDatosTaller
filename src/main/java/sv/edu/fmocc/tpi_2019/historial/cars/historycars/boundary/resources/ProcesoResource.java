@@ -45,7 +45,7 @@ public class ProcesoResource extends AbstractResource<Proceso, Integer> {
     
     @GET
     @Path("{id}/pasos")
-    public Response PasosPorProceso(@PathParam("id") Integer id,
+    public Response pasosPorProceso(@PathParam("id") Integer id,
             @QueryParam("paso") @DefaultValue("") String paso){
       if (pasoProcesoFacade != null) {
             List<Paso> pasos = pasoProcesoFacade.pasosPorProceso(id, paso);

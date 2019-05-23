@@ -7,6 +7,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,6 +96,7 @@ public class FrmPasoProcesoTest extends BackingBeanTest<PasoProceso> {
         cut.listarProcesos();
         Mockito.verify(procesoFacade).findAll();
         cut.procesoFacade=null;
+        cut.listarProcesos();
         Mockito.doThrow(Exception.class).when(procesoFacade).findAll();
     }
 

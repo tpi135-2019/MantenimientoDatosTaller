@@ -26,21 +26,11 @@ public class FrmMarca extends AbstractBean<Marca> implements Serializable {
     @Inject
     MarcaFacade marcaFacade;
 
-    @PostConstruct
-    @Override
-    public void init() {
-        super.init();
-    }
-
+ 
     @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
-    }
-
-    @Override
-    public void btnNuevoHandler() {
-        estado = EstadosCRUD.NUEVO;
     }
 
     @Override

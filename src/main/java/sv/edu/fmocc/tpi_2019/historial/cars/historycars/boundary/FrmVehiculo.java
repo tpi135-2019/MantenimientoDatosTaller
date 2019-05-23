@@ -33,10 +33,10 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
     VehiculoFacade vehiculoFacade;
     @Inject
     ModeloFacade modeloFacade;
-    List<Modelo> listaModelo;
+    private List<Modelo> listaModelo;
     @Inject
     PropietarioFacade propietarioFacade;
-    List<Propietario> listaPropietario;
+    private List<Propietario> listaPropietario;
 
     @PostConstruct
     @Override
@@ -50,7 +50,7 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         try {
            listaModelo = modeloFacade.findAll();
         } catch (Exception e) {
-           listaModelo = Collections.EMPTY_LIST;
+           listaModelo = Collections.emptyList();
         }
     }
 
@@ -58,7 +58,7 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         try {
            listaPropietario = propietarioFacade.findAll();
         } catch (Exception e) {
-       listaPropietario = Collections.EMPTY_LIST;
+       listaPropietario = Collections.emptyList();
         }
     }
 
@@ -68,10 +68,6 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         crearNuevo();
     }
 
-    @Override
-    public void btnNuevoHandler() {
-        estado = EstadosCRUD.NUEVO;
-    }
 
     @Override
     protected Vehiculo getrowD(String rowkey) {
