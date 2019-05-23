@@ -6,7 +6,6 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import junit.framework.Assert;
 import org.junit.Before;
@@ -83,23 +82,22 @@ public class FrmModeloTest extends BackingBeanTest<Modelo> {
     @Test
     public void listarMarcasTest() {
         System.out.println("ListarMarcas");
-        Mockito.when(marcaFacade.findAll()).thenReturn(registrosMarca);
-        List ls = cut.listarMarcas();
-        Assert.assertEquals(registrosMarca.size(), ls.size());
-        Mockito.when(marcaFacade.findAll()).thenThrow(Exception.class);
-        ls = cut.listarMarcas();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
+        cut.listarMarcas();
+        Mockito.verify(marcaFacade).findAll();
+        cut.marcaFacade=null;
+        cut.listarMarcas();
+        Mockito.doThrow(Exception.class).when(marcaFacade).findAll();
     }
 
     @Test
     public void listarTipoVehiculoTest() {
         System.out.println("ListarTipoVehiculo");
-        Mockito.when(tipoVehiculoFacade.findAll()).thenReturn(registrosTipoVehiculo);
-        List lista = cut.listarTiposdeVehiculo();
-        org.junit.Assert.assertEquals(registrosTipoVehiculo.size(), lista.size());
-        Mockito.when(tipoVehiculoFacade.findAll()).thenThrow(Exception.class);
-        lista = cut.listarTiposdeVehiculo();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
+        cut.listarTiposdeVehiculo();
+         Mockito.verify(tipoVehiculoFacade).findAll();
+        cut.tipoVehiculoFacade=null;
+        cut.listarTiposdeVehiculo();
+        Mockito.doThrow(Exception.class).when(tipoVehiculoFacade).findAll(); 
+  
     }
 
     @Test

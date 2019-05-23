@@ -52,7 +52,6 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
         } catch (Exception e) {
             return listaMarcas = Collections.emptyList();
         }
-
     }
 
     public List listarTiposdeVehiculo() {

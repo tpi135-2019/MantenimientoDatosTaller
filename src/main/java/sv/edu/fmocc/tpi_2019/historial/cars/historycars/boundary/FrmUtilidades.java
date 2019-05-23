@@ -70,7 +70,7 @@ public class FrmUtilidades implements Serializable {
     }
 
       //**** Manejo de imagenes que se desplazan en el inicio
-    List<String> images= new ArrayList<>();
+    protected List<String> images= new ArrayList<>();
 
     public void suffleImages() {
         for (int i = 1; i <= 3; i++) {

@@ -6,7 +6,6 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
@@ -83,24 +82,20 @@ public class FrmPasoProcesoTest extends BackingBeanTest<PasoProceso> {
     @Test
     public void listarPasosTest() {
         System.out.println("listarPasos");
-        Mockito.when(pasoFacade.findAll()).thenReturn(registrosPaso);
-        List lista = cut.listarPasos();
-        Assert.assertEquals(registrosPaso.size(), lista.size());
-        Mockito.when(pasoFacade.findAll()).thenThrow(Exception.class);
-        lista = cut.listarPasos();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
+        cut.listarPasos();
+        Mockito.verify(pasoFacade).findAll();
+        cut.pasofacade = null;
+        cut.listarPasos();
+        Mockito.doThrow(Exception.class).when(pasoFacade).findAll();
     }
 
     @Test
     public void listarProcesosTest() {
         System.out.println("listarProcesos");
-        Mockito.when(procesoFacade.findAll()).thenReturn(registrosProceso);
-        List myList = cut.listarProcesos();
-        Assert.assertEquals(registrosProceso.size(), myList.size());
-        Mockito.when(procesoFacade.findAll()).thenThrow(Exception.class);
-        myList = cut.listarProcesos();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), myList.size());
-
+        cut.listarProcesos();
+        Mockito.verify(procesoFacade).findAll();
+        cut.procesoFacade=null;
+        Mockito.doThrow(Exception.class).when(procesoFacade).findAll();
     }
 
 
