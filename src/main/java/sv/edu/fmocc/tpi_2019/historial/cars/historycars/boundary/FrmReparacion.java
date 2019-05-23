@@ -64,6 +64,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         }
     }
 
+    //va simon
     public List listarPersonal() {
         try {
             System.out.println("ID PROCESO"+ proceso.getNombre());
