@@ -110,6 +110,10 @@ public abstract class AbstractBean<T> implements Serializable {
             }
         }
     }
+    
+     public void  btnNuevoHandler(){
+        estado = EstadosCRUD.NUEVO;
+    }
 
     /**
      * Modelo para el lazyDataModel para ser implementantado por cualquier
