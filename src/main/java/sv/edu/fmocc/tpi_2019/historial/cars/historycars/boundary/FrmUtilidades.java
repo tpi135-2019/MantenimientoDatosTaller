@@ -59,9 +59,16 @@ public class FrmUtilidades implements Serializable {
     private List<Sucursal> listaSucursal;
     private List<Propietario> listaPropietario;
 
-    String reparacionDiagnostico = "",placaReparacion = "", reparacionPersonal = "", reparacionSucursal = "", diagnosticoPlaca = "", pieza = "", pasoReparacion = "", propietario = "";
+    String reparacionDiagnostico = "";
+    String placaReparacion = "";
+    String reparacionPersonal = "";
+    String reparacionSucursal = "";
+    String diagnosticoPlaca = "";
+    String pieza = "";
+    String pasoReparacion = "";
+    String propietario = "";
     estadosTbl tbl;
-    
+
     Date desde;
     Date hasta;
 
@@ -69,8 +76,8 @@ public class FrmUtilidades implements Serializable {
         REPARACION, SUCURSAL, NONE, DIAGNOSTICO, PIEZA, PASO, PROPIETARIO;
     }
 
-      //**** Manejo de imagenes que se desplazan en el inicio
-    protected List<String> images= new ArrayList<>();
+    //**** Manejo de imagenes que se desplazan en el inicio
+    protected List<String> images = new ArrayList<>();
 
     public void suffleImages() {
         for (int i = 1; i <= 3; i++) {
@@ -81,7 +88,7 @@ public class FrmUtilidades implements Serializable {
     public List<String> getImages() {
         return images;
     }
-    
+
     @PostConstruct
     public void init() {
         tbl = estadosTbl.NONE;
@@ -97,13 +104,14 @@ public class FrmUtilidades implements Serializable {
         listaReparacion = new ArrayList<>();
         if (placaReparacion != null) {
             try {
-                return listaReparacion = reparacionFacade.reparacionesPorPlaca(placaReparacion.toLowerCase());
-               
+                listaReparacion = reparacionFacade.reparacionesPorPlaca(placaReparacion.toLowerCase());
+                return listaReparacion;
             } catch (Exception ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
             }
         }
-        return this.listaReparacion = Collections.EMPTY_LIST;
+        this.listaReparacion = Collections.emptyList();
+        return this.listaReparacion;
     }
 
     /**
@@ -113,16 +121,17 @@ public class FrmUtilidades implements Serializable {
     public List buscarReparacionesPorDiagnostico() {
         tbl = estadosTbl.REPARACION;
         listaReparacion = new ArrayList<>();
-        if(reparacionDiagnostico!=null){
-          
+        if (reparacionDiagnostico != null) {
+
             try {
-              return listaReparacion = reparacionFacade.reparacionPorDiagnostico(new Integer(reparacionDiagnostico));
-                
+                listaReparacion = reparacionFacade.reparacionPorDiagnostico(new Integer(reparacionDiagnostico));
+                return listaReparacion;
             } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
             }
         }
-        return this.listaReparacion = Collections.EMPTY_LIST;
+        this.listaReparacion = Collections.emptyList();
+        return this.listaReparacion;
     }
 
     /**
@@ -134,14 +143,15 @@ public class FrmUtilidades implements Serializable {
         listaReparacion = new ArrayList<>();
         if (reparacionPersonal != null) {
             try {
-               return listaReparacion = reparacionFacade.reparacionPorPersonal(new Integer(reparacionPersonal));
-               
+                listaReparacion = reparacionFacade.reparacionPorPersonal(new Integer(reparacionPersonal));
+                return listaReparacion;
             } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
 
             }
         }
-        return this.listaReparacion = Collections.EMPTY_LIST;
+        this.listaReparacion = Collections.emptyList();
+        return this.listaReparacion;
     }
 
     /**
@@ -154,13 +164,14 @@ public class FrmUtilidades implements Serializable {
         listaReparacion = new ArrayList<>();
 
         try {
-            return listaReparacion = reparacionFacade.reparacionEntreFechas(desde, hasta);
-
+            listaReparacion = reparacionFacade.reparacionEntreFechas(desde, hasta);
+            return listaReparacion;
         } catch (Exception ex) {
             logger.log(Level.SEVERE, ex.getMessage());
 
         }
-        return this.listaReparacion = Collections.EMPTY_LIST;
+        this.listaReparacion = Collections.emptyList();
+        return this.listaReparacion;
     }
 
     /**
@@ -172,14 +183,15 @@ public class FrmUtilidades implements Serializable {
         listaSucursal = new ArrayList<>();
         if (reparacionSucursal != null) {
             try {
-              return listaSucursal= sucursalFacade.lugarReparacion(new Integer(reparacionSucursal));
-             
+                listaSucursal = sucursalFacade.lugarReparacion(new Integer(reparacionSucursal));
+                return listaSucursal;
             } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
 
             }
         }
-        return listaSucursal = Collections.EMPTY_LIST;
+        listaSucursal = Collections.emptyList();
+        return listaSucursal;
     }
 
     /**
@@ -190,18 +202,19 @@ public class FrmUtilidades implements Serializable {
 
         tbl = estadosTbl.DIAGNOSTICO;
         listaDiagnostico = new ArrayList<>();
-        if(diagnosticoPlaca!=null){
+        if (diagnosticoPlaca != null) {
+            try {
 
-                List<Diagnostico> ls = diagnosticoFacade.diagnosticoPorPlaca(diagnosticoPlaca);
-                ls.forEach((item) -> {
-                    listaDiagnostico.add(item);
-                });
+                listaDiagnostico = diagnosticoFacade.diagnosticoPorPlaca(diagnosticoPlaca);
+                return listaDiagnostico;
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, e.getMessage());
+            }
 
-                if (listaDiagnostico != null && !listaDiagnostico.isEmpty()) {
-                    return listaDiagnostico;
-                }
         }
-        return this.listaDiagnostico = Collections.EMPTY_LIST;
+        this.listaDiagnostico = Collections.emptyList();
+        return this.listaDiagnostico;
+
     }
 
     /**
@@ -214,14 +227,15 @@ public class FrmUtilidades implements Serializable {
         listaPieza = new ArrayList<>();
         if (pieza != null) {
             try {
-                return listaPieza = piezaFacade.piezasReparacion(new Integer(pieza));
-              
+                 listaPieza = piezaFacade.piezasReparacion(new Integer(pieza));
+ return listaPieza;
             } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
 
             }
         }
-        return this.listaPieza = Collections.EMPTY_LIST;
+         this.listaPieza = Collections.emptyList();
+    return this.listaPieza;
     }
 
     /**
@@ -233,14 +247,15 @@ public class FrmUtilidades implements Serializable {
         tbl = estadosTbl.PASO;
         listaPaso = new ArrayList<>();
         if (pasoReparacion != null) {
-
-                listaPaso = pasoFacade.pasoReparacion(new Integer(pasoReparacion));
-
-                if (listaPaso != null && !listaPaso.isEmpty()) {
-                    return listaPaso;
-                }
+            try {
+              listaPaso = pasoFacade.pasoReparacion(new Integer(pasoReparacion));
+                return listaPaso;  
+            } catch (NumberFormatException e) {
+            logger.log(Level.SEVERE, e.getMessage());
+            }
         }
-        return this.listaPaso = Collections.EMPTY_LIST;
+         this.listaPaso = Collections.emptyList();
+          return this.listaPaso;
     }
 
     /**
@@ -252,17 +267,18 @@ public class FrmUtilidades implements Serializable {
         listaPropietario = new ArrayList<>();
         if (propietario != null) {
             try {
-                return listaPropietario = propietarioFacade.historialPropietarios(propietario);
+                 listaPropietario = propietarioFacade.historialPropietarios(propietario);
+                 return listaPropietario;
             } catch (Exception e) {
                 logger.log(Level.SEVERE, e.getMessage());
-
             }
 
         }
-
-        return this.listaPropietario = Collections.EMPTY_LIST;
+         this.listaPropietario = Collections.emptyList();
+           return this.listaPropietario;
     }
 
+    
     /////******getters y setters
     public String getReparacionSucursal() {
         return reparacionSucursal;
@@ -295,7 +311,7 @@ public class FrmUtilidades implements Serializable {
     public estadosTbl getTbl() {
         return tbl;
     }
-    
+
     public void setPlacaReparacion(String placaReparacion) {
         this.placaReparacion = placaReparacion;
     }
@@ -396,8 +412,7 @@ public class FrmUtilidades implements Serializable {
         this.propietario = propietario;
     }
 
-    
-     public void setLogger(Logger logger) {
+    public void setLogger(Logger logger) {
         this.logger = logger;
     }
 

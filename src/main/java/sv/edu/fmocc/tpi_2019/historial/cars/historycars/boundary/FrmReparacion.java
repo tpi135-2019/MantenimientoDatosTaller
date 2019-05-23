@@ -5,6 +5,7 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
+import edu.emory.mathcs.backport.java.util.Collections;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
@@ -55,14 +56,18 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     private Proceso proceso;
 
     public void listarPiezas() {
-        lspieza = piezaFacade.findAll();
+        try {
+            lspieza = piezaFacade.findAll();
+        } catch (Exception e) {
+            lspieza = Collections.emptyList();
+        }
     }
 
     public void listarPersonal() {
-        try{
-        lsPersonal = personalFacade.personalPorProceso(proceso.getIdProceso());
-         } catch (Exception e) {
-            logger.log(Level.WARNING,e.getMessage());
+        try {
+            lsPersonal = personalFacade.personalPorProceso(proceso.getIdProceso());
+        } catch (Exception e) {
+            logger.log(Level.WARNING, e.getMessage());
         }
     }
 
@@ -74,7 +79,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         try {
             lspasoProceso = pasoProcesoFacade.pasosPorProceso(proceso.getIdProceso(), "");
         } catch (Exception e) {
-            logger.log(Level.WARNING,e.getMessage());
+            logger.log(Level.WARNING, e.getMessage());
         }
     }
 

@@ -387,6 +387,7 @@ public class FrmUtilidadesTest {
 
 @Test
  public void getImagesTest() {
+     
      List imagenes = new ArrayList<>();
      imagenes.add("image1");
        cut.images=imagenes;
