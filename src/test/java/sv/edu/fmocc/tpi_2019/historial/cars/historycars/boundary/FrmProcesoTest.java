@@ -6,7 +6,6 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
@@ -69,12 +68,11 @@ public class FrmProcesoTest extends BackingBeanTest<Proceso> {
     @Test
     public void listarEspecialidadesTest() {
         System.out.println("listarEspecialidad");
-        Mockito.when(especialidadFacade.findAll()).thenReturn(registrosEspecialidad);
-        List lista = cut.listarEspecialidades();
-        Assert.assertEquals(registrosEspecialidad.size(), lista.size());
-        Mockito.when(especialidadFacade.findAll()).thenThrow(Exception.class);
-        lista = cut.listarEspecialidades();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
+        cut.listarEspecialidades();
+        Mockito.verify(especialidadFacade).findAll();
+        cut.especialidadFacade = null;
+        cut.listarEspecialidades();
+        Mockito.doThrow(Exception.class).when(especialidadFacade).findAll();
 
     }
 

@@ -46,19 +46,19 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         listarPropietarios();
     }
 
-    public List listarModelos() {
+    public void listarModelos() {
         try {
-            return listaModelo = modeloFacade.findAll();
+           listaModelo = modeloFacade.findAll();
         } catch (Exception e) {
-            return listaModelo = Collections.EMPTY_LIST;
+           listaModelo = Collections.EMPTY_LIST;
         }
     }
 
-    public List listarPropietarios() {
+    public void listarPropietarios() {
         try {
-            return listaPropietario = propietarioFacade.findAll();
+           listaPropietario = propietarioFacade.findAll();
         } catch (Exception e) {
-            return listaPropietario = Collections.EMPTY_LIST;
+       listaPropietario = Collections.EMPTY_LIST;
         }
     }
 

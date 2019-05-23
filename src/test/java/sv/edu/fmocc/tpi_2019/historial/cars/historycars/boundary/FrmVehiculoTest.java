@@ -6,7 +6,6 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
@@ -77,23 +76,20 @@ public class FrmVehiculoTest extends BackingBeanTest<Vehiculo> {
     @Test
     public void listarModelosTest() {
         System.out.println("listarModelos");
-        Mockito.when(modeloFacade.findAll()).thenReturn(registrosModelo);
-        List modelo = cut.listarModelos();
-        Assert.assertEquals(registrosModelo.size(), modelo.size());
-        Mockito.when(modeloFacade.findAll()).thenThrow(Exception.class);
-        modelo = cut.listarModelos();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), modelo.size());
+        cut.listarModelos();
+        Mockito.verify(modeloFacade).findAll();
+        cut.modeloFacade = null;
+        Mockito.doThrow(Exception.class).when(modeloFacade).findAll();
+
     }
 
     @Test
     public void listarPropietariosTest() {
         System.out.println("listarPropietarios");
-        Mockito.when(propietarioFacade.findAll()).thenReturn(registrosPropietario);
-        List lista = cut.listarPropietarios();
-        Assert.assertEquals(registrosPropietario.size(), lista.size());
-        Mockito.when(propietarioFacade.findAll()).thenThrow(Exception.class);
-        lista = cut.listarPropietarios();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
+        cut.listarPropietarios();
+        Mockito.verify(propietarioFacade).findAll();
+        cut.propietarioFacade = null;
+        Mockito.doThrow(Exception.class).when(propietarioFacade).findAll();
     }
 
     @Override
@@ -102,23 +98,23 @@ public class FrmVehiculoTest extends BackingBeanTest<Vehiculo> {
     }
 
     @Test
-   public void getRowDTest(){
-       String key="P232-22";
-       getRowDataTest(key);
-   }  
-   
-   @Test
-   public void getListaModeloTest(){
-       cut.setListaModelo(registrosModelo);
-       List ls = cut.getListaModelo();
-       Assert.assertEquals(registrosModelo,ls);
-   }
-   
-   @Test
-   public void getListaPropietarioTest(){
-       cut.setListaPropietario(registrosPropietario);
-       List ls = cut.getListaPropietario();
-       Assert.assertEquals(registrosPropietario,ls);
-   }
-   
+    public void getRowDTest() {
+        String key = "P232-22";
+        getRowDataTest(key);
+    }
+
+    @Test
+    public void getListaModeloTest() {
+        cut.setListaModelo(registrosModelo);
+        List ls = cut.getListaModelo();
+        Assert.assertEquals(registrosModelo, ls);
+    }
+
+    @Test
+    public void getListaPropietarioTest() {
+        cut.setListaPropietario(registrosPropietario);
+        List ls = cut.getListaPropietario();
+        Assert.assertEquals(registrosPropietario, ls);
+    }
+
 }

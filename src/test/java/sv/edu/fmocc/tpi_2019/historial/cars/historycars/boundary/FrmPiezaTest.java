@@ -6,7 +6,6 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
@@ -67,14 +66,13 @@ public class FrmPiezaTest extends BackingBeanTest<Pieza> {
     }
 
     @Test
-    public void listarPiezas() {
-        System.out.println("listarPiezas");
-        Mockito.when(subParteFacade.findAll()).thenReturn(registrosSubParte);
-        List lista = cut.listarSubpartes();
-        Assert.assertEquals(registrosSubParte.size(), lista.size());
-        Mockito.when(subParteFacade.findAll()).thenThrow(Exception.class);
-        lista = cut.listarSubpartes();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
+    public void listarSubParteTest() {
+        System.out.println("listarSubParte");
+        cut.listarSubpartes();
+        Mockito.verify(subParteFacade).findAll();
+        cut.subparteFacade = null;
+        cut.listarSubpartes();
+        Mockito.doThrow(Exception.class).when(subParteFacade).findAll();
     }
 
     @Override
