@@ -6,9 +6,7 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,39 +25,11 @@ public class FrmSucursal extends AbstractBean<Sucursal> implements Serializable 
     @Inject
     SucursalFacade sucursalFacade;
 
-    @PostConstruct
-    @Override
-    protected void init() {
-        super.init();
-    }
-
-    @Override
-    public void crear() {
-        estado = EstadosCRUD.AGREGAR;
-        super.crear();
-    }
-
-    @Override
-    public void modificar() {
-        estado = EstadosCRUD.EDITAR;
-        super.modificar();
-    }
-
-    @Override
-    public void eliminar() {
-        estado = EstadosCRUD.ELIMINAR;
-        super.eliminar();
-    }
-
+ 
     @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
-    }
-
-    @Override
-    public void btnNuevoHandler() {
-        estado = EstadosCRUD.NUEVO;
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
@@ -25,14 +26,15 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 public abstract class AbstractBean<T> implements Serializable {
 
     LazyDataModel<T> lazyModel;
-    T registro;
+    transient T registro;
     protected EstadosCRUD estado;
-    protected Logger logger = Logger.getGlobal();
+    transient Logger logger = Logger.getGlobal();
 
     public enum EstadosCRUD {
         NONE, NUEVO, EDITAR, ELIMINAR, AGREGAR;
     }
 
+    @PostConstruct
     protected void init() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
@@ -53,7 +55,7 @@ public abstract class AbstractBean<T> implements Serializable {
      * metodo generico para persistir un registro
      */
     public void crear() {
-        estado = EstadosCRUD.NONE;
+        estado = EstadosCRUD.AGREGAR;
         FacadeGenerico facade = getFacadeLocal();
         registro = getEntity();
 
@@ -61,9 +63,11 @@ public abstract class AbstractBean<T> implements Serializable {
 
             try {
                 facade.create(registro);
+                estado = EstadosCRUD.NONE;
                 addMessage("Registro creado correctamente.");
             } catch (Exception ex) {
                 addMessage("Error al crear registro.");
+                estado = EstadosCRUD.NONE;
                 logger.log(Level.SEVERE, ex.getMessage());
             }
         }
@@ -74,13 +78,15 @@ public abstract class AbstractBean<T> implements Serializable {
      * modificar(editar) un registro de cualquier entidad
      */
     public void modificar() {
-        estado = EstadosCRUD.NONE;
+        estado = EstadosCRUD.EDITAR;
         if (getFacadeLocal() != null) {
             try {
                 getFacadeLocal().edit(getEntity());
+                estado = EstadosCRUD.NONE;
                 addMessage("Edicion realizada correctamente.");
             } catch (Exception ex) {
                 addMessage("Error al editar registro.");
+                estado = EstadosCRUD.NONE;
                 logger.log(Level.SEVERE, ex.getMessage());
             } finally {
                 crearNuevo();
@@ -92,18 +98,23 @@ public abstract class AbstractBean<T> implements Serializable {
      * elimar un registro de cualquier entidad
      */
     public void eliminar() {
-        estado = EstadosCRUD.NONE;
+        estado = EstadosCRUD.ELIMINAR;
         if (getFacadeLocal() != null) {
             try {
                 getFacadeLocal().remove(getEntity());
-
+                estado = EstadosCRUD.NONE;
                 addMessage("Registro eliminado correctamente");
             } catch (Exception ex) {
                 addMessage("Error al eliminar registro");
+                estado = EstadosCRUD.NONE;
                 logger.log(Level.SEVERE, ex.getMessage());
 
             }
         }
+    }
+    
+     public void  btnNuevoHandler(){
+        estado = EstadosCRUD.NUEVO;
     }
 
     /**
@@ -173,7 +184,7 @@ public abstract class AbstractBean<T> implements Serializable {
     public LazyDataModel<T> getLazyModel() {
         return lazyModel;
     }
-    
+
     public void setLogger(Logger logger) {
         this.logger = logger;
     }
@@ -182,7 +193,6 @@ public abstract class AbstractBean<T> implements Serializable {
 
     protected abstract void btncancelarHandler();
 
-    protected abstract void btnNuevoHandler();
 
     protected abstract T getrowD(String rowkey);
 

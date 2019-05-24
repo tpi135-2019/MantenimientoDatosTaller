@@ -33,10 +33,10 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
     VehiculoFacade vehiculoFacade;
     @Inject
     ModeloFacade modeloFacade;
-    List<Modelo> listaModelo;
+    private List<Modelo> listaModelo;
     @Inject
     PropietarioFacade propietarioFacade;
-    List<Propietario> listaPropietario;
+    private List<Propietario> listaPropietario;
 
     @PostConstruct
     @Override
@@ -46,38 +46,20 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         listarPropietarios();
     }
 
-    public List listarModelos() {
+    public void listarModelos() {
         try {
-            return listaModelo = modeloFacade.findAll();
+           listaModelo = modeloFacade.findAll();
         } catch (Exception e) {
-            return listaModelo = Collections.EMPTY_LIST;
+           listaModelo = Collections.emptyList();
         }
     }
 
-    public List listarPropietarios() {
+    public void listarPropietarios() {
         try {
-            return listaPropietario = propietarioFacade.findAll();
+           listaPropietario = propietarioFacade.findAll();
         } catch (Exception e) {
-            return listaPropietario = Collections.EMPTY_LIST;
+       listaPropietario = Collections.emptyList();
         }
-    }
-
-    @Override
-    public void crear() {
-        estado = EstadosCRUD.AGREGAR;
-        super.crear();
-    }
-
-    @Override
-    public void modificar() {
-        estado = EstadosCRUD.EDITAR;
-        super.modificar();
-    }
-
-    @Override
-    public void eliminar() {
-        estado = EstadosCRUD.ELIMINAR;
-        super.eliminar();
     }
 
     @Override
@@ -86,10 +68,6 @@ public class FrmVehiculo extends AbstractBean<Vehiculo> implements Serializable 
         crearNuevo();
     }
 
-    @Override
-    public void btnNuevoHandler() {
-        estado = EstadosCRUD.NUEVO;
-    }
 
     @Override
     protected Vehiculo getrowD(String rowkey) {

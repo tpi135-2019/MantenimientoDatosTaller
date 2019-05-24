@@ -31,31 +31,13 @@ public class FrmPieza extends AbstractBean<Pieza> implements Serializable {
     PiezaFacade piezaFacade;
     @Inject
     SubParteFacade subparteFacade;
-    List<SubParte> listaSubParte;
+    private List<SubParte> listaSubParte;
 
     @PostConstruct
     @Override
     protected void init() {
         super.init();
         listarSubpartes();
-    }
-
-    @Override
-    public void crear() {
-        estado = EstadosCRUD.AGREGAR;
-        super.crear();
-    }
-
-    @Override
-    public void modificar() {
-        estado = EstadosCRUD.EDITAR;
-        super.modificar();
-    }
-
-    @Override
-    public void eliminar() {
-        estado = EstadosCRUD.ELIMINAR;
-        super.eliminar();
     }
 
     @Override
@@ -69,11 +51,11 @@ public class FrmPieza extends AbstractBean<Pieza> implements Serializable {
         estado = EstadosCRUD.NUEVO;
     }
 
-    public List listarSubpartes() {
+    public void listarSubpartes() {
         try {
-            return listaSubParte = subparteFacade.findAll();
+            listaSubParte = subparteFacade.findAll();
         } catch (Exception e) {
-            return listaSubParte = Collections.EMPTY_LIST;
+            listaSubParte = Collections.emptyList();
         }
     }
 

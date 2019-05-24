@@ -33,7 +33,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({FacesContext.class})
-public abstract class BackingBeanTest<T> extends IniciarTest {
+public abstract class BackingBeanTest<T> extends Iniciar {
 
     protected abstract AbstractBean<T> getBean();
 
@@ -96,19 +96,6 @@ public abstract class BackingBeanTest<T> extends IniciarTest {
 
     }
 
-//    public void lazyModel() {
-//        System.out.println("Load");
-//        int inicio = 1, cantidad = 2;
-//        Map<String, Object> filters = new HashMap<>();
-//        String sortField = null;
-//        Mockito.when(getBean().getLazyModel()).thenReturn(lazyDataModel);
-//        Mockito.when(getFacade().count()).thenReturn(cantidad);
-//        getBean().modelo();
-//        Mockito.verify(getBean().getLazyModel()).getRowData();
-//        Mockito.verify(getBean().getLazyModel()).getRowKey(getEntity());
-//        Mockito.verify(getBean().getLazyModel()).load(inicio, cantidad, sortField, SortOrder.UNSORTED, filters);
-//
-//    }
     @Test
     public void onRowSelectTest() {
         System.out.println("onRowSelect");

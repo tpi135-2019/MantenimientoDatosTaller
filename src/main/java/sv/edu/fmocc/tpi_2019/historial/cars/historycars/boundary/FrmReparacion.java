@@ -5,10 +5,10 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
+import edu.emory.mathcs.backport.java.util.Collections;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -25,7 +25,6 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnosti
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Paso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacion;
 
@@ -49,48 +48,42 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     ProcesoFacade procesoFacade;
     @Inject
     PersonalFacade personalFacade;
-    List<Diagnostico> listaDiagnostico;
-    List<Pieza> lspieza;
-    List<Paso> lspasoProceso;
-    List<Personal> lsPersonal;
-    List<Proceso> listaProceso;
-    Proceso proceso;
+    private List<Diagnostico> listaDiagnostico;
+    private List<Pieza> lspieza;
+    private List<Paso> lspasoProceso;
+    private List<Personal> lsPersonal;
+    private List<Proceso> listaProceso;
+    private Proceso proceso;
 
-    public List listarPiezas() {
+    public void listarPiezas() {
         try {
-            return lspieza = piezaFacade.findAll();
+            lspieza = piezaFacade.findAll();
         } catch (Exception e) {
-            return lspieza = Collections.EMPTY_LIST;
+            lspieza = Collections.emptyList();
         }
     }
 
-    public List listarPersonal() {
+    public void listarPersonal() {
         try {
-            System.out.println("ID PROCESO"+ proceso.getNombre());
-            return lsPersonal = personalFacade.personalPorProceso(proceso.getIdProceso());
+            lsPersonal = personalFacade.personalPorProceso(proceso.getIdProceso());
         } catch (Exception e) {
-            return lsPersonal = Collections.EMPTY_LIST;
+            logger.log(Level.WARNING, e.getMessage());
         }
     }
 
-    public List listarProcesos() {
-        try {
-            return listaProceso = procesoFacade.findAll();
-        } catch (Exception e) {
-            return listaProceso = Collections.EMPTY_LIST;
-        }
+    public void listarProcesos() {
+        listaProceso = procesoFacade.findAll();
     }
 
-    public List listarPasoProceso() {
+    public void listarPasoProceso() {
         try {
-            return lspasoProceso = pasoProcesoFacade.PasosPorProceso(proceso.getIdProceso(),"");
+            lspasoProceso = pasoProcesoFacade.pasosPorProceso(proceso.getIdProceso(), "");
         } catch (Exception e) {
-            return lspasoProceso = Collections.EMPTY_LIST;
+            logger.log(Level.WARNING, e.getMessage());
         }
     }
 
     public void listar() {
-        System.out.println("AUI EN LISTAR ");
         listarDiagnosticos();
         listarPiezas();
         listarPasoProceso();
@@ -139,12 +132,8 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         this.registro = new Reparacion();
     }
 
-    public List listarDiagnosticos() {
-        try {
-            return listaDiagnostico = diagnosticoFacade.findAll();
-        } catch (Exception e) {
-            return listaDiagnostico = Collections.EMPTY_LIST;
-        }
+    public void listarDiagnosticos() {
+        listaDiagnostico = diagnosticoFacade.findAll();
     }
 
     @Override

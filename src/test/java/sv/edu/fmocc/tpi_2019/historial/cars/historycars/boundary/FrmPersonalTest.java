@@ -6,7 +6,6 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,9 +16,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.powermock.modules.junit4.PowerMockRunner;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.EspecialidadFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PersonalFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SucursalFacade;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Especialidad;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 
@@ -34,11 +35,14 @@ public class FrmPersonalTest extends BackingBeanTest<Personal> {
     PersonalFacade personalFacade;
     @Mock
     SucursalFacade sucursalFacade;
+    @Mock
+    EspecialidadFacade especialidadFacade;
     @Spy
     @InjectMocks
     FrmPersonal cut = new FrmPersonal();
     Personal personal = new Personal(1);
     List<Sucursal> registrosSucursal = new ArrayList<>();
+    List<Especialidad> registrosEspecialidad= new ArrayList<>();
     List<Personal> registrosPersonal = new ArrayList<>();
 
     @Before
@@ -49,6 +53,8 @@ public class FrmPersonalTest extends BackingBeanTest<Personal> {
 
         registrosPersonal.add(new Personal(1, "Jose", "Ramirez"));
         registrosPersonal.add(new Personal(2, "Cindy", "Nero"));
+        
+        registrosEspecialidad.add(new Especialidad(1));
     }
 
     @Override
@@ -69,13 +75,24 @@ public class FrmPersonalTest extends BackingBeanTest<Personal> {
     @Test
     public void listarSucursalesTest() {
         System.out.println("listarSucursales");
-        Mockito.when(sucursalFacade.findAll()).thenReturn(registrosSucursal);
-        List lista = cut.listarSucursales();
-        Assert.assertEquals(registrosSucursal.size(), lista.size());
-        Mockito.when(sucursalFacade.findAll()).thenThrow(Exception.class);
-        lista = cut.listarSucursales();
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
+       cut.listarSucursales();
+         Mockito.verify(sucursalFacade).findAll();
+        cut.sucursalFacade=null;
+        cut.listarSucursales();
+        Mockito.doThrow(Exception.class).when(sucursalFacade).findAll();
     }
+    
+    
+    @Test
+    public void listarEspecialidaTest() {
+        System.out.println("listarEspecialidad");
+       cut.listarEspecialidades();
+         Mockito.verify(especialidadFacade).findAll();
+        cut.especialidadFacade=null;
+        cut.listarEspecialidades();
+        Mockito.doThrow(Exception.class).when(especialidadFacade).findAll();
+    }
+
 
     @Override
     protected List<Personal> getLista() {
@@ -94,4 +111,12 @@ public class FrmPersonalTest extends BackingBeanTest<Personal> {
         List ls = cut.getListaSucursal();
         Assert.assertEquals(registrosSucursal,ls);
     }
+    
+     @Test
+    public void getListaEspecialidadTest(){
+        cut.setLsEspecialidad(registrosEspecialidad);
+        List ls = cut.getLsEspecialidad();
+        Assert.assertEquals(registrosEspecialidad,ls);
+    }
+    
 }

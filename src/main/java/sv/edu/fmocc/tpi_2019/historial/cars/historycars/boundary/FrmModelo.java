@@ -46,20 +46,19 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
         listarTiposdeVehiculo();
     }
 
-    public List listarMarcas() {
+    public void listarMarcas() {
         try {
-            return listaMarcas = marcaFacade.findAll();
+            listaMarcas = marcaFacade.findAll();
         } catch (Exception e) {
-            return listaMarcas = Collections.emptyList();
+            listaMarcas = Collections.emptyList();
         }
-
     }
 
-    public List listarTiposdeVehiculo() {
+    public void listarTiposdeVehiculo() {
         try {
-            return listaTipoVehiculo = tipoVehiculoFacade.findAll();
+            listaTipoVehiculo = tipoVehiculoFacade.findAll();
         } catch (Exception e) {
-            return listaTipoVehiculo = Collections.EMPTY_LIST;
+            listaTipoVehiculo = Collections.emptyList();
 
         }
 
@@ -69,23 +68,6 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
     /*
     sobreCarga de metodos !!
      */
-    @Override
-    public void crear() {
-        estado = EstadosCRUD.AGREGAR;
-        super.crear();
-    }
-
-    @Override
-    public void modificar() {
-        estado = EstadosCRUD.EDITAR;
-        super.modificar();
-    }
-
-    @Override
-    public void eliminar() {
-        estado = EstadosCRUD.ELIMINAR;
-        super.eliminar();
-    }
 
     @Override
     public void btncancelarHandler() {

@@ -33,10 +33,10 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
     PasoProcesoFacade pasoProcesoFacade;
     @Inject
     ProcesoFacade procesoFacade;
-    List<Proceso> listaProceso;
+    private List<Proceso> listaProceso;
     @Inject
     PasoFacade pasofacade;
-    List<Paso> listaPaso;
+    private List<Paso> listaPaso;
 
     @PostConstruct
     @Override
@@ -45,24 +45,6 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
         listarPasos();
         listarProcesos();
 
-    }
-
-    @Override
-    public void crear() {
-        estado = EstadosCRUD.AGREGAR;
-        super.crear();
-    }
-
-    @Override
-    public void modificar() {
-        estado = EstadosCRUD.EDITAR;
-        super.modificar();
-    }
-
-    @Override
-    public void eliminar() {
-        estado = EstadosCRUD.ELIMINAR;
-        super.eliminar();
     }
 
     @Override
@@ -76,19 +58,19 @@ public class FrmPasoProceso extends AbstractBean<PasoProceso> implements Seriali
         estado = EstadosCRUD.NUEVO;
     }
 
-    public List listarPasos() {
+    public void listarPasos() {
         try {
-            return listaPaso = pasofacade.findAll();
+             listaPaso = pasofacade.findAll();
         } catch (Exception e) {
-            return listaPaso = Collections.EMPTY_LIST;
+             listaPaso = Collections.emptyList();
         }
     }
 
-    public List listarProcesos() {
+    public void listarProcesos() {
         try {
-            return listaProceso = procesoFacade.findAll();
+             listaProceso = procesoFacade.findAll();
         } catch (Exception e) {
-            return listaProceso = Collections.EMPTY_LIST;
+             listaProceso = Collections.emptyList();
         }
     }
 

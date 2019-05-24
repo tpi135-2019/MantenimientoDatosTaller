@@ -5,13 +5,9 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources;
 
-import java.net.URI;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -23,10 +19,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 
 /**
@@ -41,19 +35,6 @@ public abstract class AbstractResource<T, P> {
 
     protected abstract T getNewEntity();
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<T> findAll() {
-//        FacadeGenerico sessionBean = getSessionBean();
-//        if (sessionBean != null) {
-//            try {
-//                return sessionBean.findAll();
-//            } catch (Exception e) {
-//                logger.log(Level.SEVERE, e.getMessage(), e);
-//            }
-//        }
-//        return Collections.EMPTY_LIST;
-//    }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findRange(
