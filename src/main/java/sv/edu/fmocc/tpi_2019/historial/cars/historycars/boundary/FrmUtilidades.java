@@ -50,14 +50,14 @@ public class FrmUtilidades implements Serializable {
     @Inject
     PropietarioFacade propietarioFacade;
 
-    protected Logger logger = Logger.getGlobal();
+    protected transient Logger logger = Logger.getGlobal();
 
-    List<Paso> listaPaso;
-    List<Pieza> listaPieza;
-    List<Reparacion> listaReparacion;
-    List<Diagnostico> listaDiagnostico;
-    List<Sucursal> listaSucursal;
-    List<Propietario> listaPropietario;
+    private List<Paso> listaPaso;
+    private List<Pieza> listaPieza;
+    private List<Reparacion> listaReparacion;
+    private List<Diagnostico> listaDiagnostico;
+    private List<Sucursal> listaSucursal;
+    private List<Propietario> listaPropietario;
 
     String reparacionDiagnostico = "";
     String placaReparacion = "";
@@ -77,7 +77,7 @@ public class FrmUtilidades implements Serializable {
     }
 
     //**** Manejo de imagenes que se desplazan en el inicio
-    protected List<String> images = new ArrayList<>();
+    private List<String> images = new ArrayList<>();
 
     public void suffleImages() {
         for (int i = 1; i <= 3; i++) {
@@ -87,6 +87,10 @@ public class FrmUtilidades implements Serializable {
 
     public List<String> getImages() {
         return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     @PostConstruct
@@ -227,15 +231,15 @@ public class FrmUtilidades implements Serializable {
         listaPieza = new ArrayList<>();
         if (pieza != null) {
             try {
-                 listaPieza = piezaFacade.piezasReparacion(new Integer(pieza));
- return listaPieza;
+                listaPieza = piezaFacade.piezasReparacion(new Integer(pieza));
+                return listaPieza;
             } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());
 
             }
         }
-         this.listaPieza = Collections.emptyList();
-    return this.listaPieza;
+        this.listaPieza = Collections.emptyList();
+        return this.listaPieza;
     }
 
     /**
@@ -248,14 +252,14 @@ public class FrmUtilidades implements Serializable {
         listaPaso = new ArrayList<>();
         if (pasoReparacion != null) {
             try {
-              listaPaso = pasoFacade.pasoReparacion(new Integer(pasoReparacion));
-                return listaPaso;  
+                listaPaso = pasoFacade.pasoReparacion(new Integer(pasoReparacion));
+                return listaPaso;
             } catch (NumberFormatException e) {
-            logger.log(Level.SEVERE, e.getMessage());
+                logger.log(Level.SEVERE, e.getMessage());
             }
         }
-         this.listaPaso = Collections.emptyList();
-          return this.listaPaso;
+        this.listaPaso = Collections.emptyList();
+        return this.listaPaso;
     }
 
     /**
@@ -267,15 +271,15 @@ public class FrmUtilidades implements Serializable {
         listaPropietario = new ArrayList<>();
         if (propietario != null) {
             try {
-                 listaPropietario = propietarioFacade.historialPropietarios(propietario);
-                 return listaPropietario;
+                listaPropietario = propietarioFacade.historialPropietarios(propietario);
+                return listaPropietario;
             } catch (Exception e) {
                 logger.log(Level.SEVERE, e.getMessage());
             }
 
         }
-         this.listaPropietario = Collections.emptyList();
-           return this.listaPropietario;
+        this.listaPropietario = Collections.emptyList();
+        return this.listaPropietario;
     }
 
     

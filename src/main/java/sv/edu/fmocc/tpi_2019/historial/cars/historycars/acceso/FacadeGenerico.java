@@ -6,9 +6,7 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
 import java.util.List;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaQuery;
 
 

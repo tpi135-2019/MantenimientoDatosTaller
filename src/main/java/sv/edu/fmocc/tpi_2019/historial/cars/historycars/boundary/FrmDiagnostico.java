@@ -33,7 +33,7 @@ public class FrmDiagnostico extends AbstractBean<Diagnostico> implements Seriali
     @Inject
     VehiculoFacade vehiculoFacade;
     
-    List<Vehiculo> listaVehiculo= new ArrayList<>();
+    private List<Vehiculo> listaVehiculo= new ArrayList<>();
 
     @PostConstruct
     @Override

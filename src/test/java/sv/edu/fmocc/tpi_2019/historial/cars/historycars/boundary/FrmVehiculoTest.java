@@ -79,6 +79,7 @@ public class FrmVehiculoTest extends BackingBeanTest<Vehiculo> {
         cut.listarModelos();
         Mockito.verify(modeloFacade).findAll();
         cut.modeloFacade = null;
+        cut.listarModelos();
         Mockito.doThrow(Exception.class).when(modeloFacade).findAll();
 
     }
@@ -89,7 +90,9 @@ public class FrmVehiculoTest extends BackingBeanTest<Vehiculo> {
         cut.listarPropietarios();
         Mockito.verify(propietarioFacade).findAll();
         cut.propietarioFacade = null;
+        cut.listarPropietarios();
         Mockito.doThrow(Exception.class).when(propietarioFacade).findAll();
+     
     }
 
     @Override

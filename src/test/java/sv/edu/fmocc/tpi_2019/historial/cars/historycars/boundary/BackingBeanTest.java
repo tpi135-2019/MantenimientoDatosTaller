@@ -33,7 +33,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({FacesContext.class})
-public abstract class BackingBeanTest<T> extends IniciarTest {
+public abstract class BackingBeanTest<T> extends Iniciar {
 
     protected abstract AbstractBean<T> getBean();
 

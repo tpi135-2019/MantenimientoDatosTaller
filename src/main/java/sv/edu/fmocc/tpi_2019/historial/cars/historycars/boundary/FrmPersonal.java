@@ -33,16 +33,17 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable 
     PersonalFacade personalFacade;
     @Inject
     SucursalFacade sucursalFacade;
-    List<Sucursal> listaSucursal;
     @Inject
     EspecialidadFacade especialidadFacade;
-    List<Especialidad> lsEspecialidad;
-    
-    public List listarESpecialidades(){
+    private List<Sucursal> listaSucursal;
+ 
+    private List<Especialidad> lsEspecialidad;
+
+    public void listarEspecialidades() {
         try {
-            return lsEspecialidad=especialidadFacade.findAll();
+            lsEspecialidad = especialidadFacade.findAll();
         } catch (Exception e) {
-        return lsEspecialidad=Collections.EMPTY_LIST;
+            lsEspecialidad = Collections.emptyList();
         }
     }
 
@@ -51,14 +52,14 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable 
     protected void init() {
         super.init();
         listarSucursales();
-        listarESpecialidades();
+        listarEspecialidades();
     }
 
-    public List listarSucursales() {
+    public void listarSucursales() {
         try {
-            return listaSucursal = sucursalFacade.findAll();
+            listaSucursal = sucursalFacade.findAll();
         } catch (Exception e) {
-            return listaSucursal = Collections.EMPTY_LIST;
+            listaSucursal = Collections.emptyList();
         }
     }
 
@@ -122,7 +123,5 @@ public class FrmPersonal extends AbstractBean<Personal> implements Serializable 
     public void setLsEspecialidad(List<Especialidad> lsEspecialidad) {
         this.lsEspecialidad = lsEspecialidad;
     }
-    
-    
 
 }

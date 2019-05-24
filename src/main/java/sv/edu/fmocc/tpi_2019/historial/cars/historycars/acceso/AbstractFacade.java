@@ -22,6 +22,7 @@ public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
     protected Logger logger = Logger.getGlobal();
+    private String msjEmNulo = "Entity Manager o Entity nulo";
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -38,7 +39,7 @@ public abstract class AbstractFacade<T> {
                 logger.log(Level.SEVERE, e.getMessage(), e);
             }
         } else {
-            logger.log(Level.WARNING, "Entity Manager o Entity nulo");
+            logger.log(Level.WARNING, msjEmNulo);
         }
 
     }
@@ -53,7 +54,7 @@ public abstract class AbstractFacade<T> {
             }
 
         } else {
-            logger.log(Level.WARNING, "Entity Manager o Entity nulo");
+            logger.log(Level.WARNING, msjEmNulo);
         }
 
     }
@@ -67,7 +68,7 @@ public abstract class AbstractFacade<T> {
                 logger.log(Level.SEVERE, e.getMessage(), e);
             }
         } else {
-            logger.log(Level.WARNING, "Entity Manager o Entity nulo");
+            logger.log(Level.WARNING, msjEmNulo);
         }
     }
 
@@ -81,7 +82,7 @@ public abstract class AbstractFacade<T> {
                 return null;
             }
         } else {
-            logger.log(Level.WARNING, "Entity Manager o Entity nulo");
+            logger.log(Level.WARNING, msjEmNulo);
             return null;
         }
     }
@@ -89,12 +90,18 @@ public abstract class AbstractFacade<T> {
     public List<T> findAll() {
         EntityManager em = getEntityManager();
         if (em != null) {
-            CriteriaQuery cq = obtenerCriteriaQueryComun(em);
-            cq.select(cq.from(entityClass));
-            return em.createQuery(cq).getResultList();
+            try {
+                CriteriaQuery cq = obtenerCriteriaQueryComun(em);
+                cq.select(cq.from(entityClass));
+                return em.createQuery(cq).getResultList();
+            } catch (Exception e) {
+                logger.log(Level.WARNING, e.getMessage());
+                return Collections.emptyList();
+            }
+
         } else {
-            logger.log(Level.WARNING, "Entity Manager");
-            return Collections.EMPTY_LIST;
+            logger.log(Level.WARNING, msjEmNulo);
+            return Collections.emptyList();
         }
 
     }
@@ -102,15 +109,21 @@ public abstract class AbstractFacade<T> {
     public List<T> findRange(int inicio, int size) {
         EntityManager em = getEntityManager();
         if (em != null) {
-            CriteriaQuery cq = obtenerCriteriaQueryComun(em);
-            cq.select(cq.from(entityClass));
-            Query q = em.createQuery(cq);
-            q.setMaxResults(size);
-            q.setFirstResult(inicio);
-            return q.getResultList();
+            try {
+                CriteriaQuery cq = obtenerCriteriaQueryComun(em);
+                cq.select(cq.from(entityClass));
+                Query q = em.createQuery(cq);
+                q.setMaxResults(size);
+                q.setFirstResult(inicio);
+                return q.getResultList();
+            } catch (Exception e) {
+                logger.log(Level.WARNING, e.getMessage());
+                return Collections.emptyList();
+            }
+
         } else {
-            logger.log(Level.WARNING, "Entity Manager");
-            return Collections.EMPTY_LIST;
+            logger.log(Level.WARNING, msjEmNulo);
+            return Collections.emptyList();
         }
     }
 
@@ -128,8 +141,7 @@ public abstract class AbstractFacade<T> {
     }
 
     public CriteriaQuery obtenerCriteriaQueryComun(EntityManager em) {
-        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        return cq;
+        return em.getCriteriaBuilder().createQuery();
     }
 
     public void detach(T entity) {

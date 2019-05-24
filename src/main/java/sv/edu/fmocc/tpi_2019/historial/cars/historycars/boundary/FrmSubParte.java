@@ -31,7 +31,7 @@ public class FrmSubParte extends AbstractBean<SubParte> implements Serializable 
     SubParteFacade subparteFacade;
     @Inject
     ParteFacade parteFacade;
-    List<Parte> listaParte;
+    private List<Parte> listaParte;
 
     @PostConstruct
     @Override
@@ -51,9 +51,9 @@ public class FrmSubParte extends AbstractBean<SubParte> implements Serializable 
         estado = EstadosCRUD.NUEVO;
     }
 
-    public List listarPartes() {
+    public void listarPartes() {
         try {
-            return listaParte = parteFacade.findAll();
+            listaParte = parteFacade.findAll();
         } catch (Exception e) {
             listaParte = Collections.emptyList();
         }

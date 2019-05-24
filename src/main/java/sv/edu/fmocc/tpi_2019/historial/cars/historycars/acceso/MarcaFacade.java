@@ -41,14 +41,12 @@ public class MarcaFacade extends AbstractFacade<Marca> implements FacadeGenerico
             try {
                 Query query = em.createNamedQuery("Modelo.ModeloByMarca");
                 query.setParameter("idMarca", idMarca);
-                System.out.println("antes de poner modelo String = "+ modelo);
                 query.setParameter("modelo", modelo);
-                System.out.println("despues de modelo");
                 return query.getResultList();
             } catch (Exception e) {
                 logger.log(Level.WARNING, e.getMessage());
             }
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 }

@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
  *
  * @author kevin
  */
-public class IniciarTest {
+public class Iniciar {
     
     @Before
     public void initMocks(){

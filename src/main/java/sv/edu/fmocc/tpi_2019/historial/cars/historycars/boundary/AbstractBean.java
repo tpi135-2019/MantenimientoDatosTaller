@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
@@ -25,14 +26,15 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 public abstract class AbstractBean<T> implements Serializable {
 
     LazyDataModel<T> lazyModel;
-    T registro;
+    transient T registro;
     protected EstadosCRUD estado;
-    protected Logger logger = Logger.getGlobal();
+    transient Logger logger = Logger.getGlobal();
 
     public enum EstadosCRUD {
         NONE, NUEVO, EDITAR, ELIMINAR, AGREGAR;
     }
 
+    @PostConstruct
     protected void init() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
@@ -191,7 +193,6 @@ public abstract class AbstractBean<T> implements Serializable {
 
     protected abstract void btncancelarHandler();
 
-    protected abstract void btnNuevoHandler();
 
     protected abstract T getrowD(String rowkey);
 

@@ -46,19 +46,19 @@ public class FrmModelo extends AbstractBean<Modelo> implements Serializable {
         listarTiposdeVehiculo();
     }
 
-    public List listarMarcas() {
+    public void listarMarcas() {
         try {
-            return listaMarcas = marcaFacade.findAll();
+            listaMarcas = marcaFacade.findAll();
         } catch (Exception e) {
-            return listaMarcas = Collections.emptyList();
+            listaMarcas = Collections.emptyList();
         }
     }
 
-    public List listarTiposdeVehiculo() {
+    public void listarTiposdeVehiculo() {
         try {
-            return listaTipoVehiculo = tipoVehiculoFacade.findAll();
+            listaTipoVehiculo = tipoVehiculoFacade.findAll();
         } catch (Exception e) {
-            return listaTipoVehiculo = Collections.EMPTY_LIST;
+            listaTipoVehiculo = Collections.emptyList();
 
         }
 

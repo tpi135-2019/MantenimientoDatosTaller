@@ -5,14 +5,10 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Level;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Modelo;
 
 /**
