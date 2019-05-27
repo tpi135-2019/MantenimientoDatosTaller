@@ -18,7 +18,6 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoProcesoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ProcesoFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Paso;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
 
 /**
@@ -46,10 +45,10 @@ public class ProcesoResource extends AbstractResource<Proceso, Integer> {
     
     @GET
     @Path("{id}/pasos")
-    public Response PasosPorProceso(@PathParam("id") Integer id,
+    public Response pasosPorProceso(@PathParam("id") Integer id,
             @QueryParam("paso") @DefaultValue("") String paso){
       if (pasoProcesoFacade != null) {
-            List<Paso> pasos = pasoProcesoFacade.PasosPorProceso(id, paso);
+            List<Paso> pasos = pasoProcesoFacade.pasosPorProceso(id, paso);
             return Response.ok(pasos).build();
         }
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

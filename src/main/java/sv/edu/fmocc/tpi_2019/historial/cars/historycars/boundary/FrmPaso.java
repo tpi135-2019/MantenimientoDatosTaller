@@ -6,9 +6,7 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,22 +25,11 @@ public class FrmPaso extends AbstractBean<Paso> implements Serializable {
     @Inject
     PasoFacade pasoFacade;
 
-    @PostConstruct
-    @Override
-    protected void init() {
-        super.init();
-
-    }
 
     @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
-    }
-
-    @Override
-    public void btnNuevoHandler() {
-        estado = EstadosCRUD.NUEVO;
     }
 
     @Override

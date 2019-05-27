@@ -6,7 +6,6 @@
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.stream.Collectors;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -26,22 +25,11 @@ public class FrmEspecialidad extends AbstractBean<Especialidad> implements Seria
     @Inject
     EspecialidadFacade especialidadFacade;
 
-    @PostConstruct
-    @Override
-    protected void init() {
-        super.init();
-
-    }
 
     @Override
     public void btncancelarHandler() {
         estado = EstadosCRUD.NONE;
         crearNuevo();
-    }
-
-    @Override
-    public void btnNuevoHandler() {
-        estado = EstadosCRUD.NUEVO;
     }
 
     @Override

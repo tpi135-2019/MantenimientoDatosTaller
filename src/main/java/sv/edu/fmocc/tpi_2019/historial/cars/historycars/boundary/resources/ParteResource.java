@@ -15,12 +15,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ModeloFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ParteFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.SubParteFacade;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Modelo;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Parte;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.SubParte;
 
 /**

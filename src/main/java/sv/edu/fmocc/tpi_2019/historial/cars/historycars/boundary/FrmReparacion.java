@@ -25,7 +25,6 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnosti
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Paso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacion;
 
@@ -72,17 +71,19 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         }
     }
 
+    public void listarProcesos() {
+        listaProceso = procesoFacade.findAll();
+    }
 
-    public List listarProcesos() {
+    public void listarPasoProceso() {
         try {
-            return listaProceso = procesoFacade.findAll();
+            lspasoProceso = pasoProcesoFacade.pasosPorProceso(proceso.getIdProceso(), "");
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getMessage());
         }
     }
 
     public void listar() {
-        System.out.println("AUI EN LISTAR ");
         listarDiagnosticos();
         listarPiezas();
         listarPasoProceso();
@@ -131,12 +132,8 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         this.registro = new Reparacion();
     }
 
-    public List listarDiagnosticos() {
-        try {
-            return listaDiagnostico = diagnosticoFacade.findAll();
-        } catch (Exception e) {
-            return listaDiagnostico = Collections.EMPTY_LIST;
-        }
+    public void listarDiagnosticos() {
+        listaDiagnostico = diagnosticoFacade.findAll();
     }
 
     @Override

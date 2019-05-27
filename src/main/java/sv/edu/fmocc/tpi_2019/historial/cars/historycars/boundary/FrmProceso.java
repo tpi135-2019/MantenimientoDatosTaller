@@ -31,7 +31,7 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
     ProcesoFacade procesoFacade;
     @Inject
     EspecialidadFacade especialidadFacade;
-    List<Especialidad> listaEspecialidad;
+    private List<Especialidad> listaEspecialidad;
 
     @PostConstruct
     @Override
@@ -51,11 +51,11 @@ public class FrmProceso extends AbstractBean<Proceso> implements Serializable {
         estado = EstadosCRUD.NUEVO;
     }
 
-    public List listarEspecialidades() {
+    public void listarEspecialidades() {
         try {
-            return listaEspecialidad = especialidadFacade.findAll();
+            listaEspecialidad = especialidadFacade.findAll();
         } catch (Exception e) {
-            return listaEspecialidad = Collections.EMPTY_LIST;
+            listaEspecialidad = Collections.emptyList();
         }
     }
 

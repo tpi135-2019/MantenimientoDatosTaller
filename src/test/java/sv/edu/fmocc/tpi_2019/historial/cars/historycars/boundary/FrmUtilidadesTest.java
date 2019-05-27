@@ -97,14 +97,23 @@ public class FrmUtilidadesTest {
 
     @Test
     public void buscarDiagnosticoPorPlacaTest() {
-        String placa = Matchers.anyString();
+        String placa = "p232-12";
+        cut.diagnosticoPlaca = placa;
         Mockito.when(diagnosticoFacade.diagnosticoPorPlaca(placa)).thenReturn(listaDiagnostico);
         List lista = cut.buscarDiagnosticoPorPlaca();
         Assert.assertEquals(listaDiagnostico.size(), lista.size());
+        
+         Mockito.when(diagnosticoFacade.diagnosticoPorPlaca(placa)).
+                thenThrow(Exception.class);
+        cut.buscarDiagnosticoPorPlaca();
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+
+        
         cut.diagnosticoPlaca = null;
         lista = cut.buscarDiagnosticoPorPlaca();
         Assert.assertEquals(Collections.EMPTY_LIST.size(), lista.size());
-
+        cut.diagnosticoFacade = null;
+       
     }
 
     @Test
@@ -224,10 +233,18 @@ public class FrmUtilidadesTest {
         Mockito.when(pasoFacade.pasoReparacion(new Integer(idReparacion))).thenReturn(listaPaso);
         List myList = cut.buscarPasoPorReparacion();
         Assert.assertEquals(listaPaso, myList);
+        
+          Mockito.when(pasoFacade.pasoReparacion(new Integer(idReparacion))).
+                thenThrow(NumberFormatException.class);
+        cut.buscarPasoPorReparacion();
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+
+        
         cut.pasoReparacion = null;
         myList = cut.buscarPasoPorReparacion();
         Assert.assertEquals(Collections.EMPTY_LIST, myList);
-
+   
+      
     }
 
     /*
@@ -316,10 +333,10 @@ public class FrmUtilidadesTest {
         FrmUtilidades.estadosTbl result = cut.tbl;
         Assert.assertEquals(expect, result);
     }
-    
+
     @Test
-    public void getDiagnosticoPlacaTest(){
-         String expect = "";
+    public void getDiagnosticoPlacaTest() {
+        String expect = "";
         String result = cut.getDiagnosticoPlaca();
         Assert.assertEquals(expect, result);
         expect = "1";
@@ -327,38 +344,38 @@ public class FrmUtilidadesTest {
         result = cut.getDiagnosticoPlaca();
         Assert.assertEquals(expect, result);
     }
-    
+
     @Test
-    public void getListaDiagnosticoTest(){
-          cut.setListaDiagnostico(listaDiagnostico);
+    public void getListaDiagnosticoTest() {
+        cut.setListaDiagnostico(listaDiagnostico);
         List ls = cut.getListaDiagnostico();
         Assert.assertEquals(listaDiagnostico, ls);
     }
-    
+
     @Test
-    public void getListaSucursalTest(){
+    public void getListaSucursalTest() {
         cut.setListaSucursal(listaSucursal);
         List ls = cut.getListaSucursal();
-        Assert.assertEquals(listaSucursal,ls);
+        Assert.assertEquals(listaSucursal, ls);
     }
-    
+
     @Test
-    public void getListaPasoTest(){
+    public void getListaPasoTest() {
         cut.setListaPaso(listaPaso);
         List ls = cut.getListaPaso();
-        Assert.assertEquals(listaPaso,ls);
+        Assert.assertEquals(listaPaso, ls);
     }
-    
+
     @Test
-    public void getListaPiezaTest(){
+    public void getListaPiezaTest() {
         cut.setListaPieza(listaPieza);
-        List ls= cut.getListaPieza();
-        Assert.assertEquals(listaPieza,ls);
+        List ls = cut.getListaPieza();
+        Assert.assertEquals(listaPieza, ls);
     }
-    
+
     @Test
-    public void getPiezaTest(){
-          String expect = "";
+    public void getPiezaTest() {
+        String expect = "";
         String result = cut.getPieza();
         Assert.assertEquals(expect, result);
         expect = "1";
@@ -366,10 +383,10 @@ public class FrmUtilidadesTest {
         result = cut.getPieza();
         Assert.assertEquals(expect, result);
     }
-    
+
     @Test
-    public void getPasoReparacionTest(){
-          String expect = "";
+    public void getPasoReparacionTest() {
+        String expect = "";
         String result = cut.getPasoReparacion();
         Assert.assertEquals(expect, result);
         expect = "1";
@@ -377,27 +394,27 @@ public class FrmUtilidadesTest {
         result = cut.getPasoReparacion();
         Assert.assertEquals(expect, result);
     }
-    
+
     @Test
-    public void getListaPropietarioTest(){
+    public void getListaPropietarioTest() {
         cut.setListaPropietario(listaPropietario);
         List ls = cut.getListaPropietario();
-        Assert.assertEquals(listaPropietario,ls);
+        Assert.assertEquals(listaPropietario, ls);
     }
 
-@Test
- public void getImagesTest() {
-     
-     List imagenes = new ArrayList<>();
-     imagenes.add("image1");
-       cut.images=imagenes;
-       List image=cut.getImages();
-       Assert.assertEquals(imagenes,image);
-    }
-    
     @Test
-    public void getPropietarioTest(){
-          String expect = "";
+    public void getImagesTest() {
+
+        List imagenes = new ArrayList<>();
+        imagenes.add("image1");
+        cut.setImages(imagenes);
+        List image = cut.getImages();
+        Assert.assertEquals(imagenes, image);
+    }
+
+    @Test
+    public void getPropietarioTest() {
+        String expect = "";
         String result = cut.getPropietario();
         Assert.assertEquals(expect, result);
         expect = "1";
