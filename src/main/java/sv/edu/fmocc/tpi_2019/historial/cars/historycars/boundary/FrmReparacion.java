@@ -66,6 +66,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     public void listarPersonal() {
         try {
             lsPersonal = personalFacade.personalPorProceso(proceso.getIdProceso());
+            System.out.println(proceso.toString());
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getMessage());
         }
