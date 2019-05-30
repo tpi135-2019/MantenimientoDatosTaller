@@ -35,11 +35,6 @@ public class SucursalResource extends AbstractResource<Sucursal, Integer>{
         return sucursalFacade;
     }
 
-    @Override
-    protected Sucursal getNewEntity() {
-        return null;
-    }
-    
     @GET
     @Path("{id}/personal")
     public Response personalPorSucursal(@PathParam("id") Integer idSucursal,

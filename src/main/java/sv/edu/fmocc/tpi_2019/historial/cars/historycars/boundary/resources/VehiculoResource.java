@@ -40,11 +40,6 @@ public class VehiculoResource extends AbstractResource<Vehiculo, String> {
         return vehiculoFacade;
     }
 
-    @Override
-    protected Vehiculo getNewEntity() {
-        return null;
-    }
-
     @GET
     @Path("{placa}/diagnosticos")
     @Produces(MediaType.APPLICATION_JSON)

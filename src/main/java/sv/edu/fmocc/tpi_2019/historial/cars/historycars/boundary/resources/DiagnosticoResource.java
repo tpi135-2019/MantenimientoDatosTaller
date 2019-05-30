@@ -39,11 +39,6 @@ public class DiagnosticoResource extends AbstractResource<Diagnostico, Integer>{
         return diagnosticoFacade;
     }
 
-    @Override
-    protected Diagnostico getNewEntity() {
-        return null;
-    }
-    
     @GET
     @Path("{id}/reparaciones")
     @Produces(MediaType.APPLICATION_JSON)

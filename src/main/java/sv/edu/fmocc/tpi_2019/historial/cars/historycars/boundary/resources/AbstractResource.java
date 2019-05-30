@@ -33,8 +33,6 @@ public abstract class AbstractResource<T, P> {
 
     protected abstract FacadeGenerico getSessionBean();
 
-    protected abstract T getNewEntity();
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findRange(
@@ -77,6 +75,9 @@ public abstract class AbstractResource<T, P> {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response crear(T registro) {
         FacadeGenerico sessionBean = getSessionBean();
+        if (registro == null) {
+            return Response.status(Status.BAD_REQUEST).build();
+        }
         if (sessionBean != null) {
             try {
                 sessionBean.create(registro);
