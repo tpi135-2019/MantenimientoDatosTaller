@@ -28,8 +28,4 @@ public class PersonalResource extends AbstractResource<Personal, Integer> {
         return  personalFacade;
     }
 
-    @Override
-    protected Personal getNewEntity() {
-        return null;
-    }
 }

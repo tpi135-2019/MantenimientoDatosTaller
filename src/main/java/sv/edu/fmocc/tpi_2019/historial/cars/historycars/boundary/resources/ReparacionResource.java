@@ -28,8 +28,4 @@ public class ReparacionResource extends AbstractResource<Reparacion, Integer> {
         return  reparacionFacade;
     }
 
-    @Override
-    protected Reparacion getNewEntity() {
-        return null;
-    }
 }

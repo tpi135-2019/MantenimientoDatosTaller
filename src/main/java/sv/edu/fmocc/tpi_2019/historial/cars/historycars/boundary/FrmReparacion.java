@@ -22,7 +22,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ProcesoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Paso;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
@@ -50,7 +50,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
     PersonalFacade personalFacade;
     private List<Diagnostico> listaDiagnostico;
     private List<Pieza> lspieza;
-    private List<Paso> lspasoProceso;
+    private List<PasoProceso> lspasoProceso;
     private List<Personal> lsPersonal;
     private List<Proceso> listaProceso;
     private Proceso proceso;
@@ -77,7 +77,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
 
     public void listarPasoProceso() {
         try {
-            lspasoProceso = pasoProcesoFacade.pasosPorProceso(proceso.getIdProceso(), "");
+            lspasoProceso = pasoProcesoFacade.pasosPorProceso(proceso.getIdProceso(), "", "");
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getMessage());
         }
@@ -181,11 +181,11 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
         this.lspieza = lspieza;
     }
 
-    public List<Paso> getLspasoProceso() {
+    public List<PasoProceso> getLspasoProceso() {
         return lspasoProceso;
     }
 
-    public void setLspasoProceso(List<Paso> lspasoProceso) {
+    public void setLspasoProceso(List<PasoProceso> lspasoProceso) {
         this.lspasoProceso = lspasoProceso;
     }
 
