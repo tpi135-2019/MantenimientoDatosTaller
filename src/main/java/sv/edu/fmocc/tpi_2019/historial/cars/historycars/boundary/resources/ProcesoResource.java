@@ -35,14 +35,19 @@ public class ProcesoResource extends AbstractResource<Proceso, Integer> {
 
     @Override
     protected FacadeGenerico getSessionBean() {
-        return procesoFacade;
+        return  procesoFacade;
     }
 
+    @Override
+    protected Proceso getNewEntity() {
+        return null;
+    }
+    
     @GET
     @Path("{id}/pasos")
     public Response pasosPorProceso(@PathParam("id") Integer id,
-            @QueryParam("paso") @DefaultValue("") String paso) {
-        if (pasoProcesoFacade != null) {
+            @QueryParam("paso") @DefaultValue("") String paso){
+      if (pasoProcesoFacade != null) {
             List<Paso> pasos = pasoProcesoFacade.pasosPorProceso(id, paso);
             return Response.ok(pasos).build();
         }

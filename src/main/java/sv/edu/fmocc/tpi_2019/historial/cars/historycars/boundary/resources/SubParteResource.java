@@ -38,6 +38,11 @@ public class SubParteResource extends AbstractResource<SubParte, Integer> {
         return subParteFacade;
     }
 
+    @Override
+    protected SubParte getNewEntity() {
+        return null;
+    }
+
     @GET
     @Path("{id}/piezas")
     public Response piezaPorSubParte(@PathParam("id") Integer idSubParte,

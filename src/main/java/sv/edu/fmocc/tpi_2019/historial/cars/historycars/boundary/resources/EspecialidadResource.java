@@ -28,4 +28,8 @@ public class EspecialidadResource extends AbstractResource<Especialidad, Integer
         return especialidadFacade;
     }
 
+    @Override
+    protected Especialidad getNewEntity() {
+        return null;
+    }
 }

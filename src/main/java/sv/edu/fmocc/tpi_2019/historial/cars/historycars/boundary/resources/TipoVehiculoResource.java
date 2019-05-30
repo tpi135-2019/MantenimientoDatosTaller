@@ -28,4 +28,10 @@ public class TipoVehiculoResource extends AbstractResource<TipoVehiculo, Integer
         return tipoVehiculoFacade;
     }
 
+    @Override
+    protected TipoVehiculo getNewEntity() {
+        return null;
+    }
+    
+    
 }

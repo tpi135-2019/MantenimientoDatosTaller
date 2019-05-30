@@ -35,6 +35,11 @@ public class PiezaResource extends AbstractResource<Pieza, Integer> {
     }
 
     @Override
+    protected Pieza getNewEntity() {
+        return null;
+    }
+
+    @Override
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findRange(@QueryParam("first") @DefaultValue("0") int first,
