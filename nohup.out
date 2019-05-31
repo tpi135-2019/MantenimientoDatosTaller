@@ -1,0 +1,5 @@
+Ejecutando pre-push
+.git/hooks/pre-push: línea 19: [[: Ejecutando pre-push: error sintáctico en la expresión (el elemento de error es "pre-push")
+.git/hooks/pre-push: línea 19: [[: Ejecutando pre-push
+.git/hooks/pre-push: línea 19: [[: Ejecutando pre-push: error sintáctico en la expresión (el elemento de error es "pre-push"): error sintáctico en la expresión (el elemento de error es "pre-push
+.git/hooks/pre-push: línea 19: [[: Ejecutando pre-push: error sintáctico en la expresión (el elemento de error es "pre-push")")
