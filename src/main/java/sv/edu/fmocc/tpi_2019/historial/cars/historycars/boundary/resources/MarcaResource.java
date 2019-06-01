@@ -12,7 +12,9 @@ import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.MarcaFacade;
@@ -50,4 +52,17 @@ public class MarcaResource extends AbstractResource<Marca, Integer> {
         }
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
+    
+    @GET
+    @Path("search")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarMarcaPorNombre(@QueryParam("nombre")String nombre){
+        if(marcaFacade!=null){
+            List<Marca> marcas=marcaFacade.findNombreLikeMarca(nombre);
+            return Response.ok(marcas).build();
+        }
+   return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+
+    }
+    
 }

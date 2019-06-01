@@ -22,7 +22,7 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Modelo;
  */
 @Stateless
 @LocalBean
-public class MarcaFacade extends AbstractFacade<Marca> implements FacadeGenerico<Marca>{
+public class MarcaFacade extends AbstractFacade<Marca> implements FacadeGenerico<Marca> {
 
     @PersistenceContext(unitName = "PU_talleres")
     private EntityManager em;
@@ -35,7 +35,7 @@ public class MarcaFacade extends AbstractFacade<Marca> implements FacadeGenerico
     public MarcaFacade() {
         super(Marca.class);
     }
-    
+
     public List<Modelo> findModeloByMarcaLike(Integer idMarca, String modelo) {
         if (idMarca >= 0) {
             try {
@@ -49,4 +49,19 @@ public class MarcaFacade extends AbstractFacade<Marca> implements FacadeGenerico
         }
         return Collections.emptyList();
     }
+
+    public List<Marca> findNombreLikeMarca(String nombre) {
+        System.out.println("el parametro es "+nombre);
+        if (nombre != null) {
+            try {
+                Query query = em.createNamedQuery("Marca.findMarcaNombreLike");
+                query.setParameter("nombre", nombre);
+                return query.getResultList();
+            } catch (Exception e) {
+                logger.log(Level.WARNING, e.getMessage());
+            }
+        }
+        return Collections.emptyList();
+    }
+
 }
