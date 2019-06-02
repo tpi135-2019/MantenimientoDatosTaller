@@ -30,6 +30,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 public abstract class AbstractResource<T, P> {
 
     private Logger logger = Logger.getGlobal();
+    private T entity;
 
     protected abstract FacadeGenerico getSessionBean();
 
@@ -40,35 +41,36 @@ public abstract class AbstractResource<T, P> {
             @QueryParam("pagesize") @DefaultValue("10") int pagesize) {
 
         FacadeGenerico sessionBean = getSessionBean();
-        if (sessionBean != null) {
-            try {
-                List<T> resultados = sessionBean.findRange(first, pagesize);
-                return Response.ok(resultados).header("x-cantidad-registros", sessionBean.count()).build();
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, e.getMessage(), e);
-            }
+        if (sessionBean == null) {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
-        return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        try {
+            List<T> resultados = sessionBean.findRange(first, pagesize);
+            return Response.ok(resultados).header("X-Cantidad-Registros", sessionBean.count()).build();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findById(
-            @PathParam("id") P id) {
+    public Response findById(@PathParam("id") P id) {
         FacadeGenerico sessionBean = getSessionBean();
-        if (sessionBean != null) {
-            T entity = (T) sessionBean.find(id);
+        if (sessionBean == null) {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        }
+        try {
+            entity = (T) sessionBean.find(id);
             if (entity == null) {
                 return Response.status(Status.NOT_FOUND).build();
             }
-            try {
-                return Response.ok(sessionBean.find(id)).build();
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, e.getMessage(), e);
-            }
+            return Response.ok(sessionBean.find(id)).build();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
-        return Response.status(Status.INTERNAL_SERVER_ERROR).build();
     }
 
     @POST
@@ -78,15 +80,17 @@ public abstract class AbstractResource<T, P> {
         if (registro == null) {
             return Response.status(Status.BAD_REQUEST).build();
         }
-        if (sessionBean != null) {
-            try {
-                sessionBean.create(registro);
-                return Response.status(Status.CREATED).build();
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, e.getMessage(), e);
-            }
+        if (sessionBean == null) {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
-        return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        try {
+            sessionBean.create(registro);
+            return Response.status(Status.CREATED).build();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+
+        }
     }
 
     @PUT
@@ -96,15 +100,17 @@ public abstract class AbstractResource<T, P> {
             return Response.status(Status.BAD_REQUEST).build();
         }
         FacadeGenerico sessionBean = getSessionBean();
-        if (sessionBean != null) {
-            try {
-                sessionBean.edit(registro);
-                return Response.accepted().build();
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, e.getMessage(), e);
-            }
+        if (sessionBean == null) {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
-        return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        try {
+            sessionBean.edit(registro);
+            return Response.noContent().build();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
     @DELETE
@@ -112,19 +118,20 @@ public abstract class AbstractResource<T, P> {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response eliminar(@PathParam("id") P id) {
         FacadeGenerico sessionBean = getSessionBean();
-        if (sessionBean != null) {
-            T entity = (T) sessionBean.find(id);
-            if (entity == null) {
-                return Response.status(Status.NOT_FOUND).build();
-            }
-            try {
-                sessionBean.remove(entity);
-                return Response.status(Status.ACCEPTED).build();
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, e.getMessage(), e);
-                return Response.serverError().build();
-            }
+        if (sessionBean == null) {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
-        return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        entity = (T) sessionBean.find(id);
+        if (entity == null) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+        try {
+            sessionBean.remove(entity);
+            return Response.noContent().build();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+            return Response.serverError().build();
+        }
+
     }
 }

@@ -23,6 +23,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Vehiculo;
 
 /**
  *
@@ -37,10 +38,13 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
     PropietarioFacade cut = new PropietarioFacade();
     Propietario propietario = new Propietario(1);
     List<Propietario> registrosEsperados;
+    private List<Vehiculo> registroVehiculos = new ArrayList<>();
 
     public PropietarioFacadeTest() {
         super(Propietario.class);
         this.registrosEsperados = listarRegistros();
+        registroVehiculos.add(new Vehiculo("P35166845", "123456", "AD12384598D", "AD12384598D"));
+        registroVehiculos.add(new Vehiculo("P963258", "2156852", "ADFD15368D", "AD12384598D"));
     }
 
     @Override
@@ -85,7 +89,7 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
     public void historialPropietarioTest() {
         System.out.println("HistorialPropietario");
         String placa = "P323-12";
-        Mockito.when(getEntityManager().createNamedQuery("Vehiculo.HistorialPropietarios")).thenReturn(queryMock);
+        Mockito.when(ema.createNamedQuery("Vehiculo.HistorialPropietarios")).thenReturn(queryMock);
         Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
         List historial = cut.historialPropietarios(placa);
         Assert.assertEquals(registrosEsperados.size(), historial.size());
@@ -95,6 +99,27 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
         cut.historialPropietarios(placa);
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
 
+    }
+
+    @Test
+    public void vehiculosPorPropietarioTest() {
+        System.out.println("VehiculosPorPropietario");
+        Integer dui = 1;
+        
+        //TODO GOOD
+        Mockito.when(ema.createNamedQuery("Propietario.VehiculosPropietario")).thenReturn(queryMock);
+        Mockito.when(queryMock.getResultList()).thenReturn(registroVehiculos);
+        List vehiculos = cut.vehiculosPorPropietario(dui);
+        Assert.assertEquals(registroVehiculos.size(), vehiculos.size());
+        
+        //DUI NULO
+        vehiculos = cut.vehiculosPorPropietario(null);
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), vehiculos.size());
+        
+        //LANZA EXCEPCION
+        setEmNull();
+        cut.vehiculosPorPropietario(dui);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
     }
 
 }

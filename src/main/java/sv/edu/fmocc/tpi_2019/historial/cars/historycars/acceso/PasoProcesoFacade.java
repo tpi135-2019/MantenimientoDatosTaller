@@ -45,6 +45,7 @@ public class PasoProcesoFacade extends AbstractFacade<PasoProceso> implements Fa
                 return query.getResultList();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, e.getMessage());
+                return Collections.emptyList();
             }
         }
         return Collections.emptyList();
@@ -53,12 +54,13 @@ public class PasoProcesoFacade extends AbstractFacade<PasoProceso> implements Fa
     public List<PasoProceso> pasosPorProceso(Integer proceso, String paso, String algo) {
         if (proceso > 0 && proceso != null) {
             try {
-                Query query = em.createNamedQuery("PasoProceso.findByProceso");
+                Query query = em.createNamedQuery("PasoProceso.findPasosByProceso");
                 query.setParameter("idProceso", proceso);
                 query.setParameter("paso", paso);
                 return query.getResultList();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, e.getMessage());
+                return Collections.emptyList();
             }
         }
         return Collections.emptyList();

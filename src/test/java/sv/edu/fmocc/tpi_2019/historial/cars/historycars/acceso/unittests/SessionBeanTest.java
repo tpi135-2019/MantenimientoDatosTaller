@@ -92,11 +92,17 @@ public abstract class SessionBeanTest<T> {
     @Test
     // @Ignore
     public void testFinAllEmptyGeneric() {
+         System.out.println("testFindAllExecption");
+        Mockito.doThrow(new IllegalArgumentException()).when(em).createQuery(cQueryMock);
+        List lista = cutGeneric.findAll();
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+        Assert.assertEquals(0, lista.size());
+        
         System.out.println("testFindAllEmpty");
         setEmNull();
-        List lista = cutGeneric.findAll();
+        lista = cutGeneric.findAll();
         Assert.assertEquals(lista.size(), Collections.EMPTY_LIST.size());
-        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+        Mockito.verify(logger, Mockito.times(2)).log(Matchers.any(Level.class), Matchers.anyString());
     }
 
     //*******TEST COUNT
@@ -140,6 +146,12 @@ public abstract class SessionBeanTest<T> {
         mockLista(registrosEsperados);
         List lista = cutGeneric.findRange(1, 2);
         Assert.assertEquals(registrosEsperados.size(), lista.size());
+        
+        System.out.println("testFindRangeExecption");
+        Mockito.doThrow(new IllegalArgumentException()).when(em).createQuery(cQueryMock);
+        lista = cutGeneric.findRange(1, 2);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+        Assert.assertEquals(0, lista.size());
     }
 
     //******TEST EDIT

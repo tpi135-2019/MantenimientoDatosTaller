@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import javax.persistence.EntityManager;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class PiezaFacadeTest extends SessionBeanTest<Pieza> {
-    
+
     @Mock
     EntityManager ema;
     @InjectMocks
@@ -45,7 +45,6 @@ public class PiezaFacadeTest extends SessionBeanTest<Pieza> {
 
     }
 
-       
     @Override
     protected FacadeGenerico getSessionBean() {
         return cut;
@@ -65,22 +64,51 @@ public class PiezaFacadeTest extends SessionBeanTest<Pieza> {
     protected List<Pieza> getLista() {
         return registrosEsperados;
     }
-    
-       @Test
+
+    @Test
     public void piezaReparacionTest() {
         System.out.println("piezaPorReparacion");
-        int reparacion=1;
+        //SETUP
+        int reparacion = 1;
         Mockito.when(getEntityManager().createNamedQuery("Pieza.Reparacion")).thenReturn(queryMock);
         Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
+
+        //TODO GOOD
         List ls = cut.piezasReparacion(reparacion);
         Assert.assertEquals(registrosEsperados.size(), ls.size());
+
+        //ALGO MENOR
         ls = cut.piezasReparacion(-1);
         Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
+
+        //EXEPTION
         setEmNull();
         cut.piezasReparacion(reparacion);
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
 
     }
 
+    @Test
+    public void piezasPorSubParteTest() {
+        System.out.println("PIEZA POR SUBPARTE");
+        //SETUP
+        int idpieza = 1;
+        String nombre = "tornillo";
+        Mockito.when(getEntityManager().createNamedQuery("Pieza.findBySubarteNombreLike")).thenReturn(queryMock);
+        Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
+
+        //TODO GOOD
+        List ls = cut.piezasPorSubParte(idpieza, nombre);
+        Assert.assertEquals(registrosEsperados.size(), ls.size());
+
+        //ALGO MENOR 
+        ls = cut.piezasPorSubParte(-1, nombre);
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
+
+        //EXCEPTION
+        setEmNull();
+        cut.piezasPorSubParte(idpieza, nombre);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+    }
 
 }
