@@ -51,7 +51,7 @@ public class PasoProcesoFacade extends AbstractFacade<PasoProceso> implements Fa
         return Collections.emptyList();
     }
 
-    public List<PasoProceso> pasosPorProceso(Integer proceso, String paso, String algo) {
+    public List<PasoProceso> pasoProcesoPorProceso(Integer proceso, String paso) {
         if (proceso > 0 && proceso != null) {
             try {
                 Query query = em.createNamedQuery("PasoProceso.findPasosByProceso");

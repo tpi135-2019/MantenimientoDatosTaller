@@ -90,14 +90,14 @@ public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
         Mockito.when(ema.createNamedQuery("PasoProceso.findPasosByProceso")).thenReturn(queryMock);
         Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
         
-        List ls = cut.pasosPorProceso(proceso, "", "");
+        List ls = cut.pasoProcesoPorProceso(proceso, "");
         Assert.assertEquals(registrosEsperados.size(), ls.size());
 
-        ls = cut.pasosPorProceso(-1, "", "");
+        ls = cut.pasoProcesoPorProceso(-1, "");
         Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
 
         setEmNull();
-        cut.pasosPorProceso(proceso, "", "");
+        cut.pasoProcesoPorProceso(proceso, "");
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
 
     }

@@ -77,7 +77,7 @@ public class FrmReparacion extends AbstractBean<Reparacion> implements Serializa
 
     public void listarPasoProceso() {
         try {
-            lspasoProceso = pasoProcesoFacade.pasosPorProceso(proceso.getIdProceso(), "", "");
+            lspasoProceso = pasoProcesoFacade.pasoProcesoPorProceso(proceso.getIdProceso(), "");
         } catch (Exception e) {
             logger.log(Level.WARNING, e.getMessage());
         }
