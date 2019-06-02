@@ -91,12 +91,17 @@
         </profile>
         
         <profile>
-            <id>Unit-Tests</id>
+            <id>Unit-Test</id>
             <dependencies>
                 <dependency>
                     <groupId>org.glassfish.jersey.core</groupId>
                     <artifactId>jersey-common</artifactId>
                     <version>2.27</version>
+                </dependency>
+                <dependency>
+                    <groupId>ues.fmocc.ingenieria.tpi135-2019.accesodatos</groupId>
+                    <artifactId>libreriaDatosTaller</artifactId>
+                    <version>1.0-SNAPSHOT</version>
                 </dependency>
             </dependencies>
             <build>
@@ -106,18 +111,9 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.22.1</version>
                         <configuration>
-                            <includes>
-                                <include>**/*Test.java</include>
-                            </includes>
+                            <skipTests>false</skipTests>
+                            <useSystemClassLoader>false</useSystemClassLoader>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <id>unit-test</id>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin> 
                 </plugins>
             </build>
@@ -142,15 +138,10 @@
     <dependencies>
         
         <dependency>
-            <groupId>ues.fmocc.ingenieria.tpi135-2019.accesodatos</groupId>
-            <artifactId>libreriaDatosTaller</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <!--dependency>
             <groupId>com.github.tpi135-2019</groupId>
             <artifactId>DataLib</artifactId>
             <version>-SNAPSHOT</version>
-        </dependency-->
+        </dependency>
 
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -350,13 +341,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.1</version>
                 <configuration>
+                    <skipTests>true</skipTests>
                     <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
-                <!--configuration>
-                    <excludes>
-                        <exclude>**/*Test.java</exclude>
-                    </excludes>
-                </configuration-->
             </plugin> 
                      
         </plugins>
