@@ -27,9 +27,4 @@ public class PasoResource extends AbstractResource<Paso, Integer> {
     protected FacadeGenerico getSessionBean() {
         return  pasoFacade;
     }
-
-    @Override
-    protected Paso getNewEntity() {
-        return null;
-    }
 }

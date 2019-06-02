@@ -35,15 +35,7 @@ public class PiezaResource extends AbstractResource<Pieza, Integer> {
     }
 
     @Override
-    protected Pieza getNewEntity() {
-        return null;
-    }
-
-    @Override
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findRange(@QueryParam("first") @DefaultValue("0") int first,
-            @QueryParam("pagesize") @DefaultValue("10") int pagesize) {
+    public Response findRange(int first, int pagesize) {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 }

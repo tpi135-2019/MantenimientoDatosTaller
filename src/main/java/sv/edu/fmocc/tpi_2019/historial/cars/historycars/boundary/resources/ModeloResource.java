@@ -28,8 +28,4 @@ public class ModeloResource extends AbstractResource<Modelo, Integer> {
         return modeloFacade;
     }
 
-    @Override
-    protected Modelo getNewEntity() {
-        return null;
-    }
 }

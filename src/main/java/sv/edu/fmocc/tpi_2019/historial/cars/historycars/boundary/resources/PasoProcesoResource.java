@@ -28,8 +28,4 @@ public class PasoProcesoResource extends AbstractResource<PasoProceso, Integer> 
         return  pasoProcesoFacade;
     }
 
-    @Override
-    protected PasoProceso getNewEntity() {
-        return null;
-    }
 }
