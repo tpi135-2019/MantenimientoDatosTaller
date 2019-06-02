@@ -7,12 +7,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PiezaFacade;
