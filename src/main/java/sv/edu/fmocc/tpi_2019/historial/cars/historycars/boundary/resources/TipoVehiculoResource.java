@@ -33,13 +33,7 @@ public class TipoVehiculoResource extends AbstractResource<TipoVehiculo, Integer
     protected FacadeGenerico getSessionBean() {
         return tipoVehiculoFacade;
     }
-
-    @Override
-    protected TipoVehiculo getNewEntity() {
-        return null;
-    }
-    
-    
+ 
     @GET
     @Path("search")
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,5 +45,5 @@ public class TipoVehiculoResource extends AbstractResource<TipoVehiculo, Integer
    return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 
     }
-    
+
 }

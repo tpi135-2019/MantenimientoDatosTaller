@@ -37,11 +37,6 @@ public class MarcaResource extends AbstractResource<Marca, Integer> {
         return marcaFacade;
     }
 
-    @Override
-    protected Marca getNewEntity() {
-        return null;
-    }
-    
     @GET
     @Path("{id}/modelos")
     public Response modeloPorMarca(@PathParam("id") Integer id,

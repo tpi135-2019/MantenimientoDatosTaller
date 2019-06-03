@@ -49,8 +49,8 @@ public class PropietarioFacade extends AbstractFacade<Propietario> implements Fa
         return Collections.emptyList();
     }
 
-    public List<Vehiculo> vehiculosPorPropietario(int propietario) {
-        if (propietario >= 0) {
+    public List<Vehiculo> vehiculosPorPropietario(Integer propietario) {
+        if (propietario != null && propietario > 0 ) {
             try {
                 Query query = em.createNamedQuery("Propietario.VehiculosPropietario");
                 query.setParameter("idPropietario", propietario);

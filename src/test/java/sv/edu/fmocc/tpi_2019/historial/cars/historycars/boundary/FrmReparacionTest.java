@@ -143,10 +143,10 @@ public class FrmReparacionTest extends BackingBeanTest<Reparacion> {
     public void listarPasoProcesoTest() {
         System.out.println("listarPasoProceso");
         cut.setProceso(proceso);
-        Mockito.when(pasoProcesoFacade.pasosPorProceso(Matchers.anyInt(), Matchers.anyString())).thenReturn(registrosPaso);
+        Mockito.when(pasoProcesoFacade.pasoProcesoPorProceso(Matchers.anyInt(), Matchers.anyString())).thenReturn(registrosPasoProceso);
         cut.listarPasoProceso();
         List lista = cut.getLspasoProceso();
-        Assert.assertEquals(registrosPaso.size(), lista.size());
+        Assert.assertEquals(registrosPasoProceso.size(), lista.size());
     }
 
     @Override

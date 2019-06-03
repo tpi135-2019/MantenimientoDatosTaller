@@ -37,7 +37,7 @@ public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
         registrosEsperados.add(new PasoProceso(2, 1));
 
     }
-    
+
     @Mock
     EntityManager ema;
     @InjectMocks
@@ -64,23 +64,42 @@ public class PasoProcesoFacadeTest extends SessionBeanTest<PasoProceso> {
     protected List<PasoProceso> getLista() {
         return registrosEsperados;
     }
-    
-     @Test
-    public void PasosPorProcesoTest(){
+
+    @Test
+    public void PasosPorProcesoTest() {
         System.out.println("pasosPorProceso");
-        int proceso=1;
+        int proceso = 1;
         Mockito.when(ema.createNamedQuery("PasoProceso.findByProceso")).thenReturn(queryMock);
         Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
-        List ls = cut.pasosPorProceso(proceso,"");
+        List ls = cut.pasosPorProceso(proceso, "");
         Assert.assertEquals(registrosEsperados.size(), ls.size());
-        
-        ls=cut.pasosPorProceso(-1,"");
+
+        ls = cut.pasosPorProceso(-1, "");
         Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
-        
+
         setEmNull();
-        cut.pasosPorProceso(proceso,"");
+        cut.pasosPorProceso(proceso, "");
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+
+    }
+
+    @Test
+    public void PasosPorProcesoAlgoTest() {
+        System.out.println("pasosPorProceso");
+        int proceso = 1;
+        Mockito.when(ema.createNamedQuery("PasoProceso.findPasosByProceso")).thenReturn(queryMock);
+        Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
         
+        List ls = cut.pasoProcesoPorProceso(proceso, "");
+        Assert.assertEquals(registrosEsperados.size(), ls.size());
+
+        ls = cut.pasoProcesoPorProceso(-1, "");
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), ls.size());
+
+        setEmNull();
+        cut.pasoProcesoPorProceso(proceso, "");
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+
     }
 
 }

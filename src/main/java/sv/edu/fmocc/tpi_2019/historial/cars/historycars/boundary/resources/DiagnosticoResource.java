@@ -26,34 +26,30 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacio
  */
 @Path("diagnostico")
 @RequestScoped
-public class DiagnosticoResource extends AbstractResource<Diagnostico, Integer>{
+public class DiagnosticoResource extends AbstractResource<Diagnostico, Integer> {
 
     @Inject
     private DiagnosticoFacade diagnosticoFacade;
     @Inject
     private ReparacionFacade reparacionFacade;
-    
-    
+
     @Override
     protected FacadeGenerico getSessionBean() {
         return diagnosticoFacade;
     }
 
-    @Override
-    protected Diagnostico getNewEntity() {
-        return null;
-    }
-    
     @GET
     @Path("{id}/reparaciones")
     @Produces(MediaType.APPLICATION_JSON)
     public Response reparacionPorDiagnostico(@PathParam("id") Integer id) {
-        if (reparacionFacade != null) {
-            List<Reparacion> reparaciones = reparacionFacade.reparacionPorDiagnostico(id);
-            return Response.ok(reparaciones).build();
+        if (reparacionFacade == null) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        if (id == null || id < 0 ) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        List<Reparacion> reparaciones = reparacionFacade.reparacionPorDiagnostico(id);
+        return Response.ok(reparaciones).build();
     }
-    
-    
+
 }

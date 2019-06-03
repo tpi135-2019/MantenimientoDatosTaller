@@ -36,11 +36,6 @@ public class PropietarioResource extends AbstractResource<Propietario, Integer> 
         return propietarioFacade;
     }
 
-    @Override
-    protected Propietario getNewEntity() {
-        return null;
-    }
-
     @GET
     @Path("{id}/vehiculos")
     public Response vehiculosPorPropietario(@PathParam("id") Integer idPropietario) {
