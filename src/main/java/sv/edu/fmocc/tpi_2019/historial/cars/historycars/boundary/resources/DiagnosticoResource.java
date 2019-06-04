@@ -12,6 +12,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade;
@@ -52,4 +53,15 @@ public class DiagnosticoResource extends AbstractResource<Diagnostico, Integer> 
         return Response.ok(reparaciones).build();
     }
 
+    @GET
+    @Path("search")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarDiagnosticoLike(@QueryParam("id")String id){
+        if(diagnosticoFacade!=null){
+            List<Diagnostico> vehiculos=diagnosticoFacade.findDiagnostico(id);
+            return Response.ok(vehiculos).build();
+        }
+   return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+    }
+    
 }

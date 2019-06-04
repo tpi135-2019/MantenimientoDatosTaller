@@ -48,5 +48,19 @@ public class DiagnosticoFacade extends AbstractFacade<Diagnostico> implements Fa
     }
         return Collections.emptyList();
     }
+    
+      public List<Diagnostico> findDiagnostico(String id) {
+        if(id!=null){
+        try {
+            Query query = em.createNamedQuery("Diagnostico.findByIdDiagnosticoLike");
+            query.setParameter("id", id);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.log(Level.WARNING, e.getMessage());
+        }
+    }
+        return Collections.emptyList();
+    }
+    
 
 }
