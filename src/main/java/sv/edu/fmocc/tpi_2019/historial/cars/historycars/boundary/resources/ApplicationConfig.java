@@ -19,17 +19,7 @@ public class ApplicationConfig extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
-        addRestResourceClasses(resources);
-        return resources;
-    }
-
-    /**
-     * Do not modify addRestResourceClasses() method. It is automatically
-     * populated with all resources defined in the project. If required, comment
-     * out calling this method in getClasses().
-     */
-    private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.CorsFilter.class);
+         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.CorsFilter.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.DiagnosticoResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.EspecialidadResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.MarcaResource.class);
@@ -46,6 +36,8 @@ public class ApplicationConfig extends Application {
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.SucursalResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.TipoVehiculoResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.VehiculoResource.class);
+        return resources;
     }
 
+ 
 }

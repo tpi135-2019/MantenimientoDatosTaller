@@ -12,6 +12,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade;
@@ -50,5 +51,16 @@ public class VehiculoResource extends AbstractResource<Vehiculo, String> {
         }
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
-
+    
+    
+    @GET
+    @Path("search")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarPlacaLike(@QueryParam("id")String id){
+        if(vehiculoFacade!=null){
+            List<Vehiculo> vehiculos=vehiculoFacade.findPlaca(id);
+            return Response.ok(vehiculos).build();
+        }
+   return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+    }
 }
