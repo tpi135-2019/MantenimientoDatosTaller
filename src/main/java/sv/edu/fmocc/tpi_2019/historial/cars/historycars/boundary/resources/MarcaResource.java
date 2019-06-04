@@ -38,18 +38,17 @@ public class MarcaResource extends AbstractResource<Marca, Integer> {
     }
 
     @GET
-    @Path("{id}/modelos")
+    @Path("{id}/modelo")
     public Response modeloPorMarca(@PathParam("id") Integer id,
             @DefaultValue("") @QueryParam("modelo") String modelo) {
         if (marcaFacade != null) {
             List<Modelo> modelos = marcaFacade.findModeloByMarcaLike(id, modelo);
             return Response.ok(modelos).build();
-        }
+        }//agregar header
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
     
     @GET
-    @Path("search")
     @Produces(MediaType.APPLICATION_JSON)
     public Response buscarMarcaPorNombre(@QueryParam("nombre")String nombre){
         if(marcaFacade!=null){
