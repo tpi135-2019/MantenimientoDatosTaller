@@ -197,10 +197,10 @@ public class FrmUtilidadesTest {
     public void buscarSucursalPorReparacionTest() {
         String idReparacion = "1";
         cut.reparacionSucursal = idReparacion;
-        Mockito.when(sucursalFacade.lugarReparacion(new Integer(idReparacion))).thenReturn(listaSucursal);
+        Mockito.when(reparacionFacade.lugarReparacion(new Integer(idReparacion))).thenReturn(listaSucursal);
         List lista = cut.buscarSucursalPorReparacion();
         Assert.assertEquals(listaSucursal, lista);
-        Mockito.when(sucursalFacade.lugarReparacion(new Integer(idReparacion))).thenThrow(NumberFormatException.class);
+        Mockito.when(reparacionFacade.lugarReparacion(new Integer(idReparacion))).thenThrow(NumberFormatException.class);
         cut.buscarSucursalPorReparacion();
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
         cut.reparacionSucursal = null;

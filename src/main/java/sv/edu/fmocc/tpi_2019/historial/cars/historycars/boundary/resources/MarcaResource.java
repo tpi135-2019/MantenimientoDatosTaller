@@ -48,7 +48,7 @@ public class MarcaResource extends AbstractResource<Marca, Integer> {
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
     
-    @GET
+    /*@GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response buscarMarcaPorNombre(@QueryParam("nombre")String nombre){
         if(marcaFacade!=null){
@@ -57,6 +57,6 @@ public class MarcaResource extends AbstractResource<Marca, Integer> {
         }
    return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 
-    }
+    }*/
     
 }

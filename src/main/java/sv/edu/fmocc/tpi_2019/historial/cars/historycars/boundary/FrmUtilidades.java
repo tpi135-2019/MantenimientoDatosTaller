@@ -187,7 +187,7 @@ public class FrmUtilidades implements Serializable {
         listaSucursal = new ArrayList<>();
         if (reparacionSucursal != null) {
             try {
-                listaSucursal = sucursalFacade.lugarReparacion(new Integer(reparacionSucursal));
+                listaSucursal = reparacionFacade.lugarReparacion(new Integer(reparacionSucursal));
                 return listaSucursal;
             } catch (NumberFormatException ex) {
                 logger.log(Level.SEVERE, ex.getMessage());

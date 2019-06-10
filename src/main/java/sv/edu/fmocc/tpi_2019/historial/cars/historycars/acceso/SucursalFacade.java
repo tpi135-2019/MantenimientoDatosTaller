@@ -36,18 +36,6 @@ public class SucursalFacade extends AbstractFacade<Sucursal> implements FacadeGe
         super(Sucursal.class);
     }
 
-    public List lugarReparacion(int reparacion) {
-        if (reparacion >= 0) {
-            try {
-                Query query = em.createNamedQuery("Sucursal.Reparacion");
-                query.setParameter("id", reparacion);
-                return query.getResultList();
-            } catch (Exception e) {
-                logger.log(Level.WARNING, e.getMessage());
-            }
-        }
-        return Collections.emptyList();
-    }
 
     public List<Personal> personalPorSucursal(int idSucursal, String nombre) {
 

@@ -135,6 +135,22 @@ public class ReparacionFacadeTest extends SessionBeanTest<Reparacion> {
 
     }
 
+    @Test
+    public void tallerReparacionTest() {
+        System.out.println("LugarDeReparacion");
+        Mockito.when(getEntityManager().createNamedQuery("Sucursal.Reparacion")).thenReturn(queryMock);
+        Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
+        int reparacion = 1;
+        List sucu = cut.lugarReparacion(reparacion);
+        Assert.assertEquals(registrosEsperados.size(), sucu.size());
+        sucu = cut.lugarReparacion(-1);
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), sucu.size());
+        setEmNull();
+        cut.lugarReparacion(reparacion);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+
+    }
+
     private void mockList(String nameQuery) {
         Mockito.when(getEntityManager().createNamedQuery(nameQuery))
                 .thenReturn(queryMock);

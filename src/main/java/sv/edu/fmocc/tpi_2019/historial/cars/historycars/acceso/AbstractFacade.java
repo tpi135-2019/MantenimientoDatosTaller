@@ -9,10 +9,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.util.Loggable;
 
 /**
  *
@@ -21,7 +23,8 @@ import javax.persistence.criteria.Root;
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
-    protected Logger logger = Logger.getGlobal();
+    @Inject
+    protected Logger logger;
     private String msjEmNulo = "Entity Manager o Entity nulo";
 
     public AbstractFacade(Class<T> entityClass) {
@@ -71,7 +74,8 @@ public abstract class AbstractFacade<T> {
             logger.log(Level.WARNING, msjEmNulo);
         }
     }
-
+    
+    @Loggable
     public T find(Object id) {
         EntityManager em = getEntityManager();
         if (em != null && id != null) {

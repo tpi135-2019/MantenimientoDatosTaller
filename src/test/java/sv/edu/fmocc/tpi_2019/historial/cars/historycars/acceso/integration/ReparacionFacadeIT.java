@@ -28,6 +28,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.unittests.ReparacionFacadeTest;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Pieza;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacion;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 
 /**
  *
@@ -120,6 +121,13 @@ public class ReparacionFacadeIT extends SessionBeanIT<Reparacion> {
         }
         List<Reparacion> resultados = cut.reparacionEntreFechas(desde, hasta);
         Assert.assertEquals(1, resultados.size());
+    }
+    
+      @Test
+    public void tallerReparacionTest() {
+        List<Sucursal> resultados = cut.lugarReparacion(1);
+        Assert.assertEquals(1, resultados.size());
+
     }
 
 }

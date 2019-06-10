@@ -8,6 +8,7 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -29,7 +30,8 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
  */
 public abstract class AbstractResource<T, P> {
 
-    private Logger logger = Logger.getGlobal();
+    @Inject
+    private Logger logger;
     private T entity;
 
     protected abstract FacadeGenerico getSessionBean();
@@ -66,7 +68,7 @@ public abstract class AbstractResource<T, P> {
             if (entity == null) {
                 return Response.status(Status.NOT_FOUND).build();
             }
-            return Response.ok(sessionBean.find(id)).build();
+            return Response.ok(entity).build();
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();

@@ -50,11 +50,5 @@ public class SucursalFacadeIT extends SessionBeanIT<Sucursal> {
         return entity.getIdSucursal();
     }
 
-    @Test
-    public void tallerReparacionTest() {
-        List<Sucursal> resultados = cut.lugarReparacion(1);
-        Assert.assertEquals(1, resultados.size());
-
-    }
 
 }
