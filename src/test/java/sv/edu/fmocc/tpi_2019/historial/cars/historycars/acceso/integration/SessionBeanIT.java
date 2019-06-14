@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.util.ResourceProducer;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
 
 /**
@@ -54,6 +55,7 @@ public abstract class SessionBeanIT<T> {
         WebArchive salida = ShrinkWrap.create(WebArchive.class)
                 .addPackage(PropietarioFacade.class.getPackage())
                 .addPackage(Propietario.class.getPackage())
+                .addClass(ResourceProducer.class)
                 .addAsResource("persistence-arquillian.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 

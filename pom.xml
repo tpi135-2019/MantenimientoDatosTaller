@@ -106,6 +106,9 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.22.1</version>
                         <configuration>
+                            <excludes>
+                                <exclude>**/*IT.java</exclude>                            
+                            </excludes>
                             <skipTests>false</skipTests>
                             <useSystemClassLoader>false</useSystemClassLoader>
                         </configuration>
@@ -329,15 +332,27 @@
                 <version>0.7.7.201606060606</version>
                 <executions>
                     <execution>
+                        <id>default-prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
+                        <id>default-prepare-agent-integration</id>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
                         <goals>
                             <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report-integration</id>
+                        <goals>
+                            <goal>report-integration</goal>
                         </goals>
                     </execution>
                 </executions>

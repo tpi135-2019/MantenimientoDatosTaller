@@ -5,6 +5,7 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources;
 
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -16,51 +17,58 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.VehiculoFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacion;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Vehiculo;
 
 /**
  *
  * @author kevin
  */
-
-
 @Path("vehiculo")
 @RequestScoped
-public class VehiculoResource extends AbstractResource<Vehiculo, String> {
+public class VehiculoResource  {
 
     @Inject
     private VehiculoFacade vehiculoFacade;
     @Inject
     private DiagnosticoFacade diagnosticoFacade;
-
-    @Override
-    protected FacadeGenerico getSessionBean() {
-        return vehiculoFacade;
-    }
+    @Inject
+    private ReparacionFacade reparacionService;
 
     @GET
     @Path("{placa}/diagnosticos")
     @Produces(MediaType.APPLICATION_JSON)
     public Response diagnosticoPorPlaca(@PathParam("placa") String placa) {
-        if (diagnosticoFacade != null) {
-            List<Diagnostico> diagnosticos = diagnosticoFacade.diagnosticoPorPlaca(placa);
-            return Response.ok(diagnosticos).build();
+        if (diagnosticoFacade == null) {
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
+        }
+
+        List<Diagnostico> diagnosticos = diagnosticoFacade.diagnosticoPorPlaca(placa);
+        return Response.ok(diagnosticos).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findPlacaLike(@QueryParam("placa") String placa) {
+        if (vehiculoFacade == null) {
+            List<Vehiculo> vehiculos = vehiculoFacade.findPlaca(placa);
+            return Response.ok(vehiculos).build();
         }
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
-    
-    
+
     @GET
-    @Path("search")
+    @Path("{placa}/paso")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarPlacaLike(@QueryParam("id")String id){
-        if(vehiculoFacade!=null){
-            List<Vehiculo> vehiculos=vehiculoFacade.findPlaca(id);
-            return Response.ok(vehiculos).build();
+    public Response reparcionPorVehiculo(@PathParam("placa") String placa) {
+        if (reparacionService == null) {
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
         }
-   return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        List<Reparacion> pasos = reparacionService.reparacionesPorPlaca(placa);
+        return Response.ok(pasos).build();
     }
+
 }

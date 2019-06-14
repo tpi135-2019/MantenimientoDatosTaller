@@ -55,7 +55,7 @@ public class DiagnosticoResourceTest {
         diagnostico = registrosEsperados.get(0);
     }
 
-    @Test
+    /*@Test
     public void findRangeTest() {
         //SETUP
         Mockito.when(sessionBean.findRange(1, 2)).thenReturn(registrosEsperados);
@@ -174,7 +174,7 @@ public class DiagnosticoResourceTest {
         respuesta = cut.eliminar(1);
         Assert.assertEquals(500, respuesta.getStatus());
     }
-    
+    */
     @Test
     public void reparacionPorDiagnosticoTest() {
         Mockito.when(reparacionFacade.reparacionPorDiagnostico(1)).thenReturn(reparaciones);

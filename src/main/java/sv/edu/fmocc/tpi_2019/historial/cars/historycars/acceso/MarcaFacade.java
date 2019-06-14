@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.util.Loggable;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Marca;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Modelo;
 

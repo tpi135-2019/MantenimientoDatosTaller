@@ -95,7 +95,6 @@ public class ReparacionFacade extends AbstractFacade<Reparacion> implements Faca
         return Collections.emptyList();
         
     }
-        @Loggable
        public List<Sucursal> lugarReparacion(int reparacion) {
         if (reparacion >= 0) {
             try {

@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.util.Loggable;
 
 /**
  *
@@ -74,8 +73,7 @@ public abstract class AbstractFacade<T> {
             logger.log(Level.WARNING, msjEmNulo);
         }
     }
-    
-    @Loggable
+
     public T find(Object id) {
         EntityManager em = getEntityManager();
         if (em != null && id != null) {

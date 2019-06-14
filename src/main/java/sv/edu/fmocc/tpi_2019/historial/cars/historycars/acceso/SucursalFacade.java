@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 
 /**
@@ -48,6 +49,19 @@ public class SucursalFacade extends AbstractFacade<Sucursal> implements FacadeGe
             } catch (Exception e) {
                 logger.log(Level.WARNING, e.getMessage());
 
+            }
+        }
+        return Collections.emptyList();
+    }
+    
+     public List<Proceso> procesosPorSucursal(Integer idSucursal) {
+        if (idSucursal != null && idSucursal >= 0) {
+            try {
+                Query query = em.createNamedQuery("Sucursal.Procesos");
+                query.setParameter("idSucursal", idSucursal);
+                return query.getResultList();
+            } catch (Exception e) {
+                logger.log(Level.WARNING, e.getMessage());
             }
         }
         return Collections.emptyList();

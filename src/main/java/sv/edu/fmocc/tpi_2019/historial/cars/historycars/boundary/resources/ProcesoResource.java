@@ -5,20 +5,30 @@
  */
 package sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources;
 
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
+import javax.ws.rs.core.Response.Status;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoProcesoFacade;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PersonalFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ProcesoFacade;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.util.Loggable;
+import sv.edu.fmocc.tpi_2019.historial.cars.historycars.util.ServiceUnavailable;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 
 /**
  *
@@ -26,26 +36,68 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
  */
 @Path("proceso")
 @RequestScoped
-public class ProcesoResource extends AbstractResource<Proceso, Integer> {
+@Loggable
+public class ProcesoResource {
 
     @Inject
     private ProcesoFacade procesoFacade;
     @Inject
     private PasoProcesoFacade pasoProcesoFacade;
+    @Inject
+    private PersonalFacade personalFacade;
+    @Inject
+    private Logger logger;
 
-    @Override
-    protected FacadeGenerico getSessionBean() {
-        return procesoFacade;
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findRange(
+            @QueryParam("first") @DefaultValue("0") int first,
+            @QueryParam("pagesize") @DefaultValue("10") int pagesize) {
+
+        if (procesoFacade == null) {
+            return null;
+        }
+        try {
+            List<Proceso> resultados = procesoFacade.findRange(first, pagesize);
+            return Response.ok(resultados).header("X-Cantidad-Registros", procesoFacade.count()).build();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GET
-    @Path("{id}/pasos")
+    @Path("{id}/paso")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response pasosPorProceso(@PathParam("id") Integer id,
             @QueryParam("paso") @DefaultValue("") String paso) {
-        if (pasoProcesoFacade != null) {
-            List<PasoProceso> pasos = pasoProcesoFacade.pasoProcesoPorProceso(id, paso);
-            return Response.ok(pasos).build();
+        if (pasoProcesoFacade == null) {
+            return Response.status(Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
         }
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        List<PasoProceso> pasos = pasoProcesoFacade.pasoProcesoPorProceso(id, paso);
+        return Response.ok(pasos).build();
     }
+
+    @GET
+    @Path("{id}/personal")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response personalPorProceso(@PathParam("id") Integer id) {
+        if (personalFacade == null) {
+            return Response.status(Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
+        }
+        List<Personal> pasos = personalFacade.personalPorProceso(id);
+        return Response.ok(pasos).build();
+    }
+
+    @GET
+    @Path("{id}/sucursal")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response sucursalPorProceso(@PathParam("id") Integer id) {
+        if (procesoFacade == null) {
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
+        }
+        List<Sucursal> pasos = procesoFacade.sucursalPorProceso(id);
+        return Response.ok(pasos).build();
+    }
+
 }

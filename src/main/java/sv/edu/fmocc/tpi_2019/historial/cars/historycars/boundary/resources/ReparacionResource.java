@@ -41,6 +41,7 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacio
  */
 @Path("reparacion")
 @RequestScoped
+@Loggable
 public class ReparacionResource {
 
     @Inject
@@ -51,7 +52,8 @@ public class ReparacionResource {
     private PersonalFacade personalService;
     @Inject
     private PasoFacade pasoService;
-    private Logger logger = Logger.getGlobal();
+    @Inject
+    private Logger logger;
     private Reparacion reparacion;
 
     @GET
