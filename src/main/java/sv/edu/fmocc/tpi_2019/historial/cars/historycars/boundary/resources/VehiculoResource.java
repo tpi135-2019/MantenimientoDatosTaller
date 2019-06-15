@@ -53,7 +53,7 @@ public class VehiculoResource  {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findPlacaLike(@QueryParam("placa") String placa) {
-        if (vehiculoFacade == null) {
+        if (vehiculoFacade != null) {
             List<Vehiculo> vehiculos = vehiculoFacade.findPlaca(placa);
             return Response.ok(vehiculos).build();
         }
