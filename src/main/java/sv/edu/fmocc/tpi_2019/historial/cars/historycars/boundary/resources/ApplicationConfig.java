@@ -21,7 +21,6 @@ public class ApplicationConfig extends Application {
         Set<Class<?>> resources = new java.util.HashSet<>();
          resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.CorsFilter.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.DiagnosticoResource.class);
-        resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.EspecialidadResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.PersonalResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.ProcesoResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.PropietarioResource.class);

@@ -15,7 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PropietarioFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Vehiculo;
@@ -26,15 +25,11 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Vehiculo;
  */
 @Path("propietario")
 @RequestScoped
-public class PropietarioResource extends AbstractResource<Propietario, Integer> {
+public class PropietarioResource {
 
     @Inject
     private PropietarioFacade propietarioFacade;
 
-    @Override
-    protected FacadeGenerico<Propietario> getSessionBean() {
-        return propietarioFacade;
-    }
 
     @GET
     @Path("{id}/vehiculos")
