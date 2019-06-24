@@ -1,0 +1,14 @@
+ 
+#El pool de conexiones se llama "postgres_mantenimiento_local"
+
+#Creando el pool de conexiones
+create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlDataSource --restype javax.sql.DataSource --property driverClass=com.mysql.jdbc.Driver:url="jdbc:mysql://192.168.43.211:3306/taller":user=root:password=12345:databaseName=taller:portNumber=3306 pool_tpi
+
+#Probando el pool de conexiones
+ping-connection-pool pool_tpi
+
+#Creando el resource de conexiones
+create-jdbc-resource --connectionpoolid pool_tpi jdbc_taller
+
+
+        

@@ -9,5 +9,6 @@
 *.log
 *.sql
 *.war
-Dockerfile
 /nbproject/
+!asadmin.txt
+!entrypoint.sh
