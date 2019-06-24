@@ -23,7 +23,6 @@ public class ApplicationConfig extends Application {
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.DiagnosticoResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.PersonalResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.ProcesoResource.class);
-        resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.PropietarioResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.ReparacionResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.SucursalResource.class);
         resources.add(sv.edu.fmocc.tpi_2019.historial.cars.historycars.boundary.resources.VehiculoResource.class);
