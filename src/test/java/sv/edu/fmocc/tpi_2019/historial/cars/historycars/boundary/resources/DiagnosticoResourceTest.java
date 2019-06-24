@@ -190,7 +190,7 @@ public class DiagnosticoResourceTest {
         //TODO BAD
         Whitebox.setInternalState(cut, "reparacionFacade", null);
         respuesta = cut.reparacionPorDiagnostico(1);
-        Assert.assertEquals(500, respuesta.getStatus());
+        Assert.assertEquals(503, respuesta.getStatus());
 
         
 
