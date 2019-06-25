@@ -59,6 +59,7 @@ public class ProcesoResource {
         }
         try {
             List<Proceso> resultados = procesoFacade.findRangeProcesos(first, pagesize, proceso);
+            resultados.add(new Proceso(3, "en tercera"));
             return Response.ok(resultados).header("X-Cantidad-Registros", procesoFacade.count()).build();
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
