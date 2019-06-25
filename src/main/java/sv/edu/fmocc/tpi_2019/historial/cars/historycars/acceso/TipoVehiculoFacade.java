@@ -35,17 +35,4 @@ public class TipoVehiculoFacade extends AbstractFacade<TipoVehiculo> implements 
         super(TipoVehiculo.class);
     }
 
-      public List<TipoVehiculo> findNombreLikePropietario(String nombre) {
-       
-        if (nombre != null) {
-            try {
-                Query query = em.createNamedQuery("TipoVehiculo.findByNombreLike");
-                query.setParameter("nombre", nombre);
-                return query.getResultList();
-            } catch (Exception e) {
-                logger.log(Level.WARNING, e.getMessage());
-            }
-        }
-        return Collections.emptyList();
-    }
 }

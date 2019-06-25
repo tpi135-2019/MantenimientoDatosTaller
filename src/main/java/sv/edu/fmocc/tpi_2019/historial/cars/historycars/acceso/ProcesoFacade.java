@@ -49,10 +49,12 @@ public class ProcesoFacade extends AbstractFacade<Proceso> implements FacadeGene
         return Collections.emptyList();
     }
     
-    public List<Proceso> findProcesoNombreLike(String proceso) {
+    public List<Proceso> findRangeProcesos(int inicio, int size, String proceso) {
             try {
                 Query query = em.createNamedQuery("Proceso.findByNombre");
                 query.setParameter("nombre", proceso);
+                query.setMaxResults(size);
+                query.setFirstResult(inicio);
                 return query.getResultList();
             } catch (Exception e) {
                 logger.log(Level.WARNING, e.getMessage());

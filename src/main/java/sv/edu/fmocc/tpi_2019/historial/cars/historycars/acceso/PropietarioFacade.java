@@ -62,18 +62,6 @@ public class PropietarioFacade extends AbstractFacade<Propietario> implements Fa
         return Collections.emptyList();
     }
     
-    public List<Propietario> buscarPropietarioLike(String id){
-        if(id!=null){
-            try {
-                Query query= em.createNamedQuery("Propietario.findByIdLike");
-                query.setParameter("id", id);
-                return query.getResultList();
-            } catch (Exception e) {
-             logger.log(Level.WARNING, e.getMessage());
-            }
-        }
-        return Collections.emptyList();
-    }
     
 
 }

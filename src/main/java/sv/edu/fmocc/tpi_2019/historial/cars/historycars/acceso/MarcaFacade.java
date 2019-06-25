@@ -50,18 +50,4 @@ public class MarcaFacade extends AbstractFacade<Marca> implements FacadeGenerico
         return Collections.emptyList();
     }
 
-    public List<Marca> findNombreLikeMarca(String nombre) {
-        System.out.println("el parametro es "+nombre);
-        if (nombre != null) {
-            try {
-                Query query = em.createNamedQuery("Marca.findMarcaNombreLike");
-                query.setParameter("nombre", nombre);
-                return query.getResultList();
-            } catch (Exception e) {
-                logger.log(Level.WARNING, e.getMessage());
-            }
-        }
-        return Collections.emptyList();
-    }
-
 }

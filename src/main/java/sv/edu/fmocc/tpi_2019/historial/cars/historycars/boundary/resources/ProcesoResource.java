@@ -51,13 +51,14 @@ public class ProcesoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findRange(
             @QueryParam("first") @DefaultValue("0") int first,
-            @QueryParam("pagesize") @DefaultValue("10") int pagesize) {
+            @QueryParam("pagesize") @DefaultValue("10") int pagesize,
+            @QueryParam("proceso") @DefaultValue("") String proceso) {
 
         if (procesoFacade == null) {
             return Response.status(Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
         }
         try {
-            List<Proceso> resultados = procesoFacade.findRange(first, pagesize);
+            List<Proceso> resultados = procesoFacade.findRangeProcesos(first, pagesize, proceso);
             return Response.ok(resultados).header("X-Cantidad-Registros", procesoFacade.count()).build();
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
@@ -97,16 +98,6 @@ public class ProcesoResource {
         }
         List<Sucursal> pasos = procesoFacade.sucursalPorProceso(id);
         return Response.ok(pasos).build();
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findProcesoNombreLike(@QueryParam("proceso") String proceso) {
-        if (procesoFacade == null) {
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
-        }
-        List<Proceso> proceseos = procesoFacade.findProcesoNombreLike(proceso);
-        return Response.ok(proceseos).build();
     }
 
 }

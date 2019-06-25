@@ -121,5 +121,7 @@ public class PropietarioFacadeTest extends SessionBeanTest<Propietario> {
         cut.vehiculosPorPropietario(dui);
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
     }
+    
+    
 
 }
