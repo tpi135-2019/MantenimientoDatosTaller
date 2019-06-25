@@ -1,0 +1,16 @@
+version: '3.6'
+
+services: 
+    
+  backend:
+    image: 192.168.43.211:5000/${VERSION}
+    ports: 
+      - 9085:8080
+      - 5056:4848
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        
+  
+    
