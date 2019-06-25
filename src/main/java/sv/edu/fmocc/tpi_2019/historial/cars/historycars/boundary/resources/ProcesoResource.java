@@ -24,7 +24,6 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoProcesoFacade
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PersonalFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ProcesoFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.util.Loggable;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.util.ServiceUnavailable;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.PasoProceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
@@ -55,7 +54,7 @@ public class ProcesoResource {
             @QueryParam("pagesize") @DefaultValue("10") int pagesize) {
 
         if (procesoFacade == null) {
-            return null;
+            return Response.status(Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
         }
         try {
             List<Proceso> resultados = procesoFacade.findRange(first, pagesize);
@@ -98,6 +97,16 @@ public class ProcesoResource {
         }
         List<Sucursal> pasos = procesoFacade.sucursalPorProceso(id);
         return Response.ok(pasos).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findProcesoNombreLike(@QueryParam("proceso") String proceso) {
+        if (procesoFacade == null) {
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
+        }
+        List<Proceso> proceseos = procesoFacade.findProcesoNombreLike(proceso);
+        return Response.ok(proceseos).build();
     }
 
 }

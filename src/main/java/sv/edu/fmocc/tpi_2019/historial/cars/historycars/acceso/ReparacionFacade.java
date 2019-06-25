@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
-import sv.edu.fmocc.tpi_2019.historial.cars.historycars.util.Loggable;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacion;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 

@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Vehiculo;
 
 /**
@@ -21,7 +22,7 @@ import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Vehiculo;
  */
 @Stateless
 @LocalBean
-public class VehiculoFacade extends AbstractFacade<Vehiculo> implements FacadeGenerico<Vehiculo>{
+public class VehiculoFacade extends AbstractFacade<Vehiculo> implements FacadeGenerico<Vehiculo> {
 
     @PersistenceContext(unitName = "PU_talleres")
     private EntityManager em;
@@ -34,8 +35,8 @@ public class VehiculoFacade extends AbstractFacade<Vehiculo> implements FacadeGe
     public VehiculoFacade() {
         super(Vehiculo.class);
     }
-    
-      public List<Vehiculo> findPlaca(String placa) {
+
+    public List<Vehiculo> findPlaca(String placa) {
         if (placa != null) {
             try {
                 Query query = em.createNamedQuery("Vehiculo.vehiculoLikeplaca");
@@ -47,5 +48,18 @@ public class VehiculoFacade extends AbstractFacade<Vehiculo> implements FacadeGe
         }
         return Collections.emptyList();
     }
-    
+
+      public List<Propietario> findPropietario(String placa) {
+        if (placa != null) {
+            try {
+                Query query = em.createNamedQuery("Vehiculo.findPropietario");
+                query.setParameter("placa", placa);
+                return query.getResultList();
+            } catch (Exception e) {
+                logger.log(Level.WARNING, e.getMessage());
+            }
+        }
+        return Collections.emptyList();
+    }
+
 }

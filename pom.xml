@@ -148,10 +148,10 @@
     <dependencies>
         
         <dependency>
-
             <groupId>com.github.tpi135-2019</groupId>
             <artifactId>DataLib</artifactId>
-            <version>-SNAPSHOT</version>
+            <version>02dd756765</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>

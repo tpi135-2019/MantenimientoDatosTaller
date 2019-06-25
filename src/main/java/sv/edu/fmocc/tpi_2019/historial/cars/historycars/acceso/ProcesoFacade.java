@@ -13,7 +13,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Personal;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Proceso;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Sucursal;
 
@@ -47,6 +46,17 @@ public class ProcesoFacade extends AbstractFacade<Proceso> implements FacadeGene
                 logger.log(Level.WARNING, e.getMessage());
             }
         }
+        return Collections.emptyList();
+    }
+    
+    public List<Proceso> findProcesoNombreLike(String proceso) {
+            try {
+                Query query = em.createNamedQuery("Proceso.findByNombre");
+                query.setParameter("nombre", proceso);
+                return query.getResultList();
+            } catch (Exception e) {
+                logger.log(Level.WARNING, e.getMessage());
+            }
         return Collections.emptyList();
     }
 

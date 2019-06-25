@@ -20,6 +20,7 @@ import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.DiagnosticoFacade
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ReparacionFacade;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.VehiculoFacade;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Diagnostico;
+import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Propietario;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Reparacion;
 import ues.fmocc.ingenieria.tpi1352019.accesodatos.libreriadatostaller.Vehiculo;
 
@@ -69,6 +70,17 @@ public class VehiculoResource  {
         }
         List<Reparacion> pasos = reparacionService.reparacionesPorPlaca(placa);
         return Response.ok(pasos).build();
+    }
+    
+    @GET
+    @Path("{placa}/propietario")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findPropietario(@PathParam("placa") String placa) {
+        if (reparacionService == null) {
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
+        }
+        List<Propietario> propietario = vehiculoFacade.findPropietario(placa);
+        return Response.ok(propietario).build();
     }
 
 }
