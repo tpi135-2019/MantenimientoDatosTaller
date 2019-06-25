@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,5 +79,29 @@ public class DiagnosticoFacadeTest extends SessionBeanTest<Diagnostico> {
         cut.diagnosticoPorPlaca(placa);
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
     }
+    
+        @Test
+    public void findDiagnosticoTest() {
+        System.out.println("findDiagnostico");
+        String id = "aglo";
+        //SET UP
+        Mockito.when(ema.createNamedQuery("Diagnostico.findByIdDiagnosticoLike")).thenReturn(queryMock);
+        Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
+
+        //WHEN TODO GOOD
+        List<Diagnostico> procesos = cut.findDiagnostico(id);
+        Assert.assertEquals(registrosEsperados.size(), procesos.size());
+
+        //WHEN MENOR A 0
+        procesos = cut.findDiagnostico(null);
+        Assert.assertEquals(Collections.EMPTY_LIST.size(), procesos.size());
+
+        //WHEN EXCEPCION
+        setEmNull();
+        cut.findDiagnostico(id);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+    }
+    
+ 
 
 }

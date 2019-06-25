@@ -15,7 +15,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.ServiceUnavailableException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.PasoFacade;
@@ -56,16 +55,11 @@ public class ReparacionResource {
         if (reparacionService == null) {
             return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
         }
-        try {
             reparacion = reparacionService.find(id);
             if (reparacion == null) {
                 return Response.status(Response.Status.NOT_FOUND).header("Date", new Date()).build();
             }
             return Response.ok(reparacion).build();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
-        }
     }
 
     @GET
@@ -75,13 +69,8 @@ public class ReparacionResource {
         if (piezaService == null) {
             return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
         }
-        try {
             List<Pieza> piezas = piezaService.piezasReparacion(id);
             return Response.ok(piezas).build();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
-        }
     }
 
     @GET
@@ -91,13 +80,8 @@ public class ReparacionResource {
         if (pasoService == null) {
             return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
         }
-        try {
             List<Paso> pasos = pasoService.pasoReparacion(id);
             return Response.ok(pasos).build();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
-        }
     }
 
     @GET
@@ -105,15 +89,10 @@ public class ReparacionResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response personalPorReparacion(@PathParam("id") Integer id) {
         if (personalService == null) {
-            throw new ServiceUnavailableException();
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
         }
-        try {
             List<Personal> personal = personalService.personalPorReparacion(id);
             return Response.ok(personal).build();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
-        }
     }
     
     @GET
@@ -121,77 +100,9 @@ public class ReparacionResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response lugarReparacion(@PathParam("id") Integer id) {
         if (reparacionService == null) {
-            throw new ServiceUnavailableException();
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).header("Date", new Date()).build();
         }
-        try {
             return Response.ok(reparacionService.lugarReparacion(id)).build();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
-        }
     }
     
-/*
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response crear(T registro) {
-        FacadeGenerico sessionBean = getSessionBean();
-        if (registro == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-        if (sessionBean == null) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
-        try {
-            sessionBean.create(registro);
-            return Response.status(Response.Status.CREATED).build();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-
-        }
-    }
-
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response editar(T registro) {
-        if (registro == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-        FacadeGenerico sessionBean = getSessionBean();
-        if (sessionBean == null) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
-        try {
-            sessionBean.edit(registro);
-            return Response.noContent().build();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
-
-    }
-
-    @DELETE
-    @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response eliminar(@PathParam("id") P id) {
-        FacadeGenerico sessionBean = getSessionBean();
-        if (sessionBean == null) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
-        entity = (T) sessionBean.find(id);
-        if (entity == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        try {
-            sessionBean.remove(entity);
-            return Response.noContent().build();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            return Response.serverError().build();
-        }
-
-    }
-*/
 }

@@ -7,10 +7,15 @@ package sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.unittests;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import javax.persistence.EntityManager;
+import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.FacadeGenerico;
 import sv.edu.fmocc.tpi_2019.historial.cars.historycars.acceso.ProcesoFacade;
@@ -59,26 +64,46 @@ public class ProcesoFacadeTest extends SessionBeanTest<Proceso> {
     protected List<Proceso> getLista() {
         return registrosEsperados;
     }
-    /*
-     @Test
+    
+    @Test
     public void sucursalPorProcesoTest() {
         System.out.println("sucursal por procesos  test");
         //SET UP
-        Mockito.when(ema.createNamedQuery("Sucursal.Procesos")).thenReturn(queryMock);
-        Mockito.when(queryMock.getResultList()).thenReturn(registrosProcesos);
+        Mockito.when(ema.createNamedQuery("Proceso.Sucursal")).thenReturn(queryMock);
+        Mockito.when(queryMock.getResultList()).thenReturn(registrosSucursal);
         Integer id = 1;
 
         //WHEN TODO GOOD
-        List<Proceso> procesos = cut.procesosPorSucursal(id);
-        Assert.assertEquals(registrosProcesos.size(), procesos.size());
+        List<Sucursal> sucursales = cut.sucursalPorProceso(id);
+        Assert.assertEquals(registrosSucursal.size(), sucursales.size());
 
         //WHEN MENOR A 0
-        procesos = cut.procesosPorSucursal(-1);
-        Assert.assertEquals(Collections.EMPTY_LIST.size(), procesos.size());
+        sucursales = cut.sucursalPorProceso(-1);
+        Assert.assertEquals(0, sucursales.size());
 
         //WHEN EXCEPCION
         setEmNull();
-        cut.procesosPorSucursal(id);
+        cut.sucursalPorProceso(id);
         Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
-    }*/
+    }
+    
+     @Test
+    public void findRangeProcesosTest() {
+        System.out.println("sucursal por procesos  test");
+        //SET UP
+        Mockito.when(ema.createNamedQuery("Proceso.findByNombre")).thenReturn(queryMock);
+        Mockito.when(queryMock.getResultList()).thenReturn(registrosEsperados);
+        int first = 0;
+        int page = 2;
+        String nombre = "simon";
+
+        //WHEN TODO GOOD
+        List<Proceso> procesos = cut.findRangeProcesos(first, page, nombre);
+        Assert.assertEquals(registrosEsperados.size(), procesos.size());
+
+        //WHEN EXCEPCION
+        setEmNull();
+        cut.findRangeProcesos(first, page, nombre);
+        Mockito.verify(logger).log(Matchers.any(Level.class), Matchers.anyString());
+    }
 }
